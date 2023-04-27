@@ -1,5 +1,5 @@
 <template>
-    <div>admin dashboard lahyal </div>
+    <div>admin dashboard lahyal khalid</div>
 </template>
 <script>
 export default {
