@@ -5,4 +5,4 @@
 export default {
   name: 'adminDashboard' 
 };      
-</script>  
+</script>      

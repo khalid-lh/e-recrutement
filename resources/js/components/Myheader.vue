@@ -8,7 +8,7 @@
     <a href="/Register" class="nav-link">Register</a>
   </li>
    <li class="nav-item">
-    <a href="/login" class="nav-link" aria-current="page">Connexion</a>
+    <a href="/login" class="nav-link" aria-current="page">Connexion</a>    
   </li>
 </ul>
 </div>
