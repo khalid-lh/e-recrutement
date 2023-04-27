@@ -3,6 +3,6 @@
 </template>
 <script>
 export default {
-  name: 'adminDashboard'
-};     
+  name: 'adminDashboard' 
+};      
 </script>  
