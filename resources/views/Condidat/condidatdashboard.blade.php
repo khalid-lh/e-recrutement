@@ -266,7 +266,7 @@
       <li>
         <router-link :to="{ name: '' }">
           <i class='bx bx-grid-alt'></i>
-          <span class="links_name">Dashboard Admin</span>
+          <span class="links_name">Dashboard Condidat</span>
         
          <span class="tooltip">Dashboard</span>
       </li>

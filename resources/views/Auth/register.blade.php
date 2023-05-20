@@ -29,7 +29,7 @@
                 </Myheader>      
             </div>  
             <div>
-                <h1>Inscrivez-vous et Profitez de nos services</h1>
+                <h1 class="mt-4">Inscrivez-vous et Profitez de nos services</h1>
             </div>
             <div id="register"> 
                 <Register></Register>

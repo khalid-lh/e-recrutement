@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableProfils extends Migration
+class CreatePostulersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateTableProfils extends Migration
      */
     public function up()
     {
-        Schema::create('profils', function (Blueprint $table) {
-            $table->id();
-            $table->string('photo');
-            $table->string('cv');
-            $table->string('telephone');
-            $table->string('ville');
-            $table->string('pays');
-            $table->integer('user_id');      
+        Schema::create('postulers', function (Blueprint $table) {
+            $table->id('postule_id');
+            $table->string('id_offre');
+            $table->string('id');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateTableProfils extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profils');
+        Schema::dropIfExists('postulers');
     }
 }

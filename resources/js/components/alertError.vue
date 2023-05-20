@@ -15,7 +15,7 @@ export default {
     },
   },
   methods: {
-    closePopup() {
+    closePopup(){
       this.$emit("close");
     },
   },

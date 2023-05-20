@@ -1,212 +1,346 @@
 <!DOCTYPE html>
-<!-- Created By CodingNepal -->
+<!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
 <html lang="en" dir="ltr">
-   <head>
-      <meta charset="utf-8">
-      <title>Sidebar Menu with sub-menu | CodingNepal</title>
-      <link rel="stylesheet" href="style.css">
-      <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-      <style>
-        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+  <head>
+    <meta charset="UTF-8">
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="{{asset('css/app.css')}}">
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <!-- Add this in the <head> section of your HTML file -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+   </head>
+   <style>
+    /* Google Font Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 *{
   margin: 0;
   padding: 0;
-  user-select: none;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-.btn{
-  position: absolute;
-  top: 15px;
-  left: 45px;
-  height: 45px;
-  width: 45px;
-  text-align: center;
-  background: #1b1b1b;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: left 0.4s ease;
-}
-.btn.click{
-  left: 260px;
-}
-.btn span{
-  color: white;
-  font-size: 28px;
-  line-height: 45px;
-}
-.btn.click span:before{
-  content: '\f00d';
+  font-family: "Poppins" , sans-serif;
 }
 .sidebar{
   position: fixed;
+  left: 0;
+  border-radius: 0px;
+  top: 0;
+  height: 100%;
+  width: 78px;
+  background: #11101D;
+  padding: 6px 14px;
+  z-index: 99;
+  transition: all 0.5s ease;
+}
+.sidebar.open{
   width: 250px;
-  height: 100%;
-  left: -250px;
-  background: #1b1b1b;
-  transition: left 0.4s ease;
 }
-.sidebar.show{
-  left: 0px;
-}
-.sidebar .text{
-  color: white;
-  font-size: 25px;
-  font-weight: 600;
-  line-height: 65px;
-  text-align: center;
-  background: #1e1e1e;
-  letter-spacing: 1px;
-}
-nav ul{
-  background: #1b1b1b;
-  height: 100%;
-  width: 100%;
-  list-style: none;
-}
-nav ul li{
-  line-height: 60px;
-  border-top: 1px solid rgba(255,255,255,0.1);
-}
-nav ul li:last-child{
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-nav ul li a{
+.sidebar .logo-details{
+  height: 60px;
+  display: flex;
+  align-items: center;
   position: relative;
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  padding-left: 40px;
-  font-weight: 500;
-  display: block;
-  width: 100%;
-  border-left: 3px solid transparent;
 }
-nav ul li.active a{
-  color: cyan;
-  background: #1e1e1e;
-  border-left-color: cyan;
+.sidebar .logo-details .icon{
+  opacity: 0;
+  transition: all 0.5s ease;
 }
-nav ul li a:hover{
-  background: #1e1e1e;
+.sidebar .logo-details .logo_name{
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0;
+  transition: all 0.5s ease;
 }
-nav ul ul{
-  position: static;
-  display: none;
+.sidebar.open .logo-details .icon,
+.sidebar.open .logo-details .logo_name{
+  opacity: 1;
 }
-nav ul .feat-show.show{
-  display: block;
-}
-nav ul .serv-show.show1{
-  display: block;
-}
-nav ul ul li{
-  line-height: 42px;
-  border-top: none;
-}
-nav ul ul li a{
-  font-size: 17px;
-  color: #e6e6e6;
-  padding-left: 80px;
-}
-nav ul li.active ul li a{
-  color: #e6e6e6;
-  background: #1b1b1b;
-  border-left-color: transparent;
-}
-nav ul ul li a:hover{
-  color: cyan!important;
-  background: #1e1e1e!important;
-}
-nav ul li a span{
+.sidebar .logo-details #btn{
   position: absolute;
   top: 50%;
-  right: 20px;
+  right: 0;
   transform: translateY(-50%);
   font-size: 22px;
-  transition: transform 0.4s;
+  transition: all 0.4s ease;
+  font-size: 23px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s ease;
 }
-nav ul li a span.rotate{
-  transform: translateY(-50%) rotate(-180deg);
+.sidebar.open .logo-details #btn{
+  text-align: right;
 }
-.content{
+.sidebar i{
+  color: #fff;
+  height: 60px;
+  min-width: 50px;
+  font-size: 28px;
+  text-align: center;
+  line-height: 60px;
+}
+.sidebar .nav-list{
+  margin-top: 20px;
+  height: 100%;
+  margin-left: -30px !important;
+}
+.sidebar li{
+  position: relative;
+  margin: 8px 0;
+  list-style: none;
+}
+.sidebar li .tooltip{
+  position: absolute;
+  top: -20px;
+  left: calc(100% + 15px);
+  z-index: 3;
+  background: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: 0s;
+}
+.sidebar li:hover .tooltip{
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.sidebar.open li .tooltip{
+  display: none;
+}
+.sidebar input{
+  font-size: 15px;
+  color: #FFF;
+  font-weight: 400;
+  outline: none;
+  height: 50px;
+  width: 100%;
+  width: 50px;
+  border: none;
+  border-radius: 12px;
+  transition: all 0.5s ease;
+  background: #1d1b31;
+}
+.sidebar.open input{
+  padding: 0 20px 0 50px;
+  width: 100%;
+}
+.sidebar .bx-search{
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  color: #202020;
-  z-index: -1;
-  text-align: center;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 22px;
+  background: #1d1b31;
+  color: #FFF;
 }
-.content .header{
-  font-size: 45px;
-  font-weight: 600;
+.sidebar.open .bx-search:hover{
+  background: #1d1b31;
+  color: #FFF;
 }
-.content p{
-  font-size: 30px;
-  font-weight: 500;
+.sidebar .bx-search:hover{
+  background: #FFF;
+  color: #11101d;
 }
-      </style>
-   </head>
-   <body>
-      <div class="btn">
-         <span class="fas fa-bars"></span>
-      </div>
-      <nav class="sidebar">
-         <div class="text">
-            Side Menu
+.sidebar li a{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  border-radius: 12px;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  background: #11101D;
+}
+.sidebar li a:hover{
+  background: #FFF;
+}
+.sidebar li a .links_name{
+  color: #fff;
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s;
+}
+.sidebar.open li a .links_name{
+  opacity: 1;
+  pointer-events: auto;
+}
+.sidebar li a:hover .links_name,
+.sidebar li a:hover i{
+  transition: all 0.5s ease;
+  color: #11101D;
+}
+.sidebar li i{
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
+  border-radius: 12px;
+}
+.sidebar li.profile{
+  position: fixed;
+  height: 60px;
+  width: 78px;
+  left: 0;
+  bottom: -8px;
+  padding: 10px 14px;
+  background: #1d1b31;
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+.sidebar.open li.profile{
+  width: 250px;
+}
+.sidebar li .profile-details{
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.sidebar li img{
+  height: 45px;
+  width: 45px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+.sidebar li.profile .name,
+.sidebar li.profile .job{
+  font-size: 15px;
+  font-weight: 400;
+  color: #fff;
+  white-space: nowrap;
+}
+.sidebar li.profile .job{
+  font-size: 12px;
+}
+.sidebar .profile #log_out{
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background: #1d1b31;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 0px;
+  transition: all 0.5s ease;
+}
+.sidebar.open .profile #log_out{
+  width: 50px;
+  background: none;
+}
+.home-section{
+  position: relative;
+  background: #FFF;
+  min-height: 100vh;
+  left: 78px;
+  width: calc(100% - 78px);
+  transition: all 0.5s ease;
+  z-index: 2;
+}
+.sidebar.open ~ .home-section{
+  left: 250px;
+  width: calc(100% - 250px);
+}
+
+@media (max-width: 420px) {
+  .sidebar li .tooltip{
+    display: none;
+  }
+}
+   </style>
+<body>
+  <div id="app">
+  <div class="sidebar">
+    <div class="logo-details">
+      
+        <i class='bx bx-menu' id="btn" ></i>
+    </div>
+    <ul class="nav-list">
+      <li>
+        <router-link :to="{ name: 'recruteur_dashboard' }" ><a>
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+         <span class="tooltip">Dashboard</span>
+      </li>
+      <li>
+        <router-link :to="{ name: 'addoffre' }" ><a href="#">
+         <i class='bx bx-user' ></i>
+         <span class="links_name">Ajouter offre</span>
+       </a></router-link>
+       <span class="tooltip">Ajouter offre</span>
+     </li>
+     
+   <li>
+    <router-link :to="{ name: 'mescondidats'}" ><a href="#">
+     <i class='bx bx-user' ></i>
+     <span class="links_name">Mes Condidats</span>
+   </a></router-link>
+   <span class="tooltip">Mes Condidats</span>
+ </li>
+ <li>
+  <router-link :to="{ name: 'profil_recruteur' }"><a href="#">
+   <i class='bx bx-user' ></i>
+   <span class="links_name">Profil</span>
+ </a></router-link>
+ <span class="tooltip">Profil</span>
+</li>
+     <li class="profile">
+         <div class="profile-details">
+           <img src="profile.jpg" alt="profileImg">
+           <div class="name_job">
+             <div class="name">Prem Shahi</div>
+             <div class="job">Web designer</div>
+           </div>
          </div>
-         <ul>
-            <li class="active"><a href="#">Dashboard</a></li>
-            <li>
-               <a href="#" class="feat-btn">Features
-               <span class="fas fa-caret-down first"></span>
-               </a>
-               <ul class="feat-show">
-                  <li><a href="#">Pages</a></li>
-                  <li><a href="#">Elements</a></li>
-               </ul>
-            </li>
-            <li>
-               <a href="#" class="serv-btn">Services
-               <span class="fas fa-caret-down second"></span>
-               </a>
-               <ul class="serv-show">
-                  <li><a href="#">App Design</a></li>
-                  <li><a href="#">Web Design</a></li>
-               </ul>
-            </li>
-            <li><a href="#">Portfolio</a></li>
-            <li><a href="#">Overview</a></li>
-            <li><a href="#">Shortcuts</a></li>
-            <li><a href="#">Feedback</a></li>
-         </ul>
-      </nav>
-      <div class="content">
-         <div class="header">
-            Sidebar Menu with sub-menu
-         </div>
-         <p>
-            HTML CSS & Javascript (Full Tutorial)
-         </p>
-      </div>
-      <script>
-         $('.btn').click(function(){
-           $(this).toggleClass("click");
-           $('.sidebar').toggleClass("show");
-         });
-           $('.feat-btn').click(function(){
-             $('nav ul .feat-show').toggleClass("show");
-             $('nav ul .first').toggleClass("rotate");
-           });
-           $('.serv-btn').click(function(){
-             $('nav ul .serv-show').toggleClass("show1");
-             $('nav ul .second').toggleClass("rotate");
-           });
-           $('nav ul li').click(function(){
-             $(this).addClass("active").siblings().removeClass("active");
-           });
-      </script>
-   </body>
+         <a href="/login"><i class='bx bx-log-out' id="log_out" ></i></a>
+     </li>
+    </ul>
+  </div>
+  <section class="home-section">
+      <router-view></router-view>
+  </section>
+</div>
+
+<script src="{{asset('js/app.js')}}"></script>
+  <script>
+  let sidebar = document.querySelector(".sidebar");
+  let closeBtn = document.querySelector("#btn");
+  let searchBtn = document.querySelector(".bx-search");
+
+  closeBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("open");
+    menuBtnChange();//calling the function(optional)
+  });
+
+  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
+    sidebar.classList.toggle("open");
+    menuBtnChange(); //calling the function(optional)
+  });
+
+  // following are the code to change sidebar button(optional)
+  function menuBtnChange() {
+   if(sidebar.classList.contains("open")){
+     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+   }else {
+     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+   }
+  }
+  </script>
+</body>
 </html>

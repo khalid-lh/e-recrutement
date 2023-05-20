@@ -1,13 +1,13 @@
 <template>
-<div>
-  <div>
-    <Popup :message="popupMessage" v-if="popupMessage" @close="clearError" />
-  </div>
+<div class="mt-4">
     <div class="row">
+        <div>
+            <Popup :message="popupMessage" v-if="popupMessage" @close="clearError" />
+        </div>
         <div class="col-lg-2 col-md-2 col-sm-12">
 
         </div>
-        <div class="col-lg-8 col-md-8 col-sm-12 col-tab-content"> 
+        <div class="col-lg-8 col-md-8 col-sm-12 col-tab-content">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Condidat</button>
@@ -40,10 +40,9 @@
                                     <div>
                                         <h6 id="title_component">Pays</h6>
                                         <select class="form-select form-select-sm mb-4" id="pays" name="pays" aria-label=".form-select-sm example" v-model="profil.pay">
-
                                             <option value="maroc">Maroc</option>
                                         </select>
-                                       
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
@@ -55,7 +54,6 @@
                                             <option value="Marrakech">Marrakeech</option>
                                             <option value="Agadir">Agadir</option>
                                         </select>
-                                       
                                     </div>
                                 </div>
                             </div>
@@ -64,13 +62,12 @@
                                     <div id="upload-container">
                                         <div id="upload-border">
                                             <nobr>
-                                                <input type="text" id="upload-cv" :value="cv ? cv : ''" disabled />
-                                                <button id="upload-button" @click="handleUploadClick">Upload your cv
+                                                <input type="text" id="upload-cv cv" name="cv"  :value="cv ? cv : ''" disabled />
+                                                <button id="upload-button" @click="handleUploadClick($refs.cv)">Upload your cv
                                                 </button>
                                             </nobr>
                                         </div>
-                                        <input type="file" id="hidden-upload" name="cv" accept="application/pdf" style="display:none" ref="fileInput" @change="handleFileUpload" />
-                                        
+                                        <input ref="cv" type="file" id="hidden-upload cv" name="cv" accept="application/pdf" style="display:none" @change="handleFileUpload($event,$refs.cv)" />
                                     </div>
                                 </div>
                             </div>
@@ -79,11 +76,10 @@
                                     <div>
                                         <h6 id="title_component">Votre Photo</h6>
                                         <div class="photo-upload-container" :style="{ 'background-image': `url(${photoUrl})` }">
-                                            <div class="photo-upload-overlay" @click="handlePhotoUploadClick">
-                                                <input ref="photoInput" type="file" id="image" name='image' accept="image/*" class="photo-upload-input" @change="handlePhotoInputChange">
+                                            <div class="photo-upload-overlay" @click="handlePhotoUploadClick($refs.photoInput)">
+                                                <input ref="photoInput" type="file" id="image" name="image" accept="image/*" class="photo-upload-input" @change="handlePhotoInputChange($event, $refs.photoInput)">
                                             </div>
                                         </div>
-                                       
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +91,6 @@
                                     <div class="input-field">
                                         <input type="email" required id="email" v-model="user_condidat.email">
                                         <label>Email</label>
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +99,6 @@
                                     <div class="input-field">
                                         <input type="password" required id="password" v-model="user_condidat.password">
                                         <label>Password</label>
-                                       
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +119,6 @@
                             <button class="btn btn-primary btn_condidat" @click="register" style="float: right;">Register Condidat</button>
                         </div>
                     </div>
-
                 </div>
                 <div class="tab-pane fade " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                     <div class="row mb-4">
@@ -169,7 +162,6 @@
                                     <div>
                                         <h6 id="title_component">Ville</h6>
                                         <select value="Ville" class="form-select form-select-sm mb-4" id="ville_societe" name="ville" aria-label=".form-select-sm example" v-model="company.ville">
-
                                             <option value="Casablanca">Casablanca</option>
                                             <option value="Marrakech">Marrakeech</option>
                                             <option value="Agadir">Agadir</option>
@@ -187,8 +179,8 @@
                                     <div>
                                         <h4>Photo</h4>
                                         <div class="photo-upload-container" :style="{ 'background-image': `url(${logoUrl})` }">
-                                            <div class="photo-upload-overlay" @click="handlePhotoUploadClick">
-                                                <input ref="logo" type="file" id="logo" name='logo' accept="image/*" class="photo-upload-input" @change="handlePhotoInputChange">
+                                            <div class="photo-upload-overlay" @click="handlePhotoUploadClick($refs.logo)">
+                                                <input ref="logo" type="file" id="logo" name="logo" accept="image/*" class="photo-upload-input" @change="handlePhotoInputChange($event, $refs.logo)">
                                             </div>
                                         </div>
                                     </div>
@@ -202,7 +194,6 @@
                                     <div class="input-field">
                                         <input type="text" required id="name_recruteur" v-model="user_recruteur.name_recruteur">
                                         <label>Nom Complet</label>
-
                                     </div>
                                 </div>
                             </div>
@@ -219,7 +210,6 @@
                                     <div class="input-field">
                                         <input type="password" required id="password_recruteur" v-model="user_recruteur.password_recruteur">
                                         <label>Password</label>
-
                                     </div>
                                 </div>
                             </div>
@@ -234,13 +224,12 @@
                                 <div id="upload-container">
                                     <div id="upload-border">
                                         <nobr>
-                                            <input type="text" id="upload-register" :value="register_commerce ? register_commerce : ''" disabled />
-                                            <button id="upload-button" @click="handleUploadClick">Register Commerce
+                                            <input type="text" id="upload-register register_commerce" name="register_commerce" :value="register_commerce ? register_commerce : ''" disabled />
+                                            <button id="upload-button" @click="handleUploadClick($refs.rc)">Register Commerce
                                             </button>
                                         </nobr>
                                     </div>
-                                    <input type="file" id="hidden-upload" name="register-commerce" accept="application/pdf" style="display:none" ref="fileInput" @change="handleFileUpload" />
-
+                                    <input type="file" id="hidden-upload register_commerce" name="register_commerce" accept="application/pdf" style="display:none" ref="rc" @change="handleFileUpload($event,$refs.rc)" />
                                 </div>
                             </div>
                         </div>
@@ -254,7 +243,6 @@
                                         J'accepte les Conditions Générales d'utilisation
                                     </label>
                                 </div>
-                               
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
@@ -263,7 +251,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12">
         </div>
@@ -272,14 +259,14 @@
 </template>
 
 <script>
-  import Popup from "./alertError.vue";
+import Popup from "./alertError.vue";
 export default {
 
-components: {
-    Popup,
-  },
+    components: {
+        Popup,
+    },
     data() {
-      
+
         return {
             photoUrl: 'https://i.pinimg.com/originals/76/30/ad/7630ad49bdc79b8482c8627c663a1373.png',
             logoUrl: 'https://i.pinimg.com/originals/76/30/ad/7630ad49bdc79b8482c8627c663a1373.png',
@@ -313,7 +300,7 @@ components: {
                 pay: ''
             },
             errors_condidat: {
-              con_err:{},
+                con_err: {},
                 name: {},
                 email: {},
                 password: {},
@@ -325,7 +312,7 @@ components: {
             },
             popupMessage: "",
             errors_recruteur: {
-                rec_err:{},
+                rec_err: {},
                 name_recruteur: {},
                 email_recruteur: {},
                 password_recruteur: {},
@@ -341,24 +328,27 @@ components: {
         }
     },
     methods: {
-        handlePhotoUploadClick() {
-            //this.$refs.photoInput.click();
-            this.$refs.logo.click();
+        handlePhotoUploadClick(targetInput) {
+            targetInput.click();
         },
-        handlePhotoInputChange(event) {
-            /* this.profil.photo = event.target.files[0];
-             const reader = new FileReader();
-             reader.readAsDataURL(this.profil.photo);
-             reader.onload = (e) => {
-                 this.photoUrl = e.target.result;
-             };*/
-            this.company.logo = event.target.files[0];
+        handlePhotoInputChange(event, targetInput) {
             const reader = new FileReader();
-            reader.readAsDataURL(this.company.logo);
+            if (targetInput === this.$refs.logo) {
+                this.company.logo = event.target.files[0];
+                reader.readAsDataURL(this.company.logo);
+            } else if (targetInput === this.$refs.photoInput) {
+                this.profil.photo = event.target.files[0];
+                reader.readAsDataURL(this.profil.photo);
+            }
             reader.onload = (e) => {
-                this.logoUrl = e.target.result;
+                if (targetInput === this.$refs.logo) {
+                    this.logoUrl = e.target.result;
+                } else if (targetInput === this.$refs.photoInput) {
+                    this.photoUrl = e.target.result;
+                }
             };
         },
+
         register() {
             let condidat = new FormData();
             condidat.append('name', this.user_condidat.name);
@@ -370,7 +360,7 @@ components: {
             condidat.append('cv', this.profil.cv);
             condidat.append('image', this.profil.photo);
             axios.post('/Register/condidat', condidat).then(response => {
-                this.user_condidat = {
+                this.user_condidat={
                     name: '',
                     email: '',
                     password: ''
@@ -393,13 +383,17 @@ components: {
                 this.checkErrors(this.errors_condidat);
             })
         },
-        handleFileUpload(event) {
-            /* const file = event.target.files[0];
-             this.cv = event.target.files[0].name;
-             this.profil.cv = file;*/
-            const file = event.target.files[0];
-            this.register_commerce = event.target.files[0].name;
-            this.company.register_commerce = file;
+        handleFileUpload( event , targetInput){
+
+            if(targetInput === this.$refs.cv){
+                const file1 = event.target.files[0];
+                this.cv = event.target.files[0].name;
+                this.profil.cv = file1;
+            }else if (targetInput === this.$refs.rc){
+                const file2 = event.target.files[0];
+                this.register_commerce = event.target.files[0].name;
+                this.company.register_commerce = file2;
+            }
         },
         register_recruteur() {
             let Recruteur = new FormData();
@@ -414,7 +408,8 @@ components: {
             Recruteur.append('code_postal', this.company.code_postal);
             Recruteur.append('register_commerce', this.company.register_commerce);
             Recruteur.append('logo', this.company.logo);
-            axios.post('/Register/recruteur', Recruteur).then(response =>{
+            console.log(Recruteur);
+            axios.post('/Register/recruteur', Recruteur).then(response => {
                 Toast.fire({
                     icon: 'success',
                     title: 'Signed up recruteur successfully'
@@ -424,43 +419,39 @@ components: {
                 this.company = [];
                 this.register_commerce = null;
                 this.logoUrl = 'https://i.pinimg.com/originals/76/30/ad/7630ad49bdc79b8482c8627c663a1373.png';
-
             }).catch((errors) => {
                 this.errors_recruteur = errors.response.data.errors
                 this.checkErrors(this.errors_recruteur);
             })
         },
-        handleUploadClick() {
-            document.querySelector("#hidden-upload").click();
+        handleUploadClick(targetInput) {
+            targetInput.click();
         },
         checkErrors(errors) {
-      // Check if there are any errors in the form
-      if (Object.is(errors, this.errors_condidat)) {
-     for (let key in this.errors_condidat) {
-        if (Object.keys(this.errors_condidat[key]).length > 0) {
-          // Set the error message and display the popup
-          this.popupMessage = Object.values(this.errors_condidat[key])[0];
-          return;
+            // Check if there are any errors in the form
+            if (Object.is(errors, this.errors_condidat)) {
+                for (let key in this.errors_condidat) {
+                    if (Object.keys(this.errors_condidat[key]).length > 0) {
+                        // Set the error message and display the popup
+                        this.popupMessage = Object.values(this.errors_condidat[key])[0];
+                        return;
+                    }
+                }
+            } else {
+                for (let key in this.errors_recruteur) {
+                    if (Object.keys(this.errors_recruteur[key]).length > 0) {
+                        // Set the error message and display the popup
+                        this.popupMessage = Object.values(this.errors_recruteur[key])[0];
+                        return;
+                    }
+                }
+            }
+        },
+        clearError() {
+            this.popupMessage = "";
         }
-      }
-  } else {
-        for (let key in this.errors_recruteur) {
-        if (Object.keys(this.errors_recruteur[key]).length > 0) {
-          // Set the error message and display the popup
-          this.popupMessage = Object.values(this.errors_recruteur[key])[0];
-          return;
-        }
-      }
-      }
-      }, clearError() {
-      this.popupMessage = "";
-    }
     },
-    mounted() {
-    }
-    
 };
-//////
 </script>
 
 <style scoped>

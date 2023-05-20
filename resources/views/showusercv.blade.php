@@ -27,16 +27,10 @@
         <Myheader>
         </Myheader>
         </div>
-        <div id="search"> 
-            <search>
-            </search>
-        </div>
-        <div id="home_offres"> 
-                <Home_offres>
-                </Home_offres>
-        </div>
-      
-       
+        
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <embed src="{{ asset('storage/pdfs/' . $user_profil->profil->cv) }}" height="800px" width="800px"/>
+        </div>      
 <script src="{{asset('js/app.js')}}">
 </script>
     </body>

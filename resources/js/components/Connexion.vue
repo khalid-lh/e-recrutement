@@ -1,5 +1,5 @@
 <template>
- <!--<div class="container" >
+<!--<div class="container" >
 
  <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Email address</label>
@@ -12,39 +12,38 @@
   </div>
   <button class="btn btn-primary" @click="login">Connexion</button>
 </div>-->
-<div class="container">
+
+<div class="container mt-4">
+  <div>
+    <Popup :message="popupMessage" v-if="popupMessage" @close="clearError" />
+  </div>
          <header>Login Form</header>
          
             <div class="input-field">
                <input type="email" required id="email" v-model="user.email">
                <label>Email </label>
             </div>
-             <div v-if="this.errors.email">
-              <span style="color: red;">{{this.errors.email[0]}} </span>
-            </div>
+            
             <div class="input-field">
                <input class="pswrd" type="password" required v-model="user.password">
              
                <label>Password</label>
-            </div>
-            <div v-if="this.errors.password">
-              <span style="color: red;">{{this.errors.password[0]}} </span>
-            </div>
-              <div v-if="status">
-              <span style="color: red;">{{this.status}} </span>
-            </div>
+            </div> 
             <div class="button">
                <div class="inner"></div>
                <button @click="login">LOGIN</button>
             </div>
-       
          <div class="signup">
-            Not a member? <a href="#">Signup now</a>
+            Not a member? <a href="/Register">Signup now</a>
          </div>
       </div>
 </template>
 <script>
+import Popup from "./alertError.vue";
 export default{
+  components: {
+    Popup,
+  },
   data(){
     return{
         user:{
@@ -52,10 +51,11 @@ export default{
             password:''
         },
         errors:{
-                    email:{},
+            email:{},
             password:{}
-        }
+        },popupMessage: ""
     }
+    
   },
   methods:{
 login(){
@@ -80,43 +80,59 @@ Toast.fire({
   }
 }).then((result) => {
   /* Read more about handling dismissals below */
-  if(result.dismiss === Swal.DismissReason.timer) {
+  if(result.dismiss === Swal.DismissReason.timer){
     console.log('I was closed by the timer')
   }
 })
-window.location.href = '/about';
-//this.$router.push({path:'/condidat/Dashboard'});
+window.location.href = '/condidat/condidatdashboard';
+
 localStorage.setItem('token',token)
   }else if(user_type=='recruteur'){
   let timerInterval
-Toast.fire({
+/*Toast.fire({
   title: 'Chargement de votre tableau de board',
   timer: 2000,
   timerProgressBar: true,
   didOpen: () => {
-    Toast.showLoading()
-    const b = Swal.getHtmlContainer().querySelector('b')
+    Toast.showLoading();
     timerInterval = setInterval(() => {
-      b.textContent = Toast.getTimerLeft()
-    }, 100)
+      const b = Swal.getHtmlContainer()?.querySelector('b');
+      if (b) {
+        b.textContent = Toast.getTimerLeft();
+      }
+    }, 100);
   },
   willClose: () => {
     clearInterval(timerInterval)
   }
 }).then((result) => {
-  /* Read more about handling dismissals below */
+  
   if(result.dismiss === Swal.DismissReason.timer) {
     console.log('I was closed by the timer')
   }
-})
-window.location.href = '/recruteur/dashboard?'+token;
+})*/
+   window.location.href = '/recruteur/dashboard';
     localStorage.setItem('token',token)
   }
   
 }).catch((error)=>{
  this.errors=error.response.data.errors
+ this.checkErrors();
 })
-}
+},checkErrors() {
+      
+     
+        for (let key in this.errors) {
+        if (Object.keys(this.errors[key]).length > 0) {
+          // Set the error message and display the popup
+          this.popupMessage = Object.values(this.errors[key])[0];
+          return;
+        }
+      }
+      
+      }, clearError() {
+      this.popupMessage = "";
+    }
   }
 };
 </script>
@@ -147,7 +163,7 @@ window.location.href = '/recruteur/dashboard?'+token;
   box-shadow: 0 20px 15px 0 rgba(92, 148, 207, 0.1);
 }
 header{
-   text-align: center;
+  text-align: center;
   font-size: 40px;
   margin-bottom: 60px;
   font-family: 'Montserrat', sans-serif;
