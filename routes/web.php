@@ -2,7 +2,7 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Storage;
 Route::get('/', function (){
     return view('welcome');
 });
@@ -29,10 +29,13 @@ Route::get('/recruteur/dashboard', function (){
 Route::get('/recruteur/{path}', function (){
     return view('recruteurdashboard');
 })->where('path', '(.*)');
-
-Route::get('/condidat/condidatdashboard', function (){
+Route::get('/condidat/{path}', function (){
+    return view('Condidat/condidatdashboard');
+})->where('path', '(.*)');
+Route::get('/condidat/dashboard', function (){
     return view('Condidat/condidatdashboard');
 });
+
 
 /*Route::group(['middleware' => 'auth:api'], function (){
     //add more Routes here

@@ -3,14 +3,24 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link rel="stylesheet" href="{{asset('css/app.css')}}">
-   </head>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <!-- Add this in the <head> section of your HTML file -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+     <script src="sweetalert2.all.min.js"></script>
+     <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+     <script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
+   
+    </head>
    <style>
-    /* Google Font Link */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 *{
   margin: 0;
@@ -77,7 +87,7 @@
   text-align: center;
   line-height: 60px;
 }
-.sidebar .nav-list{
+.sidebar .nav-list {
   margin-top: 20px;
   height: 100%;
   margin-left: -30px !important;
@@ -198,18 +208,8 @@
 .sidebar.open li.profile{
   width: 250px;
 }
-.sidebar li .profile-details{
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-}
-.sidebar li img{
-  height: 45px;
-  width: 45px;
-  object-fit: cover;
-  border-radius: 6px;
-  margin-right: 10px;
-}
+
+
 .sidebar li.profile .name,
 .sidebar li.profile .job{
   font-size: 15px;
@@ -257,56 +257,35 @@
 }
    </style>
 <body>
-  <div id="app">
+  <div id="condidat_dashboard">
   <div class="sidebar">
     <div class="logo-details">
+      
         <i class='bx bx-menu' id="btn" ></i>
     </div>
     <ul class="nav-list">
       <li>
-        <router-link :to="{ name: '' }">
+        <router-link :to="{name: 'condidature_dashboard'}" ><a>
           <i class='bx bx-grid-alt'></i>
-          <span class="links_name">Dashboard Condidat</span>
-        
+          <span class="links_name">Dashboard</span>
+        </a>
          <span class="tooltip">Dashboard</span>
       </li>
-      <li>
-        <router-link :to="{ name: 'addoffre' }" >
-         <i class='bx bx-user' ></i>
-         <span class="links_name">Ajouter offre</span>
-       </router-link>
-       <span class="tooltip">Ajouter offre</span>
-     </li>
-     <li>
-      <router-link :to="{ name: '' }" >
-       <i class='bx bx-user' ></i>
-       <span class="links_name">Mes offres</span>
-     </router-link>
-     <span class="tooltip">Mes offres</span>
-   </li>
-   <li>
-    <router-link :to="{ name: '' }" >
-     <i class='bx bx-user' ></i>
-     <span class="links_name">Condidat</span>
-   </router-link>
-   <span class="tooltip">Condidat</span>
- </li>
+     
+     
+   
  <li>
-  <router-link :to="{ name: 'profil_recruteur' }" >
+  <router-link :to="{ name: 'profil_condidature' }"><a href="#">
    <i class='bx bx-user' ></i>
    <span class="links_name">Profil</span>
- </router-link>
+ </a></router-link>
  <span class="tooltip">Profil</span>
 </li>
      <li class="profile">
-         <div class="profile-details">
-           <img src="profile.jpg" alt="profileImg">
-           <div class="name_job">
-             <div class="name">Prem Shahi</div>
-             <div class="job">Web designer</div>
-           </div>
-         </div>
-         <a href="/login"><i class='bx bx-log-out' id="log_out" ></i></a>
+         
+         <a href="/login">
+          <i class='bx bx-log-out' id="log_out" >
+          <span class="links_name">Logout</span></i></a>
      </li>
     </ul>
   </div>

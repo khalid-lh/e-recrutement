@@ -103,7 +103,7 @@ p{
                     <div class="row">
                         <div class="col-sm-12 col-lg-4 col-md-12 mb-4">
                             <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                              <img src="data:image/jpeg;base64,{{$offre->company->photo}}" alt="Image" style="max-width: 100%; max-height: 100%;"/>
+                              <img src="/storage/images/{{$offre->company->photo}}" alt="Image" style="max-width: 100%; max-height: 100%;"/>
                             </div>
                           </div>
                           <div class="col-sm-12 col-lg-6 col-md-12">
@@ -133,6 +133,19 @@ p{
                                 <div class="content_detail" style="display: flex;">      
                                     <p> Presence : </p>
                                     <p class="offre_presence">{{$offre->presence}}</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="content_detail" style="display: flex;">      
+                                    <p> date : </p>
+                                    <p class="offre_presence"> <?php
+                                    use Carbon\Carbon;
+                                      $date_create= Carbon::parse($offre->created_at);
+                                     // $now= Carbon::parse(Carbon::now());
+                                    $diff =  $date_create->diffForHumans(Carbon::now());
+                                    ?>
+                                    {{$diff}} </p>
+                                    <p>{{$offre->created_at}}</p>
                                 </div>
                             </div>
                             </div>                  

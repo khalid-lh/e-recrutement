@@ -15,4 +15,6 @@ class company extends Model
 {
     return $this->hasMany(Offre::class, 'company_id');
 }
+protected $fillable = ['photo'];
+
 }

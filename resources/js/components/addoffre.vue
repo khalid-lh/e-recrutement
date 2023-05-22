@@ -44,11 +44,11 @@
                     </select>
                 </div>
                 <div v-if="offre.type_offre === 'Emploi'">
-                <h6 id="title_component">Annee Experience</h6>
-                   <div class="input-field">
-                    <input type="number" required name="annee_experience" v-model="offre.annee_experience">
-                    <label>Experience</label>
-                </div>
+                    <h6 id="title_component">Annee Experience</h6>
+                    <div class="input-field">
+                        <input type="number" required name="annee_experience" v-model="offre.annee_experience">
+                        <label>Experience</label>
+                    </div>
                 </div>
                 <h6 id="title_component">Presence</h6>
                 <select class="form-select form-select-sm mb-4" id="presence" name="presence" aria-label=".form-select-sm example" v-model="offre.presence">
@@ -80,8 +80,8 @@ export default {
                 n_postes: null,
                 type_offre: '',
                 duree: '',
-                convention:'',
-                annee_experience:null,
+                convention: '',
+                annee_experience: null,
                 presence: ''
             },
             errors_offre: {
@@ -104,9 +104,17 @@ export default {
                     Authorization: `Bearer ${token}`
                 }
             }).then(response => {}).catch((errors) => {
-
                 this.errors_offre = errors.response.data.errors
                 this.checkErrors(this.errors_offre);
+                if (response.data.message == 'offre ajoute') {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Votre offre ajouter avec succe',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
             })
         },
         handleUploadClick() {

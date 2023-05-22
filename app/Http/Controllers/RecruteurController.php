@@ -7,25 +7,29 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use App\Models\postuler as ModelsPostuler;
 use App\Models\offre as ModelsOffre;
 use App\Models\company as ModelsCompany;
 class RecruteurController extends Controller
 {
-    
     public function statistiques(Request $request)
     {
         $token = substr($request->header('Authorization'), 7);
         $token=$request->header('Authorization');
         $token=str_replace('Bearer ', '', $token);
         $user=JWTAuth::setToken($token)->authenticate();
+        $id=$user->id;
         try{
         $Stagecount=ModelsOffre::where('id_recruteur', $user->id)->where('type_offre','Stage')->count();
         $Emploicount=ModelsOffre::where('id_recruteur', $user->id)->where('type_offre','Emploi')->count();
+        $n_postulers = ModelsPostuler::whereIn('id_offre', function ($query) use ($id) {
+            $query->select('id_offre')->from('offres')->where('id_recruteur', $id);
+        })->count();
 
-        
             return response()->json([ 
                 'StageCount' => $Stagecount,
                 'EmploiCount' => $Emploicount,
+                'n_postulers' => $n_postulers,
             ]);
         
         }catch (JWTException $e) {
@@ -78,7 +82,7 @@ if($company){
     $user = JWTAuth::setToken($token)->authenticate();
         $company = ModelsCompany::where('id_recruteur', $user->id)->first();
         if ($company) {
-            if ($request->hasFile('logo')) {
+            if ($request->has('logo')) {
                 // Delete the existing logo if it exists
                 if (Storage::disk('public')->exists('images/'.$company->photo)) {
                     Storage::disk('public')->delete('images/'.$company->photo);
@@ -88,12 +92,15 @@ if($company){
                 $image = $request->file('logo');
                 $imageName = time() . '_' . $image->getClientOriginalName();
                 Storage::disk('public')->put('images/'.$imageName, file_get_contents($image));
-                dd($imageName);
+                //dd($imageName);
                 // Update the company's photo field with the new image name
                 $company->photo = $imageName;
-                $company->save();
+                $company->update();
                 
                 return response()->json(['message' => 'Company logo updated successfully.']); 
+            }else{
+                return response()->json(['message' => 'khawi']);
+  
             }
         }else{
         return response()->json(['message' => 'Company not']);

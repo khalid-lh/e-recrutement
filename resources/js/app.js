@@ -20,22 +20,30 @@ const Toast =Swal.mixin({
 })
 window.Toast=Toast
 import axios from 'axios';
+
 import Myheader from './components/Myheader'
 import Connexion from './components/Connexion'
 import Register from './components/Register'
 import home_offres from './components/Home_offres'
+import search from './components/search.vue'
+//recruteur
 import dashboard from './components/dash'
 import profilRecruteur from './components/profilRecruteur'
 import addoffre from './components/addoffre'
-import search from './components/search.vue'
 import mescondidats from './components/mescondidatures.vue'
+//userCondidat
+import profilCondidature from './components/condidature/profilcondidature'
+import dashboard_condidature from './components/condidature/dash'
+
 const routes = [
     { path: '/Connexion', name: 'Connexion',component: Connexion },
     { path: '/Register', name: 'Register',component: Register},
     { path: '/recruteur/dashboard', name: 'recruteur_dashboard' ,component: dashboard},
     { path: '/recruteur/profil', name: 'profil_recruteur' ,component: profilRecruteur},
     { path: '/recruteur/addoffre', name: 'addoffre' , component: addoffre},
-    { path: '/recruteur/mescondidatures', name: 'mescondidats' , component: mescondidats}
+    { path: '/recruteur/mescondidatures', name: 'mescondidats' , component: mescondidats},
+    { path: '/condidat/dashboard', name: 'condidature_dashboard' ,component: dashboard_condidature},
+    { path: '/condidat/profil', name: 'profil_condidature' ,component: profilCondidature},
 
   ]
   
@@ -88,6 +96,15 @@ const recruteur = new Vue({
       profilRecruteur,
       addoffre,
       mescondidats
+  }
+});
+
+const condidature = new Vue({
+  el: '#condidat_dashboard',
+  router,
+  components: {
+    dashboard_condidature,
+    profilCondidature
   }
 });
 

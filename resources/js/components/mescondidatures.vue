@@ -3,16 +3,16 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
-                <div class="card-header" v-if="UsersTable">
+                <div class="card-header" v-if="UsersTable=='users'">
                     <h4 class="card-title ">Condidats Postule a votre Offres</h4>
                 </div>
-                <div class="card-header" v-else>
+                <div class="card-header" v-else-if="UsersTable=='offres'">
                     <h4 class="card-title ">Liste des Offres et les condidats postule</h4>
                 </div>
                 <div class="card-body">
-                    <button class="btn btn-primary btn-sm" v-if="UsersTable == 'users'"    style="float :right;" @click="UsersTable=false">
-                                       Retour
-                                    </button>
+                    <button class="btn btn-primary btn-sm" v-if="UsersTable == 'users'" style="float :right;" @click="UsersTable='offres'">
+                        Retour
+                    </button>
                     <table class="table table-striped walla table-hover" v-if="UsersTable == 'offres'">
                         <thead>
                             <tr>
@@ -40,7 +40,7 @@
                         </tbody>
                     </table>
                     <table class="table table-striped walla table-hover" v-else-if="UsersTable == 'users'">
-                        
+
                         <thead>
                             <tr>
                                 <th>Nom</th>
@@ -52,23 +52,25 @@
                         </thead>
                         <tbody v-for="condidature in mescondidatures" :key="condidature.postule_id">
                             <tr v-for="user in condidature.users" :key="user.id">
-                            <td>{{user.name}}</td>
-                            <td>{{user.email}}</td>
-                            <td>{{user.profil.telephone}}</td>
-                            <td>{{user.profil.ville}}</td>
-                             <td>
-                                    <button class="btn btn-success btn-sm" @click="getpdfViewUrl(user.id)">
+                                <td>{{user.name}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.profil.telephone}}</td>
+                                <td>{{user.profil.ville}}</td>
+                                <td>
+                                    <button class="btn btn-success btn-sm" @click="viewPdf(user.profil.cv)">
                                         View
                                     </button>
-                                     <button class="btn btn-success btn-sm" @click="downloadCV(user.profil.cv)">
-                                        Telecharger
-                                    </button>
-                            </td>
+                                </td>
                             </tr>
-                        </tbody>
+                        </tbody>  
                     </table>
-                    <div v-else>
-
+                    <div v-else style="display: block;">
+                         <button class="btn btn-primary btn-sm mb-4" style="float :right;" @click=" UsersTable='users'">
+                                Retour
+                            </button>
+                        <div style="display: flex; justify-content: center; align-items: center;" class="mt-2">    
+                            <iframe :src="pdfUrl" width="700px" height="700px" frameborder="0"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -86,14 +88,14 @@ export default {
             Offrescondidatures: {},
             UsersTable: 'offres',
             selectedOffreId: null,
-            selectedOffreCondidatures: {}
+            selectedOffreCondidatures: {},
+            pdfUrl: '',
         }
     },
     methods: {
-        
         getoffres_condidats() {
             let token = localStorage.getItem('token')
-            axios.get('/recruteur/Offrescondidatures', {
+            axios.get('/recruteur/Offrescondidatures', {  
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -101,31 +103,22 @@ export default {
                 .then(response => {
                     this.Offrescondidatures = response.data.Offrescondidatures;
                 })
-                .catch((error)=> {
-                    console.error(error);
-                });
-        },
-        downloadCV(cv){
-axios.get('/recruteur/mescondidaturs/downloadcv/' + cv,)
-                .then(response => {
-                    
-                })
                 .catch((error) => {
-                    console.error(error);
+                    console.error(error);  
                 });
         },
-        getpdfViewUrl(id) {
-          //return `/recruteur/mescondidaturs/cv-condidature?id=${encodeURIComponent(id)}`;
-        window.location.href = `/mescondidaturs/cv-condidature?id=${encodeURIComponent(id)}`;
-
-    },
-        showUsersTable(id_offre){
+        viewPdf(cv) {
+            this.UsersTable = 'cv';
+            this.pdfUrl = `/storage/pdfs/${cv}`;  
+        },
+  
+        showUsersTable(id_offre) {
             this.selectedOffreId = id_offre;
             this.UsersTable = 'users';
-            axios.get('/recruteur/mescondidaturs/' + id_offre,)
+            axios.get('/recruteur/mescondidaturs/' + id_offre, )
                 .then(response => {
                     this.mescondidatures = response.data.mescondidatures;
-                    
+
                 })
                 .catch((error) => {
                     console.error(error);
@@ -134,7 +127,7 @@ axios.get('/recruteur/mescondidaturs/downloadcv/' + cv,)
     },
     created() {
         this.getoffres_condidats();
-    }
+    }  
 }
 </script>
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\offre as ModelsOffre;
 use App\Models\company as ModelsCompany;
 use Auth;
+use Mail;
 use Carbon\Carbon;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -15,6 +16,7 @@ class OffreController extends Controller
 {
     public function __construct()
     {
+        
         $this->middleware('auth:api', ['except' => ['add_offre','getOffres','deleteOffre','update_offre','show_offre','searchOffers','getAllOffers']]);
     }
     public function add_offre(Request $request)
@@ -48,7 +50,7 @@ class OffreController extends Controller
                     'presence' => ['required','string'],
                 ]);
                 $offre->duree = $request->input('duree');
-                $offre->convention = $request->input('convention');
+                $offre->convension = $request->input('convention');
                 $offre->company_id=$company->company_id;
 
             }else if($request->input('type_offre') === 'Emploi') {
@@ -71,6 +73,14 @@ class OffreController extends Controller
                     'error' => $e->getMessage()
                 ],500);
             }
+            if($offre->save()){
+                return response()->json([
+                    'message' => 'offre ajoute',
+                   
+                ]);
+            }else{
+                
+            }
     }  
 
 public function getOffres(Request $request)
@@ -89,15 +99,11 @@ public function getOffres(Request $request)
     public function deleteOffre($id)
     {
         $offre = ModelsOffre::find($id);
-
-        if (!$offre) {
+        if(!$offre) {
             // Offer not found
             return response()->json(['error' => 'Offer not found'], 404);
         }
-
-        // Delete the offer
         $offre->delete();
-
         // Return a success response
         return response()->json(['message' => 'Offer deleted successfully']);
     }
@@ -148,9 +154,13 @@ public function getOffres(Request $request)
 
 public function getAllOffers()
 {
-    $offers = ModelsOffre::with('company')->get();
+    $twoDaysAgo = Carbon::now()->subDays(10);
+
+    $offers = ModelsOffre::with('company')
+        ->where('created_at', '>', $twoDaysAgo)
+        ->get();
     foreach ($offers as $offer) {
-        $limitedDescription = Str::limit($offer->description, 80);
+        $limitedDescription = Str::limit($offer->description, 60);
         $offer->description = $limitedDescription;
     }
     return response()->json([
@@ -163,7 +173,8 @@ public function show_offre(Request $request)
     $id= $request->query('key');
     $slug = $request->query('slug');
     $offer = ModelsOffre::with('company')->where('id_offre',$id)->where('slug',$slug)->firstOrFail();
-    return view('showOffre')->with([
+    
+      return view('showOffre')->with([
         'offre'=>$offer
     ]);
 }

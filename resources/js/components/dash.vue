@@ -29,11 +29,11 @@
         <div class="col-lg-4 col-sm-12 col-md-6">
             <div class="cards">
                 <div class="card-content">
-                    <div class="number">1217</div>
-                    <div class="card-name">Students</div>
+                    <div class="number">{{n_postulers}}</div>
+                    <div class="card-name">Nombre Postuler</div>
                 </div>
                 <div class="icon-box">
-                    <i class="fas fa-user-graduate"></i>
+                  <i class="fas fa-user"></i>
                 </div>
             </div>
         </div>
@@ -165,6 +165,7 @@ export default{
             showModal: false,
             StageCount: null,
             EmploiCount: null,
+            n_postulers:null,
             selectedType: 'Stage', // Default selected type
             offres: {},
             offre: {},
@@ -185,13 +186,18 @@ export default{
                 .then(response => {
                     this.StageCount = response.data.StageCount;
                     this.EmploiCount = response.data.EmploiCount;
+                     this.n_postulers = response.data.n_postulers;
+
                     if(this.offresCount == null){
                         this.offresCount = 0;
                     }
                     if (this.EmploiCount == null) {
                         this.EmploiCount = 0;
                     }
-                })
+                     if (this.n_postulers == null) {
+                        this.n_postulers = 0;
+                    }
+                  })
                 .catch(error=>{
                     console.log(error);
                 });
@@ -206,7 +212,7 @@ export default{
             backdrop.classList.remove('modal-backdrop');
             backdrop.classList.add('show');
         },
-        fetchOffres() {
+        fetchOffres(){
             let token = localStorage.getItem('token')
             axios.get('/recruteur/dashbaord/getoffres', {
                     headers: {
@@ -222,11 +228,47 @@ export default{
                 });
         },
         deleteOffre(id){
-            axios.delete(`/recruteur/dashboard/deleteoffre/${id}`)
+            const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+swalWithBootstrapButtons.fire({
+
+  text: "Voulez vous vraiment supprimer cette offre!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Supprimer!',
+  cancelButtonText: 'Exit!',
+  reverseButtons: true
+}).then((result) => {
+  if(result.isConfirmed){
+axios.delete(`/recruteur/dashboard/deleteoffre/${id}`)
                 .then(res => {
+                    swalWithBootstrapButtons.fire(
+      'Supprimer!',
+      'Votre offre a été supprimé.',
+      'success'
+    )
                     this.fetchOffres();
                 })
-                .catch(error => console.log(error.response))
+                .catch(error => 
+                console.log(error.response)            
+                )
+  } else if(
+    /* Read more about handling dismissals below */
+    result.dismiss === Swal.DismissReason.cancel
+  ) {
+    swalWithBootstrapButtons.fire(
+      'Cancelled',
+      'Votre offre n\'est pas supprimé.',
+      'error'
+    )
+  }
+})        
         },
         modifyOffer(){
     const url = `/recruteur/dashboard/modifyoffre/${this.selectedOffre.id_offre}`;

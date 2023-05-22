@@ -84,7 +84,7 @@ Toast.fire({
     console.log('I was closed by the timer')
   }
 })
-window.location.href = '/condidat/condidatdashboard';
+window.location.href = '/condidat/dashboard';
 
 localStorage.setItem('token',token)
   }else if(user_type=='recruteur'){

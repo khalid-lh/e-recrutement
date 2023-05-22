@@ -16,7 +16,9 @@
                                         <h5 class="card-title offre_titre">{{offer.titre_offre}}</h5>
                                         <p class="offre_comany">{{offer.company.company_name}}</p>
                                         <p class="offre_ville">{{offer.company.ville}}</p>
-                                        <p class="offre_description">{{offer.description}}</p>
+                                         <p class="offre_description">{{offer.description}}</p>
+                                        <p class="offre_description">{{calculateTimeDifference(offer.created_at)}}</p>
+
                                     </div>
                                 </div>
                             </a>
@@ -38,6 +40,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 export default {
     data(){
         return {
@@ -54,6 +57,12 @@ export default {
         }
     },
     methods: {
+        calculateTimeDifference(dateTime) {
+      const start = moment(dateTime);
+      const now = moment();
+
+      return start.from(now);
+    },
         getOffers() {
             axios.get('/home_offers') // Replace '/offers' with your Laravel route to fetch offers
                 .then(response => {
@@ -96,8 +105,8 @@ h3 {
 .item_offre {
     box-shadow: 0 20px 20px 0 rgba(92, 148, 207, 0.1);
     background-color: transparent;
-    height: 250px;
-    padding-bottom: 20px;
+    height:100%;
+    
     margin-bottom: 20px;
 }
 
@@ -112,6 +121,7 @@ h3 {
 }
 .offre_description{
     width: 100%;
+   
     overflow-wrap: break-word;
 }
 .prev,

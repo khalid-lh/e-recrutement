@@ -384,7 +384,6 @@ export default {
             })
         },
         handleFileUpload( event , targetInput){
-
             if(targetInput === this.$refs.cv){
                 const file1 = event.target.files[0];
                 this.cv = event.target.files[0].name;
@@ -428,7 +427,6 @@ export default {
             targetInput.click();
         },
         checkErrors(errors) {
-            // Check if there are any errors in the form
             if (Object.is(errors, this.errors_condidat)) {
                 for (let key in this.errors_condidat) {
                     if (Object.keys(this.errors_condidat[key]).length > 0) {

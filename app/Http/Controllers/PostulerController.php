@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 Use PDF;
+use Carbon\Carbon;
+
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Models\postuler as ModelsPostuler;
 use App\Models\User as ModelsUser;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\offre as ModelsOffre;
 class PostulerController extends Controller
@@ -77,16 +80,37 @@ foreach ($mescondidatures as $postuler) {
         ];
     }
     $modifiedData[$idOffre]['users'][] = $postuler->user;
+   /* $offerDate = $postuler->created_at;
+
+    // Calculate the difference in minutes
+    $diffInMinutes = Carbon::parse($offerDate)->diffInMinutes(Carbon::now());
+
+    // Calculate the difference in hours
+    $diffInHours = Carbon::parse($offerDate)->diffInHours(Carbon::now());
+
+    // Calculate the difference in days
+    $diffInDays = Carbon::parse($offerDate)->diffInDays(Carbon::now());
+
+    // Determine the appropriate format based on the difference
+    if ($diffInMinutes < 60) {
+        $formattedDiff = $diffInMinutes . " minute(s)";
+    } elseif ($diffInHours < 24) {
+        $formattedDiff = $diffInHours . " hour(s)";
+    } else {
+        $formattedDiff = $diffInDays . " day(s)";
     }
+
+    // Add the formatted difference to the modified data
+    $modifiedData[$idOffre]['created_at'] = $formattedDiff;*/
+}
 
     $finalData = array_values($modifiedData);
         return response()->json([
-
-            'mescondidatures'=> $finalData, 
-            
+            'mescondidatures'=> $finalData,  
+             
         ]);
     }
-    public function showcvcondidature(Request $request)
+    /*public function showcvcondidature(Request $request)
 {
     $user_profil = ModelsUser::with('profil')->find($request->query('id'));
     //dd($user_profil->profil->cv);
@@ -96,7 +120,16 @@ foreach ($mescondidatures as $postuler) {
 
     public function downloadCV($id)
     {
-        $pdf = PDF::loadView('showusercv');
-        return $pdf->download($id);
+        $filePath = storage_path('app/public/pdfs/' . $id);
+
+    if (Storage::disk('public')->exists('pdfs/' . $id)) {
+        $headers = [
+            'Content-Type' => 'application/pdf',
+        ];
+        return response()->file($filePath, $headers);
     }
+
+    // Return an error response if the PDF file doesn't exist
+    return response()->json(['message' => 'PDF file not found.'], 404);
+    }*/
 }

@@ -1,7 +1,7 @@
 <template>
 <div class="profil_recruteur">
-    
-    <div class="row mt-4">
+
+    <div class="row mt-4" v-if="profil">
         <div class="col-lg-4 col-sm-12 col-md-6">
             <!--<div class="cardprofil">
                 <h4>Changer Mot de Pass</h4>
@@ -17,14 +17,14 @@
             </div>-->
 
             <div class="circle-image">
-                <img v-if="company && company.photo" :src="getBase64Image()" alt="Image" />
+                <img v-if="condidat && condidat.photo" :src="getBase64Image()" alt="Image" />
             </div>
             <div class="cardprofil">
-                <h4>Mise a jour logo de l'entreprise</h4>
+                <h4>Mise a jour votre photo de profil</h4>
                 <div class="mb-4">
                     <div class="photo-upload-container" :style="{ 'background-image': `url(${logoUrl})`}">
                         <div class="photo-upload-overlay" @click="handlePhotoUploadClick">
-                            <input ref="logo" type="file" id="logo" name='logo' accept="image/*" class="photo-upload-input" @change="handlePhotoInputChange">
+                            <input ref="photo" type="file" id="photo" name='photo' accept="image/*" class="photo-upload-input" @change="handlePhotoInputChange">
                         </div>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                 <h4>Mise a jour les informations</h4>
                 <div class="input-field">
                     <h6 id="title_component">Ville</h6>
-                    <select value="Ville" class="form-select form-select-sm mb-4" id="ville" name="ville" aria-label=".form-select-sm example" v-model="updatedCompany.ville">
+                    <select value="Ville" class="form-select form-select-sm mb-4" id="ville" name="ville" aria-label=".form-select-sm example" v-model="updatedcondidat.ville">
                         <option value="">Ville</option>
                         <option value="Agadir">Agadir</option>
                         <option value="Casablanca">Casablanca</option>
@@ -49,41 +49,68 @@
                     </select>
                 </div>
                 <div class="input-field">
-                    <input type="text" required id="telephone" v-model="updatedCompany.telephone">
-                    <label for="telephone">Telephone</label>
+                    <h6 id="title_component">Pay</h6>
+                    <select value="pays" class="form-select form-select-sm mb-4" id="pays" name="pays" aria-label=".form-select-sm example" v-model="updatedcondidat.pays">
+                        <option value="Maroc">Maroc</option>
+                    </select>
                 </div>
                 <div class="input-field">
-                    <input type="text" required id="code_postal" v-model="updatedCompany.code_postal">
-                    <label for="code_postal">Code Postal</label>
+                    <input type="text" required id="telephone" v-model="updatedcondidat.telephone">
+                    <label for="telephone">Telephone</label>
                 </div>
-                <textarea class="form-control mb-4" rows="10" id="description" name="description" placeholder="Description de votre Entreprise" v-model="updatedCompany.description"></textarea>
+
                 <div>
-                    <button class="btn btn-primary btn_condidat" @click="updateCompany">Mise a jour</button>
+                    <button class="btn btn-primary btn_condidat" @click="updatecondidat">Mise a jour</button>
                 </div>
             </div>
         </div>
 
         <div class="col-lg-4 col-sm-12 col-md-6">
             <div class="cardprofil">
-                <h4>A propos de votre entreprise</h4>
-                <div v-if="company">
-                    <p> Nom :{{company.company_name}}</p>
+                <h4>A propos de votre Profil</h4>
+                <div v-if="condidat">
+                    <p> Nom :{{condidat.user.name}}</p>
                 </div>
-                <div v-if="company">
-                    <p> Telephone:{{ company.telephone}}</p>
+                <div v-if="condidat">
+                    <p> Email :{{ condidat.user.email}}</p>
                 </div>
-                <div v-if="company">
-                    <p> Ville :{{company.ville}}</p>
+                <div v-if="condidat">
+                    <p> Telephone:{{ condidat.telephone}}</p>
                 </div>
-                <div v-if="company">
-                    <p> Code Postal :{{company.code_postal}}</p>
+                <div v-if="condidat">
+                    <p> Ville :{{condidat.ville}}</p>
                 </div>
-                <div v-if="company">
-                    <p> Description : </p>
-                    <textarea class="form-control" v-model="company.description" readonly>
-                    </textarea>
+                <div v-if="condidat">
+                    <p> pay :{{condidat.pays}}</p>
+                </div>
+                <button class="btn btn-success btn-sm" @click="viewcv(condidat.cv)">
+                    cv
+                </button>
+            </div>
+            <div class="cardprofil">
+                <h4>Mise a jour votre cirriculum vitae</h4>
+                <div id="upload-container">
+                    <div id="upload-border">
+                        <nobr>
+                            <input type="text" id="upload-register cv" name="cv" :value="cv ? cv : ''" disabled />
+                            <button id="upload-button" @click="handleUploadClick">upload
+                            </button>
+                        </nobr>
+                    </div>
+                    <input type="file" id="hidden-upload cv" name="cv" accept="application/pdf" style="display:none" ref="cv" @change="handleFileUpload($event)" />
+                </div>
+                <div>
+                    <button class="btn btn-primary btn_condidat" @click="updatecv">Mise a jour cv </button>
                 </div>
             </div>
+        </div>
+    </div>
+    <div v-else style="display: block;">
+        <button class="btn btn-primary btn-sm mb-4" style="float :right;" @click="profil=true">
+            Retour
+        </button>
+        <div style="display: flex; justify-content: center; align-items: center;" class="mt-2">
+            <iframe :src="cvUrl" width="700px" height="700px" frameborder="0"></iframe>
         </div>
     </div>
 </div>
@@ -94,38 +121,53 @@ export default {
     name: 'profil',
     data() {
         return {
+            profil: true,
+            cv: null,
             logoUrl: 'https://i.pinimg.com/originals/76/30/ad/7630ad49bdc79b8482c8627c663a1373.png',
-            khalid: 'khalid',
-            company: null,
-            updatedCompany: {
+            condidat: null,
+            photo: null,
+            updatedcondidat: {
                 ville: '',
                 telephone: '',
-                code_posstal: '',
-                description: '',
-                logo: null,
+                pays: '',
+                cv: null,
             },
+            cvUrl: '',
         }
     },
     methods: {
+        viewcv(cv) {
+            this.profil = false;
+            this.cvUrl = `/storage/pdfs/${cv}`;
+        },
+
+        handleFileUpload(event) {
+            const file1 = event.target.files[0];
+            this.cv = event.target.files[0].name;
+            this.updatedcondidat.cv = file1;
+        },
+        handleUploadClick() {
+            this.$refs.cv.click();
+        },
         handlePhotoUploadClick() {
             //this.$refs.photoInput.click();
-            this.$refs.logo.click();
+            this.$refs.photo.click();
         },
-        handlePhotoInputChange(event){
+        handlePhotoInputChange(event) {
             const file = event.target.files[0];
-            this.updatedCompany.logo = file;
+            this.photo = file;
             const reader = new FileReader();
-            reader.readAsDataURL(this.updatedCompany.logo);
+            reader.readAsDataURL(this.photo);
             reader.onload = (e) => {
                 this.logoUrl = e.target.result;
             };
         },
-        updatelogo(){
+        updatelogo() {
             let token = localStorage.getItem('token');
             let formData = new FormData();
-            formData.append('logo', this.updatedCompany.logo);
-            console.log(formData);
-            axios.post('/recruteur/profil/updatelogo', formData, {
+            formData.append('photo', this.photo);
+
+            axios.post('/condidat/profil/updatephoto', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
@@ -133,44 +175,64 @@ export default {
                 })
                 .then(response => {
                     let message = response.data.message;
-                    if (message == 'Company logo updated successfully.') {
-                        
-                    } 
+                    if (message == 'photo updated successfully.') {
+                        this.profilCondidat();
+                        this.logoUrl = 'https://i.pinimg.com/originals/76/30/ad/7630ad49bdc79b8482c8627c663a1373.png';
+                    } else {
+                        dd('ikhan');
+                    }
                 })
                 .catch(error => {});
         },
-        profilRecruteur() {
+        updatecv() {
             let token = localStorage.getItem('token');
-            axios.get('/recruteur/profil/getinfos', {
+            let formData = new FormData();
+            formData.append('cv', this.updatedcondidat.cv);
+
+            axios.post('/condidat/profil/updatecv', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then(response => {
+                    let message = response.data.message;
+                    if (message == 'cv updated successfully.') {
+                        this.profilCondidat();
+                        this.cv = null;
+                    } else {
+                        dd('ikhan');
+                    }
+                })
+                .catch(error => {});
+        },
+        profilCondidat() {
+            let token = localStorage.getItem('token');
+            axios.get('/condidat/profil/getinfos', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 })
                 .then(response => {
-                    this.company = response.data.company[0];
-                    // retrieve the data returned by Laravel
+                    this.condidat = response.data.condidat[0];
+                    this.updatedcondidat = this.condidat;
                 })
                 .catch(error => {
                     // console.log(error.response.data); // retrieve any error messages returned by Laravel
                 });
         },
-        updateCompany() {
+        updatecondidat() {
             let token = localStorage.getItem('token');
-            axios.put('/recruteur/profil/updatcompany', this.updatedCompany, {
+            axios.put('/condidat/profil/updatecondidat', this.updatedcondidat, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 })
                 .then(response => {
                     let message = response.data.message;
-                    if (message == 'Company information updated successfully.') {
-                        this.updatedCompany = {
-                            ville: '',
-                            telephone: '',
-                            code_postal: '',
-                            description: ''
-                        };
-                        this.profilRecruteur();
+                    if (message == 'condidat information updated successfully.') {
+
+                        this.profilCondidat();
                     } else {
 
                     }
@@ -178,16 +240,16 @@ export default {
                 .catch(error => {});
         },
         getBase64Image() {
-            if (this.company && this.company.photo) {
+            if (this.condidat && this.condidat.photo) {
                 //return `data:image/jpg;base64,${btoa(String.fromCharCode.apply(null, this.company.photo))}`;
-                return `/storage/images/${this.company.photo}`;
+                return `/storage/images/${this.condidat.photo}`;
             }
             return null;
         },
     },
     mounted() {
         //this.getImageSrc(this.company.photo);
-        this.profilRecruteur();
+        this.profilCondidat();
 
     },
 };
@@ -241,6 +303,34 @@ export default {
     font-weight: 600;
     transition: all .35s ease-in-out;
     box-shadow: 0 20px 15px 0 rgba(92, 148, 207, 0.1);
+}
+
+#upload-border {
+    height: 30px;
+    border: 1px solid #2077C9;
+    display: inline-block;
+    padding-left: 7px;
+    margin: 20px 0;
+}
+
+#upload-cv,
+#upload-register {
+    height: 70%;
+    border: none;
+}
+
+#upload-button {
+    height: 100%;
+    padding: 0 20px;
+    border: none;
+    background: #2077C9;
+    color: white;
+    cursor: pointer;
+}
+
+#upload-name:focus,
+#upload-button:focus {
+    outline: none;
 }
 
 span {
