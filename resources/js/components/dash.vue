@@ -62,6 +62,8 @@
                                         <th>Titre</th>
                                         <th>N° Postes</th>
                                         <th>Precense</th>
+                                        <th>Date Creation</th>
+                                        <th>lien Offre</th>
                                         <th v-if="selectedType === 'Stage'">Duree</th>
                                         <th v-if="selectedType === 'Stage'">Convension</th>
                                         <th v-if="selectedType === 'Emploi'">Annee_Experience</th>
@@ -73,9 +75,11 @@
                                         <td>{{ offre.titre_offre }}</td>
                                         <td>{{ offre.n_postes }}</td>
                                         <td>{{ offre.presence}}</td>
+                                        <td>{{ calculateTimeDifference(offre.created_at)}}</td>
+                                        <td><a :href="'/offre_emploi?key=' + offre.id_offre + '&slug=' +offre.slug">lien offre</a></td>
                                         <td v-if="selectedType === 'Stage'">{{ offre.duree }}</td>
                                         <td v-if="selectedType === 'Stage'">{{ offre.convension }}</td>
-                                        <td v-if="selectedType === 'Emploi'">{{ offre.annee_experience }} ans </td>
+                                        <td v-if="selectedType === 'Emploi'">A partir {{ offre.annee_experience }} ans </td>
                                         <td>
                                             <button class="btn btn-success btn-sm" @click="showAlert(offre)"><i class="fa fa-edit"></i></button>
                                             <button class="btn btn-danger btn-sm" @click="deleteOffre(offre.id_offre)"><i class="fa fa-trash"></i></button>
@@ -139,14 +143,13 @@
                 <h6 id="title_component">Presence</h6>
                 <select class="form-select form-select-sm mb-4" id="presence" name="presence" aria-label=".form-select-sm example" v-model="selectedOffre.presence">
                     <option value="Distanciel">Distanciel</option>
-                    <option value="Presence">Presence</option>
+                    <option value="Présentiel">Présentiel</option>
                 </select>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="closeAlert">Cancel</button>
                     <button type="button" class="btn btn-primary" @click="modifyOffer">Modifier</button>
                 </div>
-                
             </div>
         </div>
     </div>
@@ -155,7 +158,7 @@
 
 <script>
 import '@fortawesome/fontawesome-free/css/all.css';
-
+import moment from 'moment';
 export default{
     name: 'Dashboard',
     data() {
@@ -176,6 +179,12 @@ export default{
         closeAlert() {
             $('#myModal').modal('hide');
         },
+        calculateTimeDifference(dateTime) {
+      const start = moment(dateTime);
+      const now = moment();
+
+      return start.from(now);
+    },
         statistiques() {
             let token = localStorage.getItem('token');
             axios.get('/recruteur/dashboard/statistiques', {
@@ -237,7 +246,6 @@ export default{
 })
 
 swalWithBootstrapButtons.fire({
-
   text: "Voulez vous vraiment supprimer cette offre!",
   icon: 'warning',
   showCancelButton: true,
@@ -254,6 +262,7 @@ axios.delete(`/recruteur/dashboard/deleteoffre/${id}`)
       'success'
     )
                     this.fetchOffres();
+                    this.statistiques();
                 })
                 .catch(error => 
                 console.log(error.response)            

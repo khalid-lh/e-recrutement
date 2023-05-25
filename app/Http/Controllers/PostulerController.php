@@ -57,7 +57,6 @@ class PostulerController extends Controller
         ->with(['postulers.user'])
         ->withCount('postulers')
         ->get();
-        
         return response()->json([
             'Offrescondidatures'=> $Offrescondidatures,   
         ]);
@@ -72,64 +71,27 @@ class PostulerController extends Controller
 $modifiedData = [];
 foreach ($mescondidatures as $postuler) {
     $idOffre = $postuler->id_offre;
-    if (!isset($modifiedData[$idOffre])) {
+    if(!isset($modifiedData[$idOffre])){
         $modifiedData[$idOffre] = [
             'postule_id' => $postuler->postule_id,
             'id_offre' => $idOffre,
-            'users' => []
+            'users' => [],
+            
         ];
     }
     $modifiedData[$idOffre]['users'][] = $postuler->user;
-   /* $offerDate = $postuler->created_at;
-
-    // Calculate the difference in minutes
-    $diffInMinutes = Carbon::parse($offerDate)->diffInMinutes(Carbon::now());
-
-    // Calculate the difference in hours
-    $diffInHours = Carbon::parse($offerDate)->diffInHours(Carbon::now());
-
-    // Calculate the difference in days
-    $diffInDays = Carbon::parse($offerDate)->diffInDays(Carbon::now());
-
-    // Determine the appropriate format based on the difference
-    if ($diffInMinutes < 60) {
-        $formattedDiff = $diffInMinutes . " minute(s)";
-    } elseif ($diffInHours < 24) {
-        $formattedDiff = $diffInHours . " hour(s)";
-    } else {
-        $formattedDiff = $diffInDays . " day(s)";
-    }
-
-    // Add the formatted difference to the modified data
-    $modifiedData[$idOffre]['created_at'] = $formattedDiff;*/
 }
 
     $finalData = array_values($modifiedData);
         return response()->json([
             'mescondidatures'=> $finalData,  
-             
         ]);
     }
-    /*public function showcvcondidature(Request $request)
-{
-    $user_profil = ModelsUser::with('profil')->find($request->query('id'));
-    //dd($user_profil->profil->cv);
-    return view('showusercv')->with([
-        'user_profil'=>$user_profil
-    ]);}
-
-    public function downloadCV($id)
+    public function deletePostulersOffre($id)
     {
-        $filePath = storage_path('app/public/pdfs/' . $id);
-
-    if (Storage::disk('public')->exists('pdfs/' . $id)) {
-        $headers = [
-            'Content-Type' => 'application/pdf',
-        ];
-        return response()->file($filePath, $headers);
+        $postule = ModelsPostuler::findOrFail($id);
+        
+        $postule->delete();  
+        return response()->json(['message' => 'postule deleted successfully']);
     }
-
-    // Return an error response if the PDF file doesn't exist
-    return response()->json(['message' => 'PDF file not found.'], 404);
-    }*/
 }

@@ -53,7 +53,7 @@
                 <h6 id="title_component">Presence</h6>
                 <select class="form-select form-select-sm mb-4" id="presence" name="presence" aria-label=".form-select-sm example" v-model="offre.presence">
                     <option value="Distanciel">Distanciel</option>
-                    <option value="Presenciel">Presenciel</option>
+                    <option value="Présentiel">Présentiel</option>
                 </select>
                 <div>
                     <button class="btn btn-primary btn_condidat" @click="addoffre">Ajouter offre</button>

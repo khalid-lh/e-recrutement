@@ -153,7 +153,7 @@ align-items: center;
      id: id_offre,
      token:token
   }
-   }).then(response => {        
+   }).then(response =>{        
         let message = response.data.message;
         if(message=='Votre condidature a été bien enregistrer'){
             let alertHTML = `
@@ -165,6 +165,7 @@ align-items: center;
             </div>
         `;
         document.getElementById('alertContainer').innerHTML = alertHTML;
+    
         }else if(message=='Data already exists.'){
             let alertHTML = `
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -175,14 +176,15 @@ align-items: center;
             </div>
         `;
         document.getElementById('alertContainer').innerHTML = alertHTML;
+       
         }
-        
             })
             .catch(error => {
                 // Handle the error
                 console.error(error);
             });
     }
+    
 </script>
     </body>
 </html>

@@ -283,7 +283,7 @@
       </li>
       <li>
         <router-link :to="{ name: 'addoffre' }" ><a href="#">
-         <i class='bx bx-user' ></i>
+          <i class="fa-sharp fa-solid fa-file-pen"></i>
          <span class="links_name">Ajouter offre</span>
        </a></router-link>
        <span class="tooltip">Ajouter offre</span>
@@ -291,11 +291,18 @@
      
    <li>
     <router-link :to="{ name: 'mescondidats'}" ><a href="#">
-     <i class='bx bx-user' ></i>
+      <i class="fa-sharp fa-solid fa-users"></i>
      <span class="links_name">Mes Condidats</span>
    </a></router-link>
    <span class="tooltip">Mes Condidats</span>
  </li>
+ <li>
+  <router-link :to="{ name: 'mesoffresdeleted'}" ><a href="#">
+    <i class="fa-solid fa-trash"></i>
+       <span class="links_name">Offres Supprime</span>
+ </a></router-link>
+ <span class="tooltip">Offres Supprime</span>
+</li>
  <li>
   <router-link :to="{ name: 'profil_recruteur' }"><a href="#">
    <i class='bx bx-user' ></i>

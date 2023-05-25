@@ -18,12 +18,13 @@ class CreateOffresTable extends Migration
             $table->string('status');
             $table->string('type_offre');
             $table->string('duree')->nullable();
-            $table->string('convention')->nullable();
+            $table->string('convension')->nullable();
             $table->string('annee_experience')->nullable();
             $table->string('company_id');
             $table->string('presence');
             $table->string('slug');     
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

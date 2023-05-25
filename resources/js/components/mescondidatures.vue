@@ -1,6 +1,6 @@
 <template>
 <div class="content mt-3">
-    <div class="row">
+    <div class="row tableau">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header" v-if="UsersTable=='users'">
@@ -29,7 +29,7 @@
                                 <td>{{ offre.titre_offre }}</td>
                                 <td>{{ offre.type_offre }}</td>
                                 <td><a :href="'/offre_emploi?key=' + offre.id_offre + '&slug=' + offre.slug">lien offre</a></td>
-                                <td>{{ offre.created_at }}</td>
+                                <td>{{ calculateTimeDifference(offre.created_at) }}</td>
                                 <td>{{ offre.postulers_count}}</td>
                                 <td>
                                     <button class="btn btn-success btn-sm" @click="showUsersTable(offre.id_offre)">
@@ -47,6 +47,7 @@
                                 <th>Email</th>
                                 <th>Telephone</th>
                                 <th>Ville</th>
+                               
                                 <th>Cirriculum Vitae</th>
                             </tr>
                         </thead>
@@ -56,11 +57,17 @@
                                 <td>{{user.email}}</td>
                                 <td>{{user.profil.telephone}}</td>
                                 <td>{{user.profil.ville}}</td>
+                                
                                 <td>
                                     <button class="btn btn-success btn-sm" @click="viewPdf(user.profil.cv)">
                                         View
                                     </button>
                                 </td>
+                                 <!-- <td>
+                                  <button class="btn btn-success btn-sm" @click="showAlert(user.email)">
+                                        Envoyer email
+                                    </button>
+                                </td>-->
                             </tr>
                         </tbody>  
                     </table>
@@ -76,13 +83,50 @@
             </div>
         </div>
     </div>
+    <!-- Alert for send Email to condidature -->
+    <div class="modal fade show" id="myModal" ref="myModal" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="text-center w-100">
+                        <h5 class="modal-title" id="exampleModalLabel">Envoyer Email </h5>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" id="closebutton" aria-label="Close" @click="closeAlert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                   <div class="input-field">
+                    <input type="text" required id="titre_offre" name="titre_offre" v-model="emailSender">
+                    <label>du</label>
+                </div>
+                <div class="input-field">
+                    <input type="text" required  v-model="emailReceiver">
+                    <label>À</label>
+                </div> 
+                <div class="input-field">
+                    <input type="text" required  v-model="emailSubject">
+                    <label>Sujet</label>
+                </div> 
+                 <div>
+                    <textarea class="form-control mb-4" id="body" name="body" placeholder="content" v-model="emailBody"></textarea>
+                </div>
+               
+                </div>
+                <div class="modal-footer"> 
+                    <button type="button" class="btn btn-primary" @click="sendEmail">Envoyer</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </template>
 
 <script>
+import moment from 'moment';
 export default {
     name: 'mescondidats',
-    data() {
+    data(){
         return {
             mescondidatures: {},
             Offrescondidatures: {},
@@ -90,9 +134,52 @@ export default {
             selectedOffreId: null,
             selectedOffreCondidatures: {},
             pdfUrl: '',
+            emailSender: '',
+      emailReceiver: '',
+      emailSubject: '',
+      emailBody: '',
         }
     },
     methods: {
+        sendEmail() {
+      // Send the email data to the backend API
+      axios.post('/send-email', {
+         email_sender: this.emailSender,
+        email_receiver: this.emailReceiver,
+        email_subject: this.emailSubject,
+        email_body: this.emailBody,
+      })
+        .then(response => {
+          console.log(response.data.message);
+          
+          this.emailSender = '';
+          this.emailReceiver = '';
+          this.emailSubject = '';
+          this.emailBody = '';
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+        closeAlert() {
+            $('#myModal').modal('hide');
+        },
+        showAlert(email_receveir) {
+            this.emailReceiver=email_receveir;
+            $('#myModal').modal('show');
+            var backdrop = document.querySelector('.modal-backdrop');
+
+            // Update the class to remove 'fade'
+            backdrop.classList.remove('fade');
+            backdrop.classList.remove('modal-backdrop');
+            backdrop.classList.add('show');
+        },
+        calculateTimeDifference(dateTime) {
+      const start = moment(dateTime);
+      const now = moment();
+
+      return start.from(now);
+    },
         getoffres_condidats() {
             let token = localStorage.getItem('token')
             axios.get('/recruteur/Offrescondidatures', {  
@@ -133,11 +220,11 @@ export default {
 
 <style scoped>
 table th,
-td {
+td{
     text-align: center;
 }
 
-td {
+td{
     border-radius: 0px;
 }
 
@@ -147,5 +234,8 @@ td {
 
 .card-title {
     text-align: center;
+}
+.tableau{
+    width: 100%;
 }
 </style>

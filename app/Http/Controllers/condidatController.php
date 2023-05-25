@@ -81,11 +81,12 @@ if($profil){
         $token= $request->header('Authorization');
         $token= str_replace('Bearer ', '', $token);
         $user= JWTAuth::setToken($token)->authenticate();
-        $mescondidatures= ModelsPostuler::where('id', $user->id)
-        ->with('offre')     
-        ->get();
-        
-      // $mescondidatures =  $this->calculatedate($mescondidatures);
+        $mescondidatures = ModelsPostuler::where('id', $user->id)
+    ->with(['offre' => function ($query) {
+        // Include both trashed and non-trashed offres
+        $query->withTrashed();
+    }])
+    ->get();
         return response()->json([
             'mescondidatures'=> $mescondidatures,   
         ]);

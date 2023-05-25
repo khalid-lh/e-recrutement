@@ -1,9 +1,9 @@
 <template>
 <div class="profil_recruteur">
 
-    <div class="row mt-4" v-if="profil">
+    <!--<div class="row mt-4" v-if="profil">
         <div class="col-lg-4 col-sm-12 col-md-6">
-            <!--<div class="cardprofil">
+            <div class="cardprofil">
                 <h4>Changer Mot de Pass</h4>
                 <div class="input-field">
                     <input type="password" required id="nv_password" placeholder="Nouveau Mot de Pass">
@@ -14,7 +14,7 @@
                 <div>
                     <button class="btn btn-primary btn_condidat">Mettre a jour</button>
                 </div>
-            </div>-->
+            </div>
 
             <div class="circle-image">
                 <img v-if="condidat && condidat.photo" :src="getBase64Image()" alt="Image" />
@@ -113,6 +113,140 @@
             <iframe :src="cvUrl" width="700px" height="700px" frameborder="0"></iframe>
         </div>
     </div>
+    -->
+
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" v-if="profil">
+
+        <div class="row cardprofil">
+            <h3 class="title_profil">Informations sur votre Entreprise</h3>
+            <div class="row mb-3">
+                <div class="col-sm-12 col-lg-6 col-md-6">
+                    <div class="circle-image mb-4">
+                        <img v-if="condidat && condidat.photo" :src="getBase64Image()" alt="Image" />
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-6 col-md-6">
+                    <div v-if="condidat">
+                        <h6>Nom </h6>
+                        <p class="company_name">{{condidat.user.name}}</p>
+                    </div>
+                    <div v-if="condidat">
+                        <h6>Email</h6>
+                        <p>{{ condidat.user.email}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div v-if="condidat">
+                        <h6>Telephone</h6>
+                        <p>{{condidat.telephone}}</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div v-if="condidat">
+                        <h6>Ville</h6>
+                        <p>{{condidat.ville}}</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div v-if="condidat">
+                        <h6>Pay</h6>
+                        <p>{{condidat.pays}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="display: flex; float: right;">
+                <div>
+                    <button class="btn_condidat"  @click="showAlert()">Edit</button>
+                    <button class="btn_condidat"  style="margin-right: 20px;" @click="viewcv(condidat.cv)">cv</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row cardprofil">
+            <div class="col mb-4">
+                <h4>Mise a jour votre photo de profil</h4>
+                <div class="mb-4">
+                    <div class="photo-upload-container" :style="{ 'background-image': `url(${logoUrl})`}">
+                        <div class="photo-upload-overlay" @click="handlePhotoUploadClick">
+                            <input ref="photo" type="file" id="photo" name='photo' accept="image/*" class="photo-upload-input" @change="handlePhotoInputChange">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-primary btn_condidat" @click="updatelogo">Mise a jour</button>
+                </div>
+            </div>
+            <div class="col">
+                <h4>Mise a jour votre cirriculum vitae</h4>
+                <div id="upload-container">
+                    <div id="upload-border">
+                        <nobr>
+                            <input type="text" id="upload-register cv" name="cv" :value="cv ? cv : ''" disabled />
+                            <button id="upload-button" @click="handleUploadClick">upload
+                            </button>
+                        </nobr>
+                    </div>
+                    <input type="file" id="hidden-upload cv" name="cv" accept="application/pdf" style="display:none" ref="cv" @change="handleFileUpload($event)" />
+                </div>
+                <div>
+                    <button class="btn btn-primary btn_condidat " style="margin-top : 55px;" @click="updatecv">Mise a jour cv</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div v-else style="display: block;">
+        <button class="btn btn-primary btn-sm mb-4" style="float :right;" @click="profil=true">
+            Retour
+        </button>
+        <div style="display: flex; justify-content: center; align-items: center;" class="mt-2">
+            <iframe :src="cvUrl" width="700px" height="700px" frameborder="0"></iframe>
+        </div>
+    </div>
+    <!-- Alert for send Email to condidature -->
+    <div class="modal fade show" id="myModal" ref="myModal" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="text-center w-100">
+                        <h5 class="modal-title" id="exampleModalLabel">Modifier les informations de votre compte</h5>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" id="closebutton" aria-label="Close" @click="closeAlert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" v-if="condidat">
+                    <div class="input-field">
+                        <h6 id="title_component">Ville</h6>
+                        <select value="Ville" class="form-select form-select-sm mb-4" id="ville" name="ville" aria-label=".form-select-sm example" v-model="this.condidat.ville">
+                            <option value="">Ville</option>
+                            <option value="Agadir">Agadir</option>
+                            <option value="Casablanca">Casablanca</option>
+                            <option value="Fez">Fez</option>
+                            <option value="Marrakech">Marrakech</option>
+                            <option value="Rabat">Rabat</option>
+                            <option value="Tangier">Tangier</option>
+                        </select>
+                    </div>
+                    <div class="input-field">
+                        <h6 id="title_component">Pay</h6>
+                        <select value="pays" class="form-select form-select-sm mb-4" id="pays" name="pays" aria-label=".form-select-sm example" v-model="this.condidat.pays">
+                            <option value="Maroc">Maroc</option>
+                        </select>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" required id="telephone" v-model="this.condidat.telephone">
+                        <label for="telephone">Telephone</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" @click="updatecondidat">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 </template>
 
@@ -126,12 +260,12 @@ export default {
             logoUrl: 'https://i.pinimg.com/originals/76/30/ad/7630ad49bdc79b8482c8627c663a1373.png',
             condidat: null,
             photo: null,
-            updatedcondidat: {
+           /* updatedcondidat: {
                 ville: '',
                 telephone: '',
                 pays: '',
                 cv: null,
-            },
+            },*/
             cvUrl: '',
         }
     },
@@ -184,11 +318,10 @@ export default {
                 })
                 .catch(error => {});
         },
-        updatecv() {
+        updatecv(){
             let token = localStorage.getItem('token');
             let formData = new FormData();
             formData.append('cv', this.updatedcondidat.cv);
-
             axios.post('/condidat/profil/updatecv', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
@@ -206,6 +339,19 @@ export default {
                 })
                 .catch(error => {});
         },
+        closeAlert() {
+            $('#myModal').modal('hide');
+        },
+        showAlert() {
+
+            $('#myModal').modal('show');
+            var backdrop = document.querySelector('.modal-backdrop');
+
+            // Update the class to remove 'fade'
+            backdrop.classList.remove('fade');
+            backdrop.classList.remove('modal-backdrop');
+            backdrop.classList.add('show');
+        },
         profilCondidat() {
             let token = localStorage.getItem('token');
             axios.get('/condidat/profil/getinfos', {
@@ -215,7 +361,7 @@ export default {
                 })
                 .then(response => {
                     this.condidat = response.data.condidat[0];
-                    this.updatedcondidat = this.condidat;
+                   
                 })
                 .catch(error => {
                     // console.log(error.response.data); // retrieve any error messages returned by Laravel
@@ -268,6 +414,26 @@ export default {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+   
+}
+
+h6 {
+    font-size: 15px;
+    color: #000;
+    font-weight: 600;
+    padding-left: 5px;
+    border-left: 4px solid #165aa2;
+}
+
+.title_profil {
+    font-size: 19px;
+    color: #000;
+    font-weight: 600;
+    padding-left: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
 }
 
 .circle-image {
@@ -286,7 +452,7 @@ export default {
 }
 
 .btn_condidat {
-    width: 230px;
+    width: 150px;
     height: 40px;
     font-size: 17px;
     outline: none;
@@ -294,6 +460,7 @@ export default {
     text-align: center;
     background-color: #b9c01a;
     display: flex;
+    margin-bottom: 20px;
     align-items: center;
     justify-content: center;
     text-decoration: none;
@@ -303,6 +470,7 @@ export default {
     font-weight: 600;
     transition: all .35s ease-in-out;
     box-shadow: 0 20px 15px 0 rgba(92, 148, 207, 0.1);
+    float: right;
 }
 
 #upload-border {

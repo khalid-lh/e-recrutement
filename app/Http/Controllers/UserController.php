@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User as ModelsUser;
@@ -85,10 +87,16 @@ class UserController extends Controller
             $profil->user_id = $user->id;
             $profil->save();
             DB::commit();
+            $data = [
+                'subject' => 'Inscription du compte condidature',
+                'body'=> 'Votre compte condidat a ete enregistrer avec succes   
+                Merci de votre confiance a notre platforme '
+            ];
+            Mail::to($user->email)->send(new SendMail($data));
         } catch (\Throwable $e) {
             DB::rollback();
-            Storage::delete('/storage/images/'+$imageName);
-            Storage::delete('/storage/pdfs/'+$pdfName);
+            Storage::delete('/storage/images/'.$imageName);
+            Storage::delete('/storage/pdfs/'.$pdfName);
             return response()->json([
                 'message' => 'An error occurred while registering the user',
                 'error' => $e->getMessage()
@@ -159,10 +167,16 @@ class UserController extends Controller
             $company->id_recruteur=$user->id;
             $company->save();
             DB::commit();
+            $data = [
+ 'subject' => 'REGISTRATION DU COMPTE RECRUTEUR',
+ 'body'=> 'Votre compte recruteur a ete enregistrer avec succes
+ Merci de votre confiance a notre platforme '
+            ];
+            Mail::to($user->email)->send(new SendMail($data));
         } catch (\Throwable $e) {
             DB::rollback();
-            Storage::delete('/storage/images/'+$imageName);
-            Storage::delete('/storage/pdfs/'+$pdfName);
+            Storage::delete('/storage/images/'.$imageName);
+            Storage::delete('/storage/pdfs/'.$pdfName);
             return response()->json([
                 'message' => 'An error occurred while registering the company',
                 'error' => $e->getMessage()

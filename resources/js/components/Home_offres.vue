@@ -2,8 +2,8 @@
 <div>
     <div v-if="offers.length >0" class="mt-4 mb-4">
         <h3 class="mb-3">Listes Offres du Moment</h3>
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
+        <div id="carouselExampleControls" class="carousel slide mt-4" data-ride="carousel">
+            <div class="carousel-inner mt-4">
                 <div v-for="(chunk, index) in chunkedOffers" :key="index" :class="['carousel-item', index === activeIndex ? 'active' : ''] ">
                     <div class="row">
                         <div v-for="offer in chunk" :key="offer.id" class="col-md-3 ">

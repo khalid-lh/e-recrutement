@@ -26,6 +26,10 @@ Route::get('/rechercher/offres',[\App\Http\Controllers\OffreController::class,'s
 Route::post('/postuler_offres', [\App\Http\Controllers\PostulerController::class , 'postuler']);
 Route::get('/recruteur/Offrescondidatures', [\App\Http\Controllers\PostulerController::class , 'getoffres_condidats']);
 Route::get('/recruteur/mescondidaturs/{id}', [\App\Http\Controllers\PostulerController::class , 'getMescondidatures']);
+Route::get('/recruteur/mesoffresdeleted', [\App\Http\Controllers\OffreController::class , 'getmesoffresdeleted']);
+Route::delete('/recruteur/dashboard/forcedelete/{id}',[\App\Http\Controllers\OffreController::class,'forcedeleteOffre']);
+Route::patch('/recruteur/dashboard/restoreOffre/{id}',[\App\Http\Controllers\OffreController::class,'restoreOffre']);
+
 /*Route::get('/mescondidaturs/cv-condidature',[\App\Http\Controllers\PostulerController::class,'showcvcondidature']);
 Route::get('/downloadcv/{cv}',[\App\Http\Controllers\PostulerController::class,'downloadCV']);*/
 //Condidat
@@ -34,6 +38,7 @@ Route::put('/condidat/profil/updatecondidat', [\App\Http\Controllers\condidatCon
 Route::post('/condidat/profil/updatephoto',[\App\Http\Controllers\condidatController::class,'update_photo']);
 Route::get('/condidat/mescondidatures',[\App\Http\Controllers\condidatController::class,'mescondidature']);
 Route::post('/condidat/profil/updatecv',[\App\Http\Controllers\condidatController::class,'update_cv']);
-
+Route::post('/send-email',[\App\Http\Controllers\RecruteurController::class,'send_email']);
+Route::delete('/condidat/dashboard/deletepostule/{id}',[\App\Http\Controllers\PostulerController::class,'deletePostulersOffre']);
 
 

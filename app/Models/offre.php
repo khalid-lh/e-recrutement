@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 class offre extends Model
 {
     use HasFactory;
     protected $table = 'offres';
     protected $primaryKey = 'id_offre';
 
+    use SoftDeletes;
     public function company()
     {
         return $this->belongsTo(company::class, 'company_id');

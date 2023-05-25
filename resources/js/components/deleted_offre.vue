@@ -4,7 +4,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header" >
-                    <h4 class="card-title ">Liste des offres postuler par vous</h4>
+                    <h4 class="card-title ">Liste des offres supprime</h4>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped walla table-hover" >
@@ -14,18 +14,21 @@
                                 <th>Type Offre</th>  
                                 <th>lien</th>
                                 <th>Date creation</th>
-                                <th>Date Postulement</th>
+                                <th>Date Suppression</th>
+                                <th>Action</th>
                             </tr>
                         </thead>   
                         <tbody>
-                            <tr v-for="condidature in mescondidatures " :key="condidature.postule_id">
-                                <td>{{ condidature.offre.titre_offre }}</td>
-                                <td>{{ condidature.offre.type_offre }}</td>
-                                <td><a :href="'/offre_emploi?key=' + condidature.offre.id_offre + '&slug=' + condidature.offre.slug">lien offre</a></td>
-                                <td>{{ calculateTimeDifference(condidature.offre.created_at) }}</td>
-                                <td>{{ calculateTimeDifference(condidature.created_at)}}</td>
+                            <tr v-for="offre in mesoffresdeleted"  :key="offre.id_offre">
+                                <td>{{ offre.titre_offre }}</td>
+                                <td>{{offre.type_offre }}</td>
+                                <td><a :href="'/offre_emploi?key=' +offre.id_offre+ '&slug=' +offre.slug ">lien offre</a></td>
+                                <td>{{ calculateTimeDifference(offre.created_at)}}</td>
+                                <td>{{ calculateTimeDifference(offre.deleted_at)}}</td>
                                 <td>
-                                    <button class="btn btn-danger btn-sm" @click="deletepostule(condidature.postule_id)"><i class="fa fa-trash"></i></button>
+                                    <!--<button class="btn btn-danger btn-sm" @click="deleteOffre(offre.id_offre)"><i class="fa fa-trash"></i> Permanent</button>-->
+                                    <button class="btn btn-success btn-sm" @click="restoreOffre(offre.id_offre)"><i class="fa-sharp fa-regular fa-trash-can-undo"></i> Restor</button>
+
                                 </td>
                             </tr>
                         </tbody>
@@ -50,19 +53,19 @@ export default{
     data() {
         return {
           
-         mescondidatures: {},
+         mesoffresdeleted: {},
         }
     },
     methods: {
-        getmescondidature() {
+        getmesoffresdeleted() {
             let token = localStorage.getItem('token')
-            axios.get('/condidat/mescondidatures', {  
+            axios.get('/recruteur/mesoffresdeleted', {  
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 })
                 .then(response => {
-                    this.mescondidatures = response.data.mescondidatures;
+                    this.mesoffresdeleted = response.data.mesoffresdeleted;
                 })
                 .catch((error) => {
                     console.error(error);  
@@ -74,7 +77,7 @@ export default{
 
       return start.from(now);
     },
-        deletepostule(id){
+        deleteOffre(id){
             const swalWithBootstrapButtons = Swal.mixin({
   customClass: {
     confirmButton: 'btn btn-success',
@@ -85,22 +88,22 @@ export default{
 
 swalWithBootstrapButtons.fire({
 
-  text: "Voulez vous vraiment supprimer cette condidature!",
+  text: "Voulez vous vraiment supprimer cette offre Permanant!",
   icon: 'warning',
   showCancelButton: true,
-  confirmButtonText: 'Supprimer!',
+  confirmButtonText: 'Supprimer !',
   cancelButtonText: 'Exit!',
   reverseButtons: true
 }).then((result) => {
   if(result.isConfirmed){
-    axios.delete(`/condidat/dashboard/deletepostule/${id}`)
+    axios.delete(`/recruteur/dashboard/forcedelete/${id}`)
                 .then(res => {
                     swalWithBootstrapButtons.fire(
       'Supprimer!',
-      'Votre condidature a été supprimé.',
+      'Votre offre a été supprimé definitivement.',
       'success'
     )
-        this.fetchOffres();
+        this.getmesoffresdeleted();
                 })
                 .catch(error => 
                 console.log(error.response)            
@@ -111,17 +114,60 @@ swalWithBootstrapButtons.fire({
   ){
     swalWithBootstrapButtons.fire(
       'Cancelled',
-      'Votre condidature n\'est pas supprimé.',
+      'Votre offre n\'est pas supprimé.',
       'error'
     )
   }
 })        
         },   
+        restoreOffre(id){
+            const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+swalWithBootstrapButtons.fire({
+
+  text: "Voulez vous vraiment Restorer cette offre !",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Restorer !',
+  cancelButtonText: 'Exit!',
+  reverseButtons: true
+}).then((result) => {
+  if(result.isConfirmed){
+    axios.patch(`/recruteur/dashboard/restoreOffre/${id}`)
+                .then(res => {
+                    swalWithBootstrapButtons.fire(
+      'Restored!',
+      'Votre offre a été Restorer .',
+      'success'
+    )
+        this.getmesoffresdeleted();
+                })
+                .catch(error => 
+                console.log(error.response)            
+                )
+  }else if(
+    /* Read more about handling dismissals below */
+    result.dismiss === Swal.DismissReason.cancel
+  ){
+    swalWithBootstrapButtons.fire(
+      'Cancelled',
+      'Votre offre n\'est pas Restorer.',
+      'error'
+    )
+  }
+})        
+        },
     },
     computed:{    
     },
     created(){   
-        this.getmescondidature();
+        this.getmesoffresdeleted();
     }
 };
 </script>

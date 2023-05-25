@@ -17,7 +17,7 @@ class OffreController extends Controller
     public function __construct()
     {
         
-        $this->middleware('auth:api', ['except' => ['add_offre','getOffres','deleteOffre','update_offre','show_offre','searchOffers','getAllOffers']]);
+        $this->middleware('auth:api', ['except' => ['add_offre','getOffres','deleteOffre','update_offre','show_offre','searchOffers','getAllOffers','forcedeleteOffre','restoreOffre']]);
     }
     public function add_offre(Request $request)
     {
@@ -89,7 +89,7 @@ public function getOffres(Request $request)
         $token=$request->header('Authorization');
         $token=str_replace('Bearer ', '', $token);
         $user=JWTAuth::setToken($token)->authenticate();
-        $offres = ModelsOffre::where('id_recruteur', $user->id )->get();
+        $offres = ModelsOffre::where('id_recruteur', $user->id )->orderBy('created_at', 'desc')->get();
     
         return response()->json([
             'offres' => $offres, 
@@ -158,6 +158,7 @@ public function getAllOffers()
 
     $offers = ModelsOffre::with('company')
         ->where('created_at', '>', $twoDaysAgo)
+        ->orderBy('created_at', 'desc') // Sort by created_at in descending order
         ->get();
     foreach ($offers as $offer) {
         $limitedDescription = Str::limit($offer->description, 60);
@@ -172,7 +173,7 @@ public function show_offre(Request $request)
 {
     $id= $request->query('key');
     $slug = $request->query('slug');
-    $offer = ModelsOffre::with('company')->where('id_offre',$id)->where('slug',$slug)->firstOrFail();
+    $offer = ModelsOffre::withTrashed()->with('company')->where('id_offre', $id)->where('slug', $slug)->firstOrFail();
     
       return view('showOffre')->with([
         'offre'=>$offer
@@ -196,6 +197,53 @@ public function searchOffers(Request $request)
             'offres'=>$offers
         ]);
         
+    }
+    public function getmesoffresdeleted(Request $request)
+    {
+        $token = substr($request->header('Authorization'), 7);
+        $token=$request->header('Authorization');
+        $token=str_replace('Bearer ', '', $token);
+        $user=JWTAuth::setToken($token)->authenticate();
+        $mesoffresdeleted = ModelsOffre::onlyTrashed()
+                ->where('id_recruteur', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->get();
+    
+        return response()->json([
+            'mesoffresdeleted' => $mesoffresdeleted, 
+            ]);
+        
+    }
+    public function forcedeleteOffre($id)
+    {
+        $offre = ModelsOffre::withTrashed()->find($id);
+    
+        if (!$offre) {
+            // Offer not found
+            return response()->json(['error' => 'Offer not found'], 404);
+        }
+        
+        if (!$offre->trashed()) {
+            // Offer is not soft deleted
+            return response()->json(['error' => 'Offer is not soft deleted'], 400);
+        }
+        
+        $offre->forceDelete();
+        
+        return response()->json(['message' => 'Offer deleted successfully']);
+    }
+    public function restoreOffre($id)
+    {
+       
+        $offre = ModelsOffre::onlyTrashed()->find($id);
+
+        if (!$offre) {
+            return response()->json(['error' => 'Offer not found'], 404);
+        }
+        $offre->restore();
+        
+        // Return a success response
+        return response()->json(['message' => 'Offer restored successfully']);
     }
 
 }

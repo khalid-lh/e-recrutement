@@ -31,6 +31,7 @@ import dashboard from './components/dash'
 import profilRecruteur from './components/profilRecruteur'
 import addoffre from './components/addoffre'
 import mescondidats from './components/mescondidatures.vue'
+import deletedOffres from './components/deleted_offre.vue'
 //userCondidat
 import profilCondidature from './components/condidature/profilcondidature'
 import dashboard_condidature from './components/condidature/dash'
@@ -42,6 +43,7 @@ const routes = [
     { path: '/recruteur/profil', name: 'profil_recruteur' ,component: profilRecruteur},
     { path: '/recruteur/addoffre', name: 'addoffre' , component: addoffre},
     { path: '/recruteur/mescondidatures', name: 'mescondidats' , component: mescondidats},
+    { path: '/recruteur/deletedOffres', name: 'mesoffresdeleted' , component: deletedOffres},
     { path: '/condidat/dashboard', name: 'condidature_dashboard' ,component: dashboard_condidature},
     { path: '/condidat/profil', name: 'profil_condidature' ,component: profilCondidature},
 
@@ -95,7 +97,8 @@ const recruteur = new Vue({
       dashboard,
       profilRecruteur,
       addoffre,
-      mescondidats
+      mescondidats,
+      deletedOffres
   }
 });
 
