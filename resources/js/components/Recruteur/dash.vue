@@ -179,13 +179,12 @@ export default{
         closeAlert() {
             $('#myModal').modal('hide');
         },
-        calculateTimeDifference(dateTime) {
+        calculateTimeDifference(dateTime){
       const start = moment(dateTime);
       const now = moment();
-
       return start.from(now);
     },
-        statistiques() {
+        statistiques(){
             let token = localStorage.getItem('token');
             axios.get('/recruteur/dashboard/statistiques', {
                     headers: {
@@ -195,15 +194,14 @@ export default{
                 .then(response => {
                     this.StageCount = response.data.StageCount;
                     this.EmploiCount = response.data.EmploiCount;
-                     this.n_postulers = response.data.n_postulers;
-
+                    this.n_postulers = response.data.n_postulers;
                     if(this.offresCount == null){
                         this.offresCount = 0;
                     }
-                    if (this.EmploiCount == null) {
+                    if (this.EmploiCount == null){
                         this.EmploiCount = 0;
                     }
-                     if (this.n_postulers == null) {
+                     if (this.n_postulers == null){
                         this.n_postulers = 0;
                     }
                   })
@@ -211,11 +209,10 @@ export default{
                     console.log(error);
                 });
         },
-        showAlert(offre) {
+        showAlert(offre){
             this.selectedOffre = Object.assign({}, offre);
             $('#myModal').modal('show');
             var backdrop = document.querySelector('.modal-backdrop');
-
             // Update the class to remove 'fade'
             backdrop.classList.remove('fade');
             backdrop.classList.remove('modal-backdrop');
@@ -223,8 +220,8 @@ export default{
         },
         fetchOffres(){
             let token = localStorage.getItem('token')
-            axios.get('/recruteur/dashbaord/getoffres', {
-                    headers: {
+            axios.get('/recruteur/dashbaord/getoffres',{
+                    headers:{
                         Authorization: `Bearer ${token}`
                     }
                 })

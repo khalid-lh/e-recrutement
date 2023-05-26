@@ -47,7 +47,6 @@
                                 <th>Email</th>
                                 <th>Telephone</th>
                                 <th>Ville</th>
-                               
                                 <th>Cirriculum Vitae</th>
                             </tr>
                         </thead>

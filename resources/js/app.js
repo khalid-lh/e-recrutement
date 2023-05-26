@@ -21,31 +21,37 @@ const Toast =Swal.mixin({
 window.Toast=Toast
 import axios from 'axios';
 
-import Myheader from './components/Myheader'
-import Connexion from './components/Connexion'
-import Register from './components/Register'
-import home_offres from './components/Home_offres'
-import search from './components/search.vue'
+import Myheader from './components/Header/Myheader'
+import Connexion from './components/Auth/Connexion'
+import Register from './components/Auth/Register'
+import home_offres from './components/Other/Home_offres'
+import search from './components/Other/search.vue'
 //recruteur
-import dashboard from './components/dash'
-import profilRecruteur from './components/profilRecruteur'
-import addoffre from './components/addoffre'
-import mescondidats from './components/mescondidatures.vue'
-import deletedOffres from './components/deleted_offre.vue'
+import dashboard from './components/Recruteur/dash'
+import profilRecruteur from './components//Recruteur/profilRecruteur'
+import addoffre from './components//Recruteur/addoffre'
+import mescondidats from './components//Recruteur/mescondidatures.vue'
+import deletedOffres from './components//Recruteur/deleted_offre.vue'
 //userCondidat
 import profilCondidature from './components/condidature/profilcondidature'
 import dashboard_condidature from './components/condidature/dash'
-
+import  mesEnregistrement from './components/condidature/mesenregistrement'
+//Admin
+import dashboard_admin from './components/admin/dash'
+import allOffers from './components/admin/allOffers'
 const routes = [
     { path: '/Connexion', name: 'Connexion',component: Connexion },
-    { path: '/Register', name: 'Register',component: Register},
-    { path: '/recruteur/dashboard', name: 'recruteur_dashboard' ,component: dashboard},
-    { path: '/recruteur/profil', name: 'profil_recruteur' ,component: profilRecruteur},
+    { path: '/Register', name: 'Register',component: Register },
+    { path: '/recruteur/dashboard', name: 'recruteur_dashboard' , component: dashboard},
+    { path: '/recruteur/profil', name: 'profil_recruteur' , component: profilRecruteur},
     { path: '/recruteur/addoffre', name: 'addoffre' , component: addoffre},
     { path: '/recruteur/mescondidatures', name: 'mescondidats' , component: mescondidats},
     { path: '/recruteur/deletedOffres', name: 'mesoffresdeleted' , component: deletedOffres},
-    { path: '/condidat/dashboard', name: 'condidature_dashboard' ,component: dashboard_condidature},
-    { path: '/condidat/profil', name: 'profil_condidature' ,component: profilCondidature},
+    { path: '/condidat/dashboard', name: 'condidature_dashboard' , component: dashboard_condidature},
+    { path: '/condidat/profil', name: 'profil_condidature' , component: profilCondidature},
+    { path: '/condidat/mesenregistrement ', name: 'mesenregistrement' , component: mesEnregistrement},
+    { path: '/admin/dashboard', name: 'admin_dashboard' , component: dashboard_admin},
+    { path: '/admin/alloffers', name: 'allOffers' , component: allOffers},
 
   ]
   
@@ -107,7 +113,16 @@ const condidature = new Vue({
   router,
   components: {
     dashboard_condidature,
-    profilCondidature
+    profilCondidature,
+    mesEnregistrement
   }
 });
 
+const admin = new Vue({
+  el: '#admin_dashboard',
+  router,
+  components: {
+    dashboard_admin,
+    allOffers
+  }
+});

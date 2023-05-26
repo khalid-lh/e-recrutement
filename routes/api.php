@@ -20,7 +20,7 @@ Route::get('/recruteur/dashbaord/getoffres', [\App\Http\Controllers\OffreControl
 Route::delete('/recruteur/dashboard/deleteoffre/{id}',[\App\Http\Controllers\OffreController::class,'deleteOffre']);
 Route::put('/recruteur/dashboard/modifyoffre/{id}',[\App\Http\Controllers\OffreController::class,'update_offre']);
 Route::post('/recruteur/profil/updatelogo',[\App\Http\Controllers\RecruteurController::class,'update_logo']);
-Route::get('/home_offers',[\App\Http\Controllers\OffreController::class,'getAllOffers']);
+Route::get('/home_offers',[\App\Http\Controllers\OffreController::class,'gethomeOffers']);
 Route::get('/offre_emploi',[\App\Http\Controllers\OffreController::class,'show_offre']);
 Route::get('/rechercher/offres',[\App\Http\Controllers\OffreController::class,'searchOffers'])->name('search.offers');;
 Route::post('/postuler_offres', [\App\Http\Controllers\PostulerController::class , 'postuler']);
@@ -40,5 +40,9 @@ Route::get('/condidat/mescondidatures',[\App\Http\Controllers\condidatController
 Route::post('/condidat/profil/updatecv',[\App\Http\Controllers\condidatController::class,'update_cv']);
 Route::post('/send-email',[\App\Http\Controllers\RecruteurController::class,'send_email']);
 Route::delete('/condidat/dashboard/deletepostule/{id}',[\App\Http\Controllers\PostulerController::class,'deletePostulersOffre']);
-
-
+Route::post('/enregistrer_offre', [\App\Http\Controllers\EnregisterController::class , 'enregistrer_offre']);
+Route::get('/condidat/mesenregistrements', [\App\Http\Controllers\EnregisterController::class , 'getmesenregistrements']);
+Route::get('/condidat/dashboard/statistiques',[\App\Http\Controllers\EnregisterController::class,'statistiques']);
+//Admin
+Route::get('/admin/dashboard/statistiques',[\App\Http\Controllers\AdminController::class,'statistiques']);
+Route::get('/admin/getallOffers',[\App\Http\Controllers\OffreController::class,'getallOffers']);

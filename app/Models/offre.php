@@ -21,6 +21,10 @@ class offre extends Model
 {
     return $this->hasMany(Postuler::class, 'id_offre');
 }
+public function enregistrements()
+{
+    return $this->hasMany(enregister::class, 'id_offre');
+}
 public function user()
     {
         return $this->belongsTo(User::class, 'id_recruteur');

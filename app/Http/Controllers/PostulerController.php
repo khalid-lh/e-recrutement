@@ -44,7 +44,6 @@ class PostulerController extends Controller
             ]); 
         }
     }
-        
     }
     public function getoffres_condidats(Request $request)
     {
@@ -89,9 +88,11 @@ foreach ($mescondidatures as $postuler) {
     }
     public function deletePostulersOffre($id)
     {
-        $postule = ModelsPostuler::findOrFail($id);
-        
-        $postule->delete();  
+        $postule = ModelsPostuler::where('postule_id',$id)->get();
+        if($postule){
+            $postule->delete(); 
+        }
+         
         return response()->json(['message' => 'postule deleted successfully']);
     }
 }

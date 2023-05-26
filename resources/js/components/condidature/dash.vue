@@ -1,5 +1,31 @@
 <template>
 <div class="dashboard">
+    <div class="row cards_condidat">
+        <div class="col-lg-4 col-sm-12 col-md-6">
+            <div class="cards">
+                <div class="card-content">
+                    <div class="number">
+                        {{PostulerCount}}
+                    </div>
+                    <div class="card-name">Offres Postuler</div>
+                </div>
+                <div class="icon-box">
+                   <i class="fa-solid fa-check"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-12 col-md-6">
+            <div class="cards">
+                <div class="card-content">
+                    <div class="number">{{EnregistrementCount}}</div>
+                    <div class="card-name">Offres Enregistrer</div>
+                </div>
+                <div class="icon-box">
+                  <i class="fa-solid fa-bookmark"></i>
+                </div>
+            </div>
+        </div>       
+    </div>
     <div class="row mt-4">
         <div class="col-sm-12">
             <div class="card">
@@ -48,12 +74,34 @@ import moment from 'moment';
 export default{
     name: 'Dashboard',
     data() {
-        return {
-          
-         mescondidatures: {},
+        return{
+        PostulerCount: null,
+        EnregistrementCount: null,
+        mescondidatures: {},
         }
     },
     methods: {
+         statistiques() {
+            let token = localStorage.getItem('token');
+            axios.get('/condidat/dashboard/statistiques', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then(response => {
+                    this.PostulerCount = response.data.PostulerCount;
+                    this.EnregistrementCount = response.data.EnregistrementCount;
+                    if(this.PostulerCount == null){
+                        this.PostulerCount = 0;
+                    }
+                    if (this.EnregistrementCount == null) {
+                        this.EnregistrementCount = 0;
+                    }
+                  })
+                .catch(error=>{
+                    console.log(error);
+                });
+        },
         getmescondidature() {
             let token = localStorage.getItem('token')
             axios.get('/condidat/mescondidatures', {  
@@ -72,7 +120,7 @@ export default{
       const start = moment(dateTime);
       const now = moment();
 
-      return start.from(now);
+    return start.from(now);
     },
         deletepostule(id){
             const swalWithBootstrapButtons = Swal.mixin({
@@ -122,6 +170,7 @@ swalWithBootstrapButtons.fire({
     },
     created(){   
         this.getmescondidature();
+        this. statistiques();
     }
 };
 </script>
@@ -136,6 +185,10 @@ td {
     text-align: center;
 }
 
+.cards_condidat{
+    justify-content: center;
+
+}
 .card-title {
     text-align: center;
 }

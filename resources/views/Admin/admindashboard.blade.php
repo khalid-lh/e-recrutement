@@ -3,7 +3,6 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -257,47 +256,26 @@
 }
    </style>
 <body>
-  <div id="app">
+  <div id="admin_dashboard">
   <div class="sidebar">
     <div class="logo-details">
         <i class='bx bx-menu' id="btn" ></i>
     </div>
     <ul class="nav-list">
       <li>
-        <router-link :to="{ name: '' }">
+        <router-link :to="{ name: 'admin_dashboard' }">
           <i class='bx bx-grid-alt'></i>
           <span class="links_name">Dashboard Admin</span>
         
          <span class="tooltip">Dashboard</span>
       </li>
       <li>
-        <router-link :to="{ name: 'addoffre' }" >
-         <i class='bx bx-user' ></i>
-         <span class="links_name">Ajouter offre</span>
-       </router-link>
-       <span class="tooltip">Ajouter offre</span>
-     </li>
-     <li>
-      <router-link :to="{ name: '' }" >
-       <i class='bx bx-user' ></i>
-       <span class="links_name">Mes offres</span>
-     </router-link>
-     <span class="tooltip">Mes offres</span>
-   </li>
-   <li>
-    <router-link :to="{ name: '' }" >
-     <i class='bx bx-user' ></i>
-     <span class="links_name">Condidat</span>
-   </router-link>
-   <span class="tooltip">Condidat</span>
- </li>
- <li>
-  <router-link :to="{ name: 'profil_recruteur' }" >
-   <i class='bx bx-user' ></i>
-   <span class="links_name">Profil</span>
- </router-link>
- <span class="tooltip">Profil</span>
-</li>
+        <router-link :to="{ name: 'allOffers'}">
+          <i class="fa-regular fa-rectangle-list"></i>
+          <span class="links_name">Tous Offres</span>
+         <span class="tooltip">Tous Offres</span>
+      </li>
+
      <li class="profile">
          <div class="profile-details">
            <img src="profile.jpg" alt="profileImg">

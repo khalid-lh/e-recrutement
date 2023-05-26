@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import Popup from "./alertError.vue";
+import Popup from "../Other/alertError.vue";
 export default {
 
     components: {

@@ -39,7 +39,7 @@
       </div>
 </template>
 <script>
-import Popup from "./alertError.vue";
+import Popup from "../Other/alertError.vue";
 export default{
   components: {
     Popup,
@@ -62,7 +62,7 @@ login(){
 axios.post('/Connexion',this.user).then(response=>{
 let user_type = response.data.user.user_type
 let token = response.data.token;
-  if(user_type=='condidat'){
+  if( user_type=='condidat'){
     let timerInterval
 Toast.fire({
   title: 'Chargement de votre tableau de board',
@@ -88,7 +88,7 @@ window.location.href = '/condidat/dashboard';
 
 localStorage.setItem('token',token)
   }else if(user_type=='recruteur'){
-  let timerInterval
+  
 /*Toast.fire({
   title: 'Chargement de votre tableau de board',
   timer: 2000,
@@ -113,6 +113,9 @@ localStorage.setItem('token',token)
 })*/
    window.location.href = '/recruteur/dashboard';
     localStorage.setItem('token',token)
+  }else  if(user_type == 'admin'){
+   window.location.href = '/admin/dashboard';
+   localStorage.setItem('token',token)
   }
   
 }).catch((error)=>{

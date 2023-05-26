@@ -17,7 +17,7 @@ class OffreController extends Controller
     public function __construct()
     {
         
-        $this->middleware('auth:api', ['except' => ['add_offre','getOffres','deleteOffre','update_offre','show_offre','searchOffers','getAllOffers','forcedeleteOffre','restoreOffre']]);
+        $this->middleware('auth:api', ['except' => ['add_offre','getOffres','deleteOffre','update_offre','show_offre','searchOffers','getAllOffers','forcedeleteOffre','restoreOffre','getallOffers']]);
     }
     public function add_offre(Request $request)
     {
@@ -152,7 +152,7 @@ public function getOffres(Request $request)
         }
 }
 
-public function getAllOffers()
+public function gethomeOffers()
 {
     $twoDaysAgo = Carbon::now()->subDays(10);
 
@@ -244,6 +244,17 @@ public function searchOffers(Request $request)
         
         // Return a success response
         return response()->json(['message' => 'Offer restored successfully']);
+    }
+
+    public function getallOffers(Request $request)
+    {
+       
+        $allOffers = ModelsOffre::withTrashed()->orderBy('created_at', 'desc')->get();
+    
+        return response()->json([
+            'allOffers' => $allOffers, 
+            ]);
+        
     }
 
 }

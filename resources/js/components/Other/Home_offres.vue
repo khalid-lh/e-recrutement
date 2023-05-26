@@ -13,12 +13,11 @@
                                         <h5 class="offer-status-text">Nouveau</h5>
                                     </div>
                                     <div class="card-body">
-                                        <h5 class="card-title offre_titre">{{offer.titre_offre}}</h5>
-                                        <p class="offre_comany">{{offer.company.company_name}}</p>
-                                        <p class="offre_ville">{{offer.company.ville}}</p>
+                                        <h5 class="card-title offre_titre"> <i class="fas fa-briefcase"></i> {{offer.titre_offre}}</h5>
+                                        <p class="offre_comany"> <i class="fa-sharp fa-solid fa-building mt-2"></i> {{offer.company.company_name}}</p>
+                                        <p class="offre_ville"> <i class="fa-solid fa-location-dot mt-2"></i>  {{offer.company.ville}}</p>
                                          <p class="offre_description">{{offer.description}}</p>
-                                        <p class="offre_description">{{calculateTimeDifference(offer.created_at)}}</p>
-
+                                        <p class="offre_description"><i class="fa-sharp fa-regular fa-clock"></i> {{calculateTimeDifference(offer.created_at)}}</p>
                                     </div>
                                 </div>
                             </a>

@@ -35,7 +35,9 @@ Route::get('/condidat/{path}', function (){
 Route::get('/condidat/dashboard', function (){
     return view('Condidat/condidatdashboard');
 });
-
+Route::get('/admin/{path}', function (){
+    return view('Admin/admindashboard');
+})->where('path', '(.*)');
 
 /*Route::group(['middleware' => 'auth:api'], function (){
     //add more Routes here

@@ -271,7 +271,13 @@
         </a>
          <span class="tooltip">Dashboard</span>
       </li>
-     
+      <li>
+        <router-link :to="{name: 'mesenregistrement'}" ><a>
+          <i class="fa-solid fa-bookmark"></i>
+          <span class="links_name">Mes Enregistrement</span>
+        </a>
+         <span class="tooltip">Mes Enregistrement</span>
+      </li>
      
    
  <li>
