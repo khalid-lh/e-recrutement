@@ -7,6 +7,10 @@
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link rel="stylesheet" href="{{asset('css/app.css')}}">
+     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
    </head>
    <style>
     /* Google Font Link */
@@ -259,32 +263,52 @@
   <div id="admin_dashboard">
   <div class="sidebar">
     <div class="logo-details">
+        
         <i class='bx bx-menu' id="btn" ></i>
     </div>
     <ul class="nav-list">
       <li>
         <router-link :to="{ name: 'admin_dashboard' }">
           <i class='bx bx-grid-alt'></i>
-          <span class="links_name">Dashboard Admin</span>
-        
+          <span class="links_name">Dashboard Admin</span></router-link>
          <span class="tooltip">Dashboard</span>
       </li>
       <li>
         <router-link :to="{ name: 'allOffers'}">
           <i class="fa-regular fa-rectangle-list"></i>
-          <span class="links_name">Tous Offres</span>
+          <span class="links_name">Tous Offres</span></router-link>
          <span class="tooltip">Tous Offres</span>
       </li>
-
+      <li>
+        <router-link :to="{ name: 'addpost'}">
+          <i class="fa-sharp fa-solid fa-file-pen"></i>
+           <span class="links_name">Ajouter Post</span>
+          </router-link>
+         <span class="tooltip">Ajouter Post</span>
+      </li>
+      <li>
+        <router-link :to="{ name: 'allcompanies'}">
+          <i class="fa-sharp fa-solid fa-building "></i>     
+           <span class="links_name">Societes</span>
+          </router-link>
+         <span class="tooltip">Societes</span>
+      </li>
+      <li>
+        <router-link :to="{ name: 'postsdeleted'}" ><a href="#">
+          <i class="fa-solid fa-trash"></i>
+             <span class="links_name">Brouillant</span>
+       </a></router-link>
+       <span class="tooltip">Brouillant</span>
+      </li>
      <li class="profile">
          <div class="profile-details">
-           <img src="profile.jpg" alt="profileImg">
+          
            <div class="name_job">
-             <div class="name">Prem Shahi</div>
-             <div class="job">Web designer</div>
+             <div class="name">Logout</div>
+             <div class="job"><a href="/login"><i class='bx bx-log-out' id="log_out" ></i></a>
+             </div>
            </div>
          </div>
-         <a href="/login"><i class='bx bx-log-out' id="log_out" ></i></a>
      </li>
     </ul>
   </div>

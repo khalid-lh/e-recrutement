@@ -46,5 +46,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(Profil::class ,'user_id');
     }
-    
+
+    public function companie()
+    {
+        return $this->belongsTo(company::class,'id_recruteur');
+    }
 }

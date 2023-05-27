@@ -557,8 +557,6 @@ h4 {
     outline: none;
 }
 
-/*
- */
 .photo-upload-container {
     background-size: cover;
     background-position: center;

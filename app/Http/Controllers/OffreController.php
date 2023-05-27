@@ -17,7 +17,7 @@ class OffreController extends Controller
     public function __construct()
     {
         
-        $this->middleware('auth:api', ['except' => ['add_offre','getOffres','deleteOffre','update_offre','show_offre','searchOffers','getAllOffers','forcedeleteOffre','restoreOffre','getallOffers']]);
+        $this->middleware('auth:api', ['except' => ['add_offre','getOffres','deleteOffre','update_offre','show_offre','searchOffers','gethomeOffers','forcedeleteOffre','restoreOffre','getallOffers']]);
     }
     public function add_offre(Request $request)
     {
@@ -89,12 +89,10 @@ public function getOffres(Request $request)
         $token=$request->header('Authorization');
         $token=str_replace('Bearer ', '', $token);
         $user=JWTAuth::setToken($token)->authenticate();
-        $offres = ModelsOffre::where('id_recruteur', $user->id )->orderBy('created_at', 'desc')->get();
-    
+        $offres = ModelsOffre::withTrashed()->where('id_recruteur', $user->id )->orderBy('created_at', 'desc')->get();
         return response()->json([
             'offres' => $offres, 
-            ]);
-        
+            ]); 
     }
     public function deleteOffre($id)
     {
@@ -155,7 +153,6 @@ public function getOffres(Request $request)
 public function gethomeOffers()
 {
     $twoDaysAgo = Carbon::now()->subDays(10);
-
     $offers = ModelsOffre::with('company')
         ->where('created_at', '>', $twoDaysAgo)
         ->orderBy('created_at', 'desc') // Sort by created_at in descending order

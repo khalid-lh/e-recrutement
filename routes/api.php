@@ -46,3 +46,11 @@ Route::get('/condidat/dashboard/statistiques',[\App\Http\Controllers\EnregisterC
 //Admin
 Route::get('/admin/dashboard/statistiques',[\App\Http\Controllers\AdminController::class,'statistiques']);
 Route::get('/admin/getallOffers',[\App\Http\Controllers\OffreController::class,'getallOffers']);
+Route::get('/admin/getallcompanies',[\App\Http\Controllers\CompanieController::class,'getallcompanies']);
+Route::post('/admin/addPost',[\App\Http\Controllers\PostController::class,'add_post']);
+Route::get('/admin/getallposts',[\App\Http\Controllers\PostController::class,'getallposts']);
+Route::delete('/admin/deletepost/{id}',[\App\Http\Controllers\PostController::class,'deletepost']);
+Route::get('/getPost/{id}',[\App\Http\Controllers\PostController::class,'getpost']);
+Route::post('/admin/modifypost/{id}',[\App\Http\Controllers\PostController::class,'updatePost']);
+Route::patch('/admin/restorepost/{id}',[\App\Http\Controllers\PostController::class,'restorepost']);
+Route::get('/admin/mespostsdeleted',[\App\Http\Controllers\PostController::class,'getpostsTrashed']);

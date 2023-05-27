@@ -48,7 +48,7 @@ class UserController extends Controller
 
     public function register_condidat(Request $request){
 
-        /*$request->validate([
+        $request->validate([
             'name'=>['required','','min:5','max:10'],
             'email'=>['required','string','unique:users','email','min:12','max:30'],
             'password'=>['required','string','min:8','max:12'],
@@ -57,13 +57,13 @@ class UserController extends Controller
             'pays'=>['required','string'],
             'cv'=>['required','mimes:pdf', 'max:2048'],
             'image'=>['required','mimes:jpeg,png,jpg', 'max:2048']
-        ]);*/
+        ]);
         $user = new ModelsUser();
         $user->name = $request->name;
-        $user->user_type = 'admin';
+        $user->user_type = 'condidat';
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-        /*$profil = new ModelsProfil();
+        $profil = new ModelsProfil();
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '_' . $image->getClientOriginalName();
@@ -78,23 +78,25 @@ class UserController extends Controller
         }
         $profil->telephone = $request->telephone;
         $profil->ville = $request->ville;
-        $profil->pays = $request->pays;*/
-        try{
+        $profil->pays = $request->pays;
+       
+ 
+        try {
             DB::beginTransaction();
             $user->save();
-            /*$profil->user_id = $user->id;
-            $profil->save();*/
+            $profil->user_id = $user->id;
+            $profil->save();
             DB::commit();
-            /*$data = [
+            $data = [
                 'subject' => 'Inscription du compte condidature',
                 'body'=> 'Votre compte condidat a ete enregistrer avec succes   
                 Merci de votre confiance a notre platforme '
             ];
-            Mail::to($user->email)->send(new SendMail($data));*/
-        }catch(\Throwable $e){
+            Mail::to($user->email)->send(new SendMail($data));
+        } catch (\Throwable $e) {
             DB::rollback();
-           /*Storage::delete('/storage/images/'.$imageName);
-            Storage::delete('/storage/pdfs/'.$pdfName);*/
+            Storage::delete('/storage/images/'.$imageName);
+            Storage::delete('/storage/pdfs/'.$pdfName);
             return response()->json([
                 'message' => 'An error occurred while registering the user',
                 'error' => $e->getMessage()

@@ -21,8 +21,8 @@ class RecruteurController extends Controller
         $user=JWTAuth::setToken($token)->authenticate();
         $id=$user->id;
         try{
-        $Stagecount=ModelsOffre::where('id_recruteur', $user->id)->where('type_offre','Stage')->count();
-        $Emploicount=ModelsOffre::where('id_recruteur', $user->id)->where('type_offre','Emploi')->count();
+        $Stagecount=ModelsOffre::withTrashed()->where('id_recruteur', $user->id)->where('type_offre','Stage')->count();
+        $Emploicount=ModelsOffre::withTrashed()->where('id_recruteur', $user->id)->where('type_offre','Emploi')->count();
         $n_postulers = ModelsPostuler::whereIn('id_offre', function ($query) use ($id) {
             $query->select('id_offre')->from('offres')->where('id_recruteur', $id)->whereNull('deleted_at');
         })->count();

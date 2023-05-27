@@ -7,45 +7,8 @@
                         <div class="card-header">
                             <h4 class="card-title ">Tous les emplois</h4>
                         </div>
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <label for="typeSelect">Lister les offres : </label>
-                                <select id="typeSelect" v-model="selectedType">
-                                    <option value="Stage">Stage</option>
-                                    <option value="Emploi">Emploi</option>
-                                </select>
-                            </div>
-
-                            <table class="table table-striped walla table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Titre</th>
-                                        <th>N° Postes</th>
-                                        <th>Precense</th>
-                                        <th>Date Creation</th>
-                                        <th>lien Offre</th>
-                                        <th>Status</th>
-                                        <th v-if="selectedType === 'Stage'">Duree</th>
-                                        <th v-if="selectedType === 'Stage'">Convension</th>
-                                        <th v-if="selectedType === 'Emploi'">Annee_Experience</th>
-                                       
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="offre in filteredOffres" :key="offre.id_offre">
-                                        <td>{{ offre.titre_offre }}</td>
-                                        <td>{{ offre.n_postes }}</td>
-                                        <td>{{ offre.presence}}</td>
-                                        <td>{{ calculateTimeDifference(offre.created_at)}}</td>
-                                        <td><a :href="'/offre_emploi?key=' + offre.id_offre + '&slug=' +offre.slug">lien offre</a></td>
-                                        <td v-if=" offre.deleted_at" > <p id="status_draft"> Draft</p> </td>
-                                        <td v-else > <p id="status_live">Live</p></td>
-                                        <td v-if="selectedType === 'Stage'">{{ offre.duree }}</td>
-                                        <td v-if="selectedType === 'Stage'">{{ offre.convension }}</td>
-                                        <td v-if="selectedType === 'Emploi'">A partir {{ offre.annee_experience }} ans </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="row">
+                            
                         </div>
                     </div>
                 </div>

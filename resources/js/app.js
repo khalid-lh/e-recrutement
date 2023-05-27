@@ -39,6 +39,9 @@ import  mesEnregistrement from './components/condidature/mesenregistrement'
 //Admin
 import dashboard_admin from './components/admin/dash'
 import allOffers from './components/admin/allOffers'
+import allcompanies from './components/admin/listcompanies'
+import addpost from './components/admin/addPost'
+import postsdeletd from './components/admin/brouillant'
 const routes = [
     { path: '/Connexion', name: 'Connexion',component: Connexion },
     { path: '/Register', name: 'Register',component: Register },
@@ -52,8 +55,11 @@ const routes = [
     { path: '/condidat/mesenregistrement ', name: 'mesenregistrement' , component: mesEnregistrement},
     { path: '/admin/dashboard', name: 'admin_dashboard' , component: dashboard_admin},
     { path: '/admin/alloffers', name: 'allOffers' , component: allOffers},
+    { path: '/admin/allCompanies', name: 'allcompanies' , component: allcompanies},
+    { path: '/admin/addPost', name: 'addpost' , component: addpost},
+    { path: '/admin/Brouillant', name: 'postsdeleted' , component: postsdeletd},
 
-  ]
+  ] 
   
   const router = new VueRouter({
     mode:'history',
@@ -123,6 +129,9 @@ const admin = new Vue({
   router,
   components: {
     dashboard_admin,
-    allOffers
+    allOffers,
+    allcompanies,
+    addpost,
+    postsdeletd
   }
 });

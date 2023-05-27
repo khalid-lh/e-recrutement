@@ -67,6 +67,7 @@
                                         <th v-if="selectedType === 'Stage'">Duree</th>
                                         <th v-if="selectedType === 'Stage'">Convension</th>
                                         <th v-if="selectedType === 'Emploi'">Annee_Experience</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -80,6 +81,8 @@
                                         <td v-if="selectedType === 'Stage'">{{ offre.duree }}</td>
                                         <td v-if="selectedType === 'Stage'">{{ offre.convension }}</td>
                                         <td v-if="selectedType === 'Emploi'">A partir {{ offre.annee_experience }} ans </td>
+                                        <td v-if=" offre.deleted_at" > <p id="status_draft"> Draft</p> </td>
+                                        <td v-else > <p id="status_live">Live</p></td>
                                         <td>
                                             <button class="btn btn-success btn-sm" @click="showAlert(offre)"><i class="fa fa-edit"></i></button>
                                             <button class="btn btn-danger btn-sm" @click="deleteOffre(offre.id_offre)"><i class="fa fa-trash"></i></button>
@@ -368,5 +371,20 @@ td {
 .icon-box i {
     font-size: 45px;
     color: #299b63;
+}
+#status_live{
+    background-color: deepskyblue;
+    border-radius: 10px;
+
+}
+#status_draft{
+    background-color: red;
+    border-radius: 10px;
+
+}
+p{
+color: #fff;
+font-size: 15px;
+text-decoration-style: dashed;
 }
 </style>

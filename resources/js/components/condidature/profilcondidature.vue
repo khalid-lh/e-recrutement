@@ -246,7 +246,6 @@
             </div>
         </div>
     </div>
-
 </div>
 </template>
 
@@ -343,7 +342,6 @@ export default {
             $('#myModal').modal('hide');
         },
         showAlert() {
-
             $('#myModal').modal('show');
             var backdrop = document.querySelector('.modal-backdrop');
 
@@ -367,7 +365,7 @@ export default {
                     // console.log(error.response.data); // retrieve any error messages returned by Laravel
                 });
         },
-        updatecondidat() {
+        updatecondidat(){
             let token = localStorage.getItem('token');
             axios.put('/condidat/profil/updatecondidat', this.updatedcondidat, {
                     headers: {
@@ -376,16 +374,15 @@ export default {
                 })
                 .then(response => {
                     let message = response.data.message;
-                    if (message == 'condidat information updated successfully.') {
+                    if(message == 'condidat information updated successfully.') {
 
                         this.profilCondidat();
-                    } else {
-
+                    }else{
                     }
                 })
                 .catch(error => {});
         },
-        getBase64Image() {
+        getBase64Image(){
             if (this.condidat && this.condidat.photo) {
                 //return `data:image/jpg;base64,${btoa(String.fromCharCode.apply(null, this.company.photo))}`;
                 return `/storage/images/${this.condidat.photo}`;

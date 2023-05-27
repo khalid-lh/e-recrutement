@@ -18,8 +18,8 @@ class AdminController extends Controller
     public function statistiques(Request $request)
     {
         try{
-        $Stagecount=ModelsOffre::where('type_offre','Stage')->count();        
-        $EmploiCount=ModelsOffre::where('type_offre','Emploi')->count(); #
+        $Stagecount=ModelsOffre::withTrashed()->where('type_offre','Stage')->count();        
+        $EmploiCount=ModelsOffre::withTrashed()->where('type_offre','Emploi')->count(); 
         $UsersCount=ModelsUsers::where('user_type', '<>', 'admin')->count(); 
         $companyCount=ModelsCompany::count(); 
             return response()->json([ 

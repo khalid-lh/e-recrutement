@@ -7,10 +7,23 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item item">
-            <a href="/liste_offres" class="nav-link">Listes Offres</a>
+      <ul v-if="isAuthenticated" class="navbar-nav">
+      <div class="dropdown">
+  <span>Dashboard</span>
+  <div class="dropdown-content">
+    <li class="nav-item item">
+          <a href="/admin/dashboard" class="nav-link">Dashboard</a>
         </li>
+        <li class="nav-item item">
+          <a href="/login" class="nav-link">Deconnecter</a>
+        </li>
+  </div>
+</div>
+
+        </ul>
+        <ul v-else class="navbar-nav">
+        
+         
         <li class="nav-item item">
           <a href="/login" class="nav-link">Se connecter</a>
         </li>
@@ -27,9 +40,19 @@
 </template>
 <script>
 export default {
-  computed:{  
+  data() {
+    return {
+      isAuthenticated: false,
+    };
   },
-  mounted(){
+  mounted() {
+    this.isAuthenticated = this.checkAuthentication();
+  },
+  methods:{
+    checkAuthentication() {
+      const token = localStorage.getItem('token');
+      return !!token;// Replace with your authentication check logic using Laravel's Auth
+    }
   },
 };
 
@@ -87,4 +110,28 @@ h2{
   color: midnightblue;
 }
 
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  margin-left: -100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  }
+  @media (max-width: 980px){
+ .dropdown-content{
+  margin-left: 0px;
+}
+}
 </style>

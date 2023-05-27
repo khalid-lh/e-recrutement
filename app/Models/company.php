@@ -17,4 +17,8 @@ class company extends Model
 }
 protected $fillable = ['photo'];
 
+public function recruteur()
+    {
+        return $this->belongsTo(User::class, 'id_recruteur');    
+    }
 }
