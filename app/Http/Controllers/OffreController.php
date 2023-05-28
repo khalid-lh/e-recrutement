@@ -209,14 +209,11 @@ public function searchOffers(Request $request)
         return response()->json([
             'mesoffresdeleted' => $mesoffresdeleted, 
             ]);
-        
     }
     public function forcedeleteOffre($id)
     {
         $offre = ModelsOffre::withTrashed()->find($id);
-    
-        if (!$offre) {
-            // Offer not found
+        if(!$offre){
             return response()->json(['error' => 'Offer not found'], 404);
         }
         

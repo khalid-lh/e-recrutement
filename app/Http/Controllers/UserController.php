@@ -81,16 +81,16 @@ class UserController extends Controller
         $profil->pays = $request->pays;
        
  
-        try {
+        try{
             DB::beginTransaction();
             $user->save();
             $profil->user_id = $user->id;
             $profil->save();
             DB::commit();
             $data = [
-                'subject' => 'Inscription du compte condidature',
-                'body'=> 'Votre compte condidat a ete enregistrer avec succes   
-                Merci de votre confiance a notre platforme '
+                'name'=>$user->name,
+                'type'=>'inscription condidat',
+                'subject' => 'Inscription du compte condidat',
             ];
             Mail::to($user->email)->send(new SendMail($data));
         } catch (\Throwable $e) {
@@ -168,9 +168,10 @@ class UserController extends Controller
             $company->save();
             DB::commit();
             $data = [
- 'subject' => 'REGISTRATION DU COMPTE RECRUTEUR',
- 'body'=> 'Votre compte recruteur a ete enregistrer avec succes
- Merci de votre confiance a notre platforme '
+                'name'=>$user->name,
+                'type'=>'inscription recruteur',
+                'subject' => 'REGISTRATION DU COMPTE RECRUTEUR',
+
             ];
             Mail::to($user->email)->send(new SendMail($data));
         } catch (\Throwable $e) {

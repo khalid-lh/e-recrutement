@@ -9,6 +9,9 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Models\postuler as ModelsPostuler;
 use App\Models\User as ModelsUser;
+
+use App\Mail\SendMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\offre as ModelsOffre;
@@ -16,13 +19,9 @@ class PostulerController extends Controller
 {
     public function postuler(Request $request)
     {
-        /*$token= substr($request->header('Authorization'), 7);
-        $token= $request->header('Authorization');
-        $token= str_replace('Bearer ', '', $token);*/
-        $user= JWTAuth::setToken($request->query('token'))->authenticate();
-
+    $user= JWTAuth::setToken($request->query('token'))->authenticate();
     $existingData = ModelsPostuler::where('id', $user->id)->where('id_offre', $request->query('id'))->first();
-
+    $offreDetaille = ModelsOffre::where('id_offre', $request->query('id'))->with('company')->first();
     if ($existingData) {
         // Data already exists, return error message
         return response()->json([ 
@@ -35,6 +34,15 @@ class PostulerController extends Controller
 
         $saved = $postuler->save();
         if($saved){
+            $data = [
+                'name'=>$user->name,
+                'company'=>$offreDetaille->company->company_name,
+                'offre_name'=>$offreDetaille->titre_offre,
+                'date'=>$postuler->created_at,
+                'type'=>'postulement',
+                'subject' => 'candidature pour le post "'. $offreDetaille->titre_offre .'"',
+            ];
+            Mail::to($user->email)->send(new SendMail($data));
             return response()->json([
                 'message'=> 'Votre condidature a été bien enregistrer', 
             ]);   
