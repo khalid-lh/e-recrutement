@@ -129,7 +129,7 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="input-field">
-                                        <input type="text" required id="name_societe" v-model="company.name">
+                                        <input type="text" required id="company_name" v-model="company.company_name">
                                         <label>Nom Société</label>
                                     </div>
                                 </div>
@@ -200,7 +200,7 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="input-field">
-                                        <input type="email" required id="email_recruteur" v-model="user_recruteur.email_recruteur">
+                                        <input type="email" required id="email" v-model="user_recruteur.email">
                                         <label>Email</label>
                                     </div>
                                 </div>
@@ -277,12 +277,12 @@ export default {
             },
             user_recruteur: {
                 name_recruteur: '',
-                email_recruteur: '',
+                email: '',
                 password_recruteur: ''
             },
             register_commerce: null,
             company: {
-                name: '',
+                company_name: '',
                 telephone: '',
                 ville: '',
                 code_postal: '',
@@ -314,9 +314,9 @@ export default {
             errors_recruteur: {
                 rec_err: {},
                 name_recruteur: {},
-                email_recruteur: {},
+                email: {},
                 password_recruteur: {},
-                name_societe: {},
+                company_name: {},
                 telephone_societe: {},
                 ville_societe: {},
                 pays_societe: {},
@@ -397,9 +397,9 @@ export default {
         register_recruteur() {
             let Recruteur = new FormData();
             Recruteur.append('name_recruteur', this.user_recruteur.name_recruteur);
-            Recruteur.append('email_recruteur', this.user_recruteur.email_recruteur);
+            Recruteur.append('email', this.user_recruteur.email);
             Recruteur.append('password_recruteur', this.user_recruteur.password_recruteur);
-            Recruteur.append('name_societe', this.company.name);
+            Recruteur.append('company_name', this.company.company_name);
             Recruteur.append('telephone_societe', this.company.telephone);
             Recruteur.append('ville_societe', this.company.ville);
             Recruteur.append('pays_societe', this.company.pay);
@@ -419,6 +419,7 @@ export default {
                 this.register_commerce = null;
                 this.logoUrl = 'https://i.pinimg.com/originals/76/30/ad/7630ad49bdc79b8482c8627c663a1373.png';
             }).catch((errors) => {
+               
                 this.errors_recruteur = errors.response.data.errors
                 this.checkErrors(this.errors_recruteur);
             })

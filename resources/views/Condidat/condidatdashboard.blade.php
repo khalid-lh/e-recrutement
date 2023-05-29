@@ -289,7 +289,7 @@
 </li>
      <li class="profile">
          
-         <a href="/login">
+         <a href="{{ route('deconnexion') }}">
           <i class='bx bx-log-out' id="log_out" >
           <span class="links_name">Logout</span></i></a>
      </li>

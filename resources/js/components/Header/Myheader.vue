@@ -7,23 +7,20 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul v-if="isAuthenticated" class="navbar-nav">
-      <div class="dropdown">
-  <span>Dashboard</span>
-  <div class="dropdown-content">
-    <li class="nav-item item">
-          <a href="/admin/dashboard" class="nav-link">Dashboard</a>
-        </li>
-        <li class="nav-item item">
-          <a href="/login" class="nav-link">Deconnecter</a>
-        </li>
-  </div>
-</div>
-
-        </ul>
+     <ul v-if="isAuthenticated" class="navbar-nav">
+            <div class="dropdown">
+              <span>Dashboard</span>
+              <div class="dropdown-content">
+                <li class="nav-item item">
+                <a :href="getDashboardLink()" class="dropdown-item">Dashboard</a>
+                </li>
+                <li class="nav-item item">
+                  <a @click="logout" class="nav-link"><button class="deconnecter">Deconnecter</button></a>
+                </li>
+              </div>
+            </div>
+          </ul>
         <ul v-else class="navbar-nav">
-        
-         
         <li class="nav-item item">
           <a href="/login" class="nav-link">Se connecter</a>
         </li>
@@ -43,23 +40,57 @@ export default {
   data() {
     return {
       isAuthenticated: false,
+      userType: "",
     };
   },
   mounted() {
     this.isAuthenticated = this.checkAuthentication();
-  },
-  methods:{
-    checkAuthentication() {
-      const token = localStorage.getItem('token');
-      return !!token;// Replace with your authentication check logic using Laravel's Auth
+    if (this.isAuthenticated) {
+      this.getUserTypeFromDatabase();
     }
   },
+  methods: {
+    checkAuthentication() {
+      const token = localStorage.getItem("token");
+      return !!token; // Check if token exists in localStorage
+    },
+    getUserTypeFromDatabase() {
+      const token = localStorage.getItem("token");
+      axios
+        .get("/getUserType", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          this.userType = response.data.userType;
+        })
+        .catch((error) => {
+          // Handle error
+          console.log(error);
+        });
+    },
+    getDashboardLink() {
+      switch (this.userType) {
+        case "recruteur":
+          return "/recruteur/dashboard";
+        case "candidat":
+          return "/candidat/dashboard";
+        case "admin":
+          return "/admin/dashboard";
+        default:
+          return "";
+      }
+    },
+    logout() {
+      localStorage.removeItem("token");
+      this.isAuthenticated = false;
+    },
+  },
 };
-
 </script>
+
 <style scoped>
-
-
 .header_content{
   box-shadow: 0 20px 15px 0 rgba(92, 148, 207, 0.1);
 }
@@ -133,5 +164,9 @@ h2{
  .dropdown-content{
   margin-left: 0px;
 }
+}
+.deconnecter{
+  text-decoration: none;
+  background-color:#f9f9f9 ;
 }
 </style>

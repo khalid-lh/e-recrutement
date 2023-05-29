@@ -11,6 +11,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/Connexion',[\App\Http\Controllers\UserController::class,'login']);
 Route::post('Register/condidat',[\App\Http\Controllers\UserController::class,'register_condidat']);
 Route::post('Register/recruteur',[\App\Http\Controllers\UserController::class,'register_recruteur']);
+Route::get('/logout',[\App\Http\Controllers\UserController::class,'deconnexion'])->name('deconnexion');
+Route::get('/getUserType',[\App\Http\Controllers\UserController::class,'getUserTypeFromDatabase']);
+
 //Recruteur
 Route::post('/recruteur/addoffre',[\App\Http\Controllers\OffreController::class,'add_offre']);
 Route::get('/recruteur/dashboard/statistiques',[\App\Http\Controllers\RecruteurController::class,'statistiques']);

@@ -19,6 +19,7 @@
   </div>
          <header>Login Form</header>
          
+      
             <div class="input-field">
                <input type="email" required id="email" v-model="user.email">
                <label>Email </label>
@@ -52,17 +53,19 @@ export default{
         },
         errors:{
             email:{},
-            password:{}
-        },popupMessage: ""
+            password:{},
+
+        },
+        popupMessage: ""
     }
-    
   },
   methods:{
 login(){
 axios.post('/Connexion',this.user).then(response=>{
 let user_type = response.data.user.user_type
 let token = response.data.token;
-  if( user_type=='condidat'){
+if(response.data.message=='Authentication successful'){
+  if(user_type=='condidat'){
     let timerInterval
 Toast.fire({
   title: 'Chargement de votre tableau de board',
@@ -117,10 +120,16 @@ localStorage.setItem('token',token)
    window.location.href = '/admin/dashboard';
    localStorage.setItem('token',token)
   }
+}
+
   
 }).catch((error)=>{
+  if ( error.response.status === 401) {
+this.popupMessage = "Invalid Email ou Mot de Pass";
+  }
  this.errors=error.response.data.errors
- this.checkErrors();
+ this.checkErrors();        
+
 })
 },checkErrors() {
       

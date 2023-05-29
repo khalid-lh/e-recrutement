@@ -305,7 +305,7 @@
           
            <div class="name_job">
              <div class="name">Logout</div>
-             <div class="job"><a href="/login"><i class='bx bx-log-out' id="log_out" ></i></a>
+             <div class="job"><a href="{{ route('deconnexion') }}"><i class='bx bx-log-out' id="log_out" ></i></a>
              </div>
            </div>
          </div>
