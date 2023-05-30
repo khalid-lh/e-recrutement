@@ -16,8 +16,6 @@ use Illuminate\Database\QueryException;
 
 class UserController extends Controller
 {
-
-    
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['login','register_condidat','register_recruteur','deconnexion']]);
@@ -30,7 +28,7 @@ class UserController extends Controller
    
     public function deconnexion()
 {
-     Auth::logout(); 
+    auth::logout(); 
 
     return view('recruteurdashboard');
 }

@@ -310,16 +310,15 @@
  </a></router-link>
  <span class="tooltip">Profil</span>
 </li>
-     <li class="profile">
-         <div class="profile-details">
-           <img src="profile.jpg" alt="profileImg">
-           <div class="name_job">
-             <div class="name">Prem Shahi</div>
-             <div class="job">Web designer</div>
-           </div>
-         </div>
-         <a href="{{ route('deconnexion') }}"><i class='bx bx-log-out' id="log_out" ></i></a>
-     </li>
+<li class="profile">
+  <a href="/login"  class="nav-link " onclick="logoutUser()">
+  <div class="profile-details">
+    <div class="name_job" style="display: flex">
+      <i class="fa-solid fa-arrow-right-from-bracket" style="margin-left: -20px;"></i>
+      <span class="links_name mt-3">Logout</span>
+    </div>
+  </div></a>
+</li>
     </ul>
   </div>
   <section class="home-section">
@@ -328,29 +327,6 @@
 </div>
 
 <script src="{{asset('js/app.js')}}"></script>
-  <script>
-  let sidebar = document.querySelector(".sidebar");
-  let closeBtn = document.querySelector("#btn");
-  let searchBtn = document.querySelector(".bx-search");
-
-  closeBtn.addEventListener("click", ()=>{
-    sidebar.classList.toggle("open");
-    menuBtnChange();//calling the function(optional)
-  });
-
-  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
-    sidebar.classList.toggle("open");
-    menuBtnChange(); //calling the function(optional)
-  });
-
-  // following are the code to change sidebar button(optional)
-  function menuBtnChange() {
-   if(sidebar.classList.contains("open")){
-     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
-   }else {
-     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
-   }
-  }
-  </script>
+  <script src="{{ asset('js/recruteurdashboard.js')}}"></script>
 </body>
 </html>

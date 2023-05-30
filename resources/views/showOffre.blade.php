@@ -234,6 +234,17 @@ align-items: center;
         `;
         document.getElementById('alertContainer').innerHTML = alertHTML;
         scrollToTop();
+        }else if(message=='You do not have the privilege to postuler.'){
+            let alertHTML = `
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Vous n’avez pas le droit de postuler.</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+        document.getElementById('alertContainer').innerHTML = alertHTML;
+     
         }
             })
             .catch(error => {

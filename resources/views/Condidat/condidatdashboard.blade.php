@@ -220,22 +220,7 @@
 .sidebar li.profile .job{
   font-size: 12px;
 }
-.sidebar .profile #log_out{
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  background: #1d1b31;
-  width: 100%;
-  height: 60px;
-  line-height: 60px;
-  border-radius: 0px;
-  transition: all 0.5s ease;
-}
-.sidebar.open .profile #log_out{
-  width: 50px;
-  background: none;
-}
+
 .home-section{
   position: relative;
   background: #FFF;
@@ -245,6 +230,7 @@
   transition: all 0.5s ease;
   z-index: 2;
 }
+
 .sidebar.open ~ .home-section{
   left: 250px;
   width: calc(100% - 250px);
@@ -287,12 +273,15 @@
  </a></router-link>
  <span class="tooltip">Profil</span>
 </li>
-     <li class="profile">
-         
-         <a href="{{ route('deconnexion') }}">
-          <i class='bx bx-log-out' id="log_out" >
-          <span class="links_name">Logout</span></i></a>
-     </li>
+<li class="profile">
+  <a href="/login"  class="nav-link " onclick="logoutUser()">
+  <div class="profile-details">
+    <div class="name_job" style="display: flex">
+      <i class="fa-solid fa-arrow-right-from-bracket" style="margin-left: -20px;"></i>
+      <span class="links_name mt-3">Logout</span>
+    </div>
+  </div></a>
+</li>
     </ul>
   </div>
   <section class="home-section">
@@ -301,29 +290,8 @@
 </div>
 
 <script src="{{asset('js/app.js')}}"></script>
-  <script>
-  let sidebar = document.querySelector(".sidebar");
-  let closeBtn = document.querySelector("#btn");
-  let searchBtn = document.querySelector(".bx-search");
 
-  closeBtn.addEventListener("click", ()=>{
-    sidebar.classList.toggle("open");
-    menuBtnChange();//calling the function(optional)
-  });
+    <script src="{{ asset('js/condidatdashboard.js')}}"></script>
 
-  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
-    sidebar.classList.toggle("open");
-    menuBtnChange(); //calling the function(optional)
-  });
-
-  // following are the code to change sidebar button(optional)
-  function menuBtnChange() {
-   if(sidebar.classList.contains("open")){
-     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
-   }else {
-     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
-   }
-  }
-  </script>
 </body>
 </html>

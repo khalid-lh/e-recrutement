@@ -9,13 +9,13 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
      <ul v-if="isAuthenticated" class="navbar-nav">
             <div class="dropdown">
-              <span>Dashboard</span>
+              <span><i class="fa-solid fa-caret-down"></i></span>
               <div class="dropdown-content">
                 <li class="nav-item item">
                 <a :href="getDashboardLink()" class="dropdown-item">Dashboard</a>
                 </li>
                 <li class="nav-item item">
-                  <a @click="logout" class="nav-link"><button class="deconnecter">Deconnecter</button></a>
+                 <button class="deconnecter" @click="logout">Deconnecter</button>
                 </li>
               </div>
             </div>
@@ -74,7 +74,7 @@ export default {
       switch (this.userType) {
         case "recruteur":
           return "/recruteur/dashboard";
-        case "candidat":
+        case "condidat":
           return "/candidat/dashboard";
         case "admin":
           return "/admin/dashboard";

@@ -5352,8 +5352,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -5402,7 +5400,7 @@ __webpack_require__.r(__webpack_exports__);
                 console.log('I was closed by the timer');
               }
             });
-            window.location.href = '/condidat/dashboard';
+            window.location.href = '/candidat/dashboard';
             localStorage.setItem('token', token);
           } else if (user_type == 'recruteur') {
             /*Toast.fire({
@@ -6011,7 +6009,7 @@ __webpack_require__.r(__webpack_exports__);
       switch (this.userType) {
         case "recruteur":
           return "/recruteur/dashboard";
-        case "candidat":
+        case "condidat":
           return "/candidat/dashboard";
         case "admin":
           return "/admin/dashboard";
@@ -8975,15 +8973,15 @@ var routes = [{
   name: 'mesoffresdeleted',
   component: _components_Recruteur_deleted_offre_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
 }, {
-  path: '/condidat/dashboard',
+  path: '/candidat/dashboard',
   name: 'condidature_dashboard',
   component: _components_condidature_dash__WEBPACK_IMPORTED_MODULE_14__["default"]
 }, {
-  path: '/condidat/profil',
+  path: '/candidat/profil',
   name: 'profil_condidature',
   component: _components_condidature_profilcondidature__WEBPACK_IMPORTED_MODULE_13__["default"]
 }, {
-  path: '/condidat/mesenregistrement ',
+  path: '/candidat/mesenregistrement ',
   name: 'mesenregistrement',
   component: _components_condidature_mesenregistrement__WEBPACK_IMPORTED_MODULE_15__["default"]
 }, {
@@ -60061,8 +60059,6 @@ var render = function () {
       1
     ),
     _vm._v(" "),
-    _c("header", [_vm._v("Login Form")]),
-    _vm._v(" "),
     _c("div", { staticClass: "input-field" }, [
       _c("input", {
         directives: [
@@ -60129,8 +60125,10 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "signup" }, [
-      _vm._v("\r\n            Not a member? "),
-      _c("a", { attrs: { href: "/Register" } }, [_vm._v("Signup now")]),
+      _vm._v("\r\n           Vous n’êtes pas membre? "),
+      _c("a", { attrs: { href: "/Register" } }, [
+        _vm._v("Inscrivez-vous maintenant"),
+      ]),
     ])
   },
 ]
@@ -61417,7 +61415,7 @@ var render = function () {
               _vm.isAuthenticated
                 ? _c("ul", { staticClass: "navbar-nav" }, [
                     _c("div", { staticClass: "dropdown" }, [
-                      _c("span", [_vm._v("Dashboard")]),
+                      _vm._m(2),
                       _vm._v(" "),
                       _c("div", { staticClass: "dropdown-content" }, [
                         _c("li", { staticClass: "nav-item item" }, [
@@ -61433,25 +61431,21 @@ var render = function () {
                         _vm._v(" "),
                         _c("li", { staticClass: "nav-item item" }, [
                           _c(
-                            "a",
+                            "button",
                             {
-                              staticClass: "nav-link",
+                              staticClass: "deconnecter",
                               on: { click: _vm.logout },
                             },
-                            [
-                              _c("button", { staticClass: "deconnecter" }, [
-                                _vm._v("Deconnecter"),
-                              ]),
-                            ]
+                            [_vm._v("Deconnecter")]
                           ),
                         ]),
                       ]),
                     ]),
                   ])
                 : _c("ul", { staticClass: "navbar-nav" }, [
-                    _vm._m(2),
-                    _vm._v(" "),
                     _vm._m(3),
+                    _vm._v(" "),
+                    _vm._m(4),
                   ]),
             ]
           ),
@@ -61488,6 +61482,12 @@ var staticRenderFns = [
       },
       [_c("span", { staticClass: "navbar-toggler-icon" })]
     )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [_c("i", { staticClass: "fa-solid fa-caret-down" })])
   },
   function () {
     var _vm = this

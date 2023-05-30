@@ -17,9 +17,7 @@
   <div>
     <Popup :message="popupMessage" v-if="popupMessage" @close="clearError" />
   </div>
-         <header>Login Form</header>
          
-      
             <div class="input-field">
                <input type="email" required id="email" v-model="user.email">
                <label>Email </label>
@@ -35,7 +33,7 @@
                <button @click="login">LOGIN</button>
             </div>
          <div class="signup">
-            Not a member? <a href="/Register">Signup now</a>
+           Vous n’êtes pas membre? <a href="/Register">Inscrivez-vous maintenant</a>
          </div>
       </div>
 </template>
@@ -87,7 +85,7 @@ Toast.fire({
     console.log('I was closed by the timer')
   }
 })
-window.location.href = '/condidat/dashboard';
+window.location.href = '/candidat/dashboard';
 
 localStorage.setItem('token',token)
   }else if(user_type=='recruteur'){

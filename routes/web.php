@@ -29,10 +29,10 @@ Route::get('/recruteur/dashboard', function (){
 Route::get('/recruteur/{path}', function (){
     return view('recruteurdashboard');
 })->where('path', '(.*)');
-Route::get('/condidat/{path}', function (){
+Route::get('/candidat/{path}', function (){
     return view('Condidat/condidatdashboard');
 })->where('path', '(.*)');
-Route::get('/condidat/dashboard', function (){
+Route::get('/candidat/dashboard', function (){
     return view('Condidat/condidatdashboard');
 });
 Route::get('/admin/{path}', function (){

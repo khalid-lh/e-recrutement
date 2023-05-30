@@ -206,13 +206,7 @@
   align-items: center;
   flex-wrap: nowrap;
 }
-.sidebar li img{
-  height: 45px;
-  width: 45px;
-  object-fit: cover;
-  border-radius: 6px;
-  margin-right: 10px;
-}
+
 .sidebar li.profile .name,
 .sidebar li.profile .job{
   font-size: 15px;
@@ -223,22 +217,8 @@
 .sidebar li.profile .job{
   font-size: 12px;
 }
-.sidebar .profile #log_out{
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  background: #1d1b31;
-  width: 100%;
-  height: 60px;
-  line-height: 60px;
-  border-radius: 0px;
-  transition: all 0.5s ease;
-}
-.sidebar.open .profile #log_out{
-  width: 50px;
-  background: none;
-}
+
+
 .home-section{
   position: relative;
   background: #FFF;
@@ -300,16 +280,15 @@
        </a></router-link>
        <span class="tooltip">Brouillant</span>
       </li>
-     <li class="profile">
-         <div class="profile-details">
-          
-           <div class="name_job">
-             <div class="name">Logout</div>
-             <div class="job"><a href="{{ route('deconnexion') }}"><i class='bx bx-log-out' id="log_out" ></i></a>
-             </div>
-           </div>
-         </div>
-     </li>
+      <li class="profile">
+        <a href="/login"  class="nav-link " onclick="logoutUser()">
+        <div class="profile-details">
+          <div class="name_job" style="display: flex">
+            <i class="fa-solid fa-arrow-right-from-bracket" style="margin-left: -20px;"></i>
+            <span class="links_name mt-3">Logout</span>
+          </div>
+        </div></a>
+    </li>
     </ul>
   </div>
   <section class="home-section">
@@ -318,29 +297,7 @@
 </div>
 
 <script src="{{asset('js/app.js')}}"></script>
-  <script>
-  let sidebar = document.querySelector(".sidebar");
-  let closeBtn = document.querySelector("#btn");
-  let searchBtn = document.querySelector(".bx-search");
+      <script src="{{ asset('js/admindashboard.js')}}"></script>
 
-  closeBtn.addEventListener("click", ()=>{
-    sidebar.classList.toggle("open");
-    menuBtnChange();//calling the function(optional)
-  });
-
-  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
-    sidebar.classList.toggle("open");
-    menuBtnChange(); //calling the function(optional)
-  });
-
-  // following are the code to change sidebar button(optional)
-  function menuBtnChange() {
-   if(sidebar.classList.contains("open")){
-     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
-   }else {
-     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
-   }
-  }
-  </script>
 </body>
 </html>

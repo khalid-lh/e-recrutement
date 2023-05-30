@@ -18,14 +18,25 @@
             body {
                 font-family: 'Nunito', sans-serif;
             }
+            
+            h1{
+                text-align: center;
+                font-size: 17%;
+                font-weight: 700;
+            }
         </style>
+        
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
     </head>
     <body>
+       
             <div id="header"> 
                 <Myheader>
                 </Myheader>   
             </div> 
+            <div>
+                <h1 class="mt-4">Connectez-vous sur nos platform</h1>
+            </div>
             <div id="login"> 
                 <Connexion></Connexion>
             </div>   

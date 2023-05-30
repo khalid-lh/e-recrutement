@@ -22,6 +22,11 @@ class PostulerController extends Controller
     $user= JWTAuth::setToken($request->query('token'))->authenticate();
     $existingData = ModelsPostuler::where('id', $user->id)->where('id_offre', $request->query('id'))->first();
     $offreDetaille = ModelsOffre::where('id_offre', $request->query('id'))->with('company')->first();
+    if ($user->user_type !== 'condidat') {
+        return response()->json([
+            'message' => 'You do not have the privilege to postuler.',
+        ]);
+    }
     if ($existingData) {
         // Data already exists, return error message
         return response()->json([ 
