@@ -103,8 +103,8 @@
                         <p class="company_name">{{company.company_name}}</p>
                     </div>
                     <div v-if="company">
-                        <h6>Telephone</h6>
-                        <p>{{ company.telephone}}</p>
+                        <h6>Num RC</h6>
+                        <p>{{ company.num_rc}}</p>
                     </div>
                 </div>
             </div>
@@ -119,6 +119,12 @@
                     <div v-if="company">
                         <h6>Code Postal</h6>
                         <p>{{company.code_postal}}</p>
+                    </div>
+                </div>
+                 <div class="col">
+                    <div v-if="company">
+                        <h6>Telephone</h6>
+                        <p>{{company.telephone}}</p>
                     </div>
                 </div>
             </div>

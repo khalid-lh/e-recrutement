@@ -42,7 +42,6 @@
                                         <select class="form-select form-select-sm mb-4" id="pays" name="pays" aria-label=".form-select-sm example" v-model="profil.pay">
                                             <option value="maroc">Maroc</option>
                                         </select>
-
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
@@ -143,11 +142,10 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div>
-                                        <h6 id="title_component">Pays</h6>
-                                        <select class="form-select form-select-sm mb-4" id="pays_societe" name="pays" aria-label=".form-select-sm example" v-model="company.pay">
-
-                                            <option value="maroc">Maroc</option>
-                                        </select>
+                                        <h6 id="title_component">Numèro RC</h6>
+                                       <div class="input-field" style="margin-top:-5px;">
+                                        <input type="text" required id="num_rc" v-model="company.num_rc">
+                                    </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
@@ -286,7 +284,7 @@ export default {
                 telephone: '',
                 ville: '',
                 code_postal: '',
-                pay: '',
+                num_rc: '',
                 description: '',
                 logo: null,
                 register_commerce: null
@@ -319,7 +317,7 @@ export default {
                 company_name: {},
                 telephone_societe: {},
                 ville_societe: {},
-                pays_societe: {},
+               num_rc: {},
                 description: {},
                 code_postal: {},
                 register_commer: {},
@@ -402,7 +400,7 @@ export default {
             Recruteur.append('company_name', this.company.company_name);
             Recruteur.append('telephone_societe', this.company.telephone);
             Recruteur.append('ville_societe', this.company.ville);
-            Recruteur.append('pays_societe', this.company.pay);
+            Recruteur.append('num_rc', this.company.num_rc);
             Recruteur.append('description', this.company.description);
             Recruteur.append('code_postal', this.company.code_postal);
             Recruteur.append('register_commerce', this.company.register_commerce);

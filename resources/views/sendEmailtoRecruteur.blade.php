@@ -19,32 +19,31 @@
      <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
      <script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
    <style>
-    body{
-      background-color: cornsilk;
+    
+    .email_content{
       padding: 10px;
-
+      text-align: center;
+      
+      justify-content: center;
+      align-items: center;
+      display: block;
+      
     }
    </style>
     </head>
-   
-
 <body>
-<div >
-    <h1 style="text-align: center;">FORSASTI</h1>
+<div class="email_content">
+    <h1 >FORSASTI</h1>
     @if($data['type']=='inscription recruteur')
     <p>
-      Cher {{$data['name']}}<br><br>
+    Cher {{$data['name']}}<br><br>
 
-Votre compte recruteur a été créé avec succès. Vous pouvez maintenant vous connecter à votre compte et commencer à publier des offres d’emploi et à gérer votre processus de recrutement.<br><br>
-
-Veuillez conserver vos identifiants de connexion en sécurité et ne les partagez avec personne.<br><br>
-
-Si vous avez des questions ou avez besoin d’aide, n’hésitez pas à contacter notre équipe d’assistance.<br><br>
-
-Merci d’avoir choisi notre plateforme.<br><br>
+    Félicitations! Votre compte recruteur a été créé avec succès. Vous pouvez maintenant vous connecter à votre compte et commencer à publier des offres d’emploi et à gérer votre processus de recrutement.<br><br>
+    Veuillez noter que le compte de votre entreprise est en cours d’examen par nos administrateurs pour vérification. <br><br> Vous recevrez une autre notification une fois que l’état du compte de votre entreprise aura été vérifié.<br><br>
+    Si vous avez des questions ou avez besoin d’aide, n’hésitez pas à contacter notre équipe d’assistance.<br><br>
+    Merci d’avoir choisi notre plateforme.<br><br>
 
 Sinceres salutations
-
 </p>
     @elseif($data['type']=='inscription condidat')
     <p>
@@ -72,6 +71,15 @@ Merci d’avoir rejoint notre plateforme.
 
 Sinceres salutations
     </p>
+    @elseif($data['type']=='company verification')
+    Nous sommes heureux de vous informer que le compte de votre entreprise a été vérifié avec succès par notre administrateur.<br><br>
+     Vous pouvez maintenant procéder à l’ajout d’offres d’emploi et gérer votre processus de recrutement.<br><br>
+Pour accéder à votre compte et commencer à publier des offres d’emploi, veuillez vous connecter à l’aide de vos identifiants.<br><br>
+
+Si vous avez des questions ou avez besoin d’aide, n’hésitez pas à contacter notre équipe d’assistance. Nous sommes là pour vous aider!<br><br>
+Merci d’avoir choisi notre plateforme. Nous vous souhaitons beaucoup de succès dans la recherche des bons candidats pour votre organisation.<br><br>
+
+Sinceres salutations
     @endif
   </div>
 </body>

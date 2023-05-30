@@ -13,34 +13,80 @@
                                 <tr>
                                     <th>image</th>
                                     <th>Nom</th>
-                                    <th>Ville</th>
+                                    <th>Num RC</th>
                                     <th>Telephone</th>
                                     <th>Description</th>
                                     <th>Nom Recruteur</th>
-                                    <th>Register Commerce</th>
+                                    <th>Status</th>
+                                    <th>Detail</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="companie in  allcompanies" :key="companie.company_id">
                                     <td><img :src="`/storage/images/${companie.photo}`" alt="Image" class="circle-image " /></td>
                                     <td>{{ companie.company_name}}</td>
-                                    <td>{{ companie.ville}}</td>
+                                    <td>{{ companie.num_rc}}</td>
                                     <td>{{ companie.telephone}}</td>
                                     <td>{{ companie.description}}</td>
                                     <td>{{ companie.recruteur.name}}</td>
-                                    <td><button class="btn btn-success" @click="viewrc(companie.register_commerce)">view</button></td>
+                                    <td v-if=" companie.status=='Unverified'">
+                                        <p id="status_draft">Unverified </p>
+                                    </td>
+                                    <td v-else>
+                                        <p id="status_live">Verified</p>
+                                    </td>
+                                    <td><button class="btn btn-success" @click="viewrc(companie,companie.register_commerce)">view</button></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-            <div v-else style="display: block;">
+            <div v-else style="display=block;">
+
                 <button class="btn btn-primary btn-sm mb-4" style="float :right;" @click="rc=false">
                     Retour
                 </button>
-                <div style="display: flex; justify-content: center; align-items: center;" class="mt-2">
-                    <iframe :src="rcUrl" width="700px" height="700px" frameborder="0"></iframe>
+
+                <div class="row mt-4">
+                    <div class="col-sm-12 col-lg-4 col-md-4">
+                        <h4 class="mb-4">Informations de la société</h4>
+                        <div class="detail">
+                            <h6>Nom Société : </h6>
+                            <p>{{ selectedcompanie.company_name}}</p>
+                        </div>
+                        <div class="detail">
+                            <h6>Numero Register Commerce : </h6>
+                            <p>{{ selectedcompanie.num_rc}}</p>
+                        </div>
+                        <div class="detail">
+                            <h6>Telephone : </h6>
+                            <p>{{ selectedcompanie.telephone}}</p>
+                        </div>
+                        <div class="detail">
+                            <h6>Ville : </h6>
+                            <p>{{ selectedcompanie.ville}}</p>
+                        </div>
+                        <div class="detail">
+                            <h6>Description : </h6>
+                            <p>{{ selectedcompanie.description}}</p>
+                        </div>
+                        <h4>Informations de recruteur</h4>
+                        <div class="detail">
+                            <h6>Email : </h6>
+                            <p>{{ selectedcompanie.recruteur.email}}</p>
+                        </div>
+                        <div class="detail">
+                            <h6>Nom : </h6>
+                            <p>{{ selectedcompanie.recruteur.name}}</p>
+                        </div>
+                        <button class="btn btn-success" @click="valider(selectedcompanie.company_id)">valider</button>
+                    </div>
+                    <div class="col-sm-12 col-lg-8 col-md-4">
+                        <div style=" display=flex; justify-content: center; align-items: center;" class="mt-2">
+                            <iframe :src="rcUrl" width="700px" height="700px" frameborder="0"></iframe>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -56,6 +102,7 @@ export default {
     data() {
         return {
             allcompanies: {},
+            selectedcompanie: null,
             rc: false,
             rcUrl: ''
         }
@@ -70,8 +117,25 @@ export default {
                     console.error(error);
                 });
         },
-        viewrc(rc) {
+        valider(id) {
+            axios.post(`/admin/allcompanies/validercompany/${id}`)
+                .then(response => {
+                    if (response.data.message == 'societe verified') {
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Société Verifier Maintenant'
+                        })
+this.getallcompanies();
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
+        viewrc(company, rc) {
             this.rc = true;
+            this.selectedcompanie = company;
+            console.log(this.selectedcompanie);
             this.rcUrl = `/storage/pdfs/${rc}`;
         },
 
@@ -149,11 +213,58 @@ td {
 
 .card-name {
     color: #888;
-
 }
 
 .icon-box i {
     font-size: 45px;
     color: #299b63;
+}
+
+.detail {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+h4 {
+    font-size: 20px;
+    color: #000;
+    font-weight: 600;
+
+}
+
+h6 {
+    font-size: 15px;
+    color: #000;
+    font-weight: 600;
+    color: cadetblue;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+#status_live {
+    background-color: mediumseagreen;
+    border-radius: 10px;
+
+}
+
+#status_draft {
+    background-color: deepskyblue;
+    border-radius: 10px;
+
+}
+
+#status_draft,#status_live,
+p {
+    color: #fff;
+    font-size: 15px;
+    
+    text-decoration-style: dashed;
+}
+
+p {
+    color: #000;
+    font-size: 15px;
+    margin-top: 2px;
+    text-decoration-style: dashed;
 }
 </style>

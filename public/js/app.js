@@ -5351,7 +5351,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -5434,7 +5433,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (error) {
         if (error.response.status === 401) {
-          _this.popupMessage = "Invalid Email ou Mot de Pass";
+          _this.popupMessage = error.response.data.message;
         }
         _this.errors = error.response.data.errors;
         _this.checkErrors();
@@ -5727,8 +5726,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -5755,7 +5752,7 @@ __webpack_require__.r(__webpack_exports__);
         telephone: '',
         ville: '',
         code_postal: '',
-        pay: '',
+        num_rc: '',
         description: '',
         logo: null,
         register_commerce: null
@@ -5788,7 +5785,7 @@ __webpack_require__.r(__webpack_exports__);
         company_name: {},
         telephone_societe: {},
         ville_societe: {},
-        pays_societe: {},
+        num_rc: {},
         description: {},
         code_postal: {},
         register_commer: {},
@@ -5873,7 +5870,7 @@ __webpack_require__.r(__webpack_exports__);
       Recruteur.append('company_name', this.company.company_name);
       Recruteur.append('telephone_societe', this.company.telephone);
       Recruteur.append('ville_societe', this.company.ville);
-      Recruteur.append('pays_societe', this.company.pay);
+      Recruteur.append('num_rc', this.company.num_rc);
       Recruteur.append('description', this.company.description);
       Recruteur.append('code_postal', this.company.code_postal);
       Recruteur.append('register_commerce', this.company.register_commerce);
@@ -7294,6 +7291,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'profil',
@@ -8129,6 +8132,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8137,6 +8186,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       allcompanies: {},
+      selectedcompanie: null,
       rc: false,
       rcUrl: ''
     };
@@ -8150,8 +8200,24 @@ __webpack_require__.r(__webpack_exports__);
         console.error(error);
       });
     },
-    viewrc: function viewrc(rc) {
+    valider: function valider(id) {
+      var _this2 = this;
+      axios.post("/admin/allcompanies/validercompany/".concat(id)).then(function (response) {
+        if (response.data.message == 'societe verified') {
+          Toast.fire({
+            icon: 'success',
+            title: 'Société Verifier Maintenant'
+          });
+          _this2.getallcompanies();
+        }
+      })["catch"](function (error) {
+        console.error(error);
+      });
+    },
+    viewrc: function viewrc(company, rc) {
       this.rc = true;
+      this.selectedcompanie = company;
+      console.log(this.selectedcompanie);
       this.rcUrl = "/storage/pdfs/".concat(rc);
     },
     calculateTimeDifference: function calculateTimeDifference(dateTime) {
@@ -14786,7 +14852,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.circle-image[data-v-6ad8b3c2] {\r\n    width: 50px;\r\n    height: 50px;\r\n    border-radius: 50%;\r\n    overflow: hidden;\r\n    justify-content: center;\n}\n.circle-image img[data-v-6ad8b3c2] {\r\n    width: 100%;\r\n    height: 100%;\r\n    -o-object-fit: cover;\r\n       object-fit: cover;\n}\n.modal-backdrop[data-v-6ad8b3c2] {\r\n    display: none !important;\n}\ntable th[data-v-6ad8b3c2],\r\ntd[data-v-6ad8b3c2] {\r\n    text-align: center;\n}\n.card-title[data-v-6ad8b3c2] {\r\n    text-align: center;\n}\n.dashboard[data-v-6ad8b3c2] {\r\n    margin: 10px 10px 10px 10px;\n}\ntd[data-v-6ad8b3c2] {\r\n    border-radius: 0px;\n}\n.cards[data-v-6ad8b3c2] {\r\n    padding: 20px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    background-color: #fff;\r\n    border-radius: 10px;\r\n    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);\n}\n.table-hover tbody tr[data-v-6ad8b3c2]:hover {\r\n    background-color: transparent !important;\n}\n.number[data-v-6ad8b3c2] {\r\n    font-size: 35px;\r\n    font-weight: 500;\r\n    color: #299B63;\n}\n.card-name[data-v-6ad8b3c2] {\r\n    color: #888;\n}\n.icon-box i[data-v-6ad8b3c2] {\r\n    font-size: 45px;\r\n    color: #299b63;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.circle-image[data-v-6ad8b3c2] {\r\n    width: 50px;\r\n    height: 50px;\r\n    border-radius: 50%;\r\n    overflow: hidden;\r\n    justify-content: center;\n}\n.circle-image img[data-v-6ad8b3c2] {\r\n    width: 100%;\r\n    height: 100%;\r\n    -o-object-fit: cover;\r\n       object-fit: cover;\n}\n.modal-backdrop[data-v-6ad8b3c2] {\r\n    display: none !important;\n}\ntable th[data-v-6ad8b3c2],\r\ntd[data-v-6ad8b3c2] {\r\n    text-align: center;\n}\n.card-title[data-v-6ad8b3c2] {\r\n    text-align: center;\n}\n.dashboard[data-v-6ad8b3c2] {\r\n    margin: 10px 10px 10px 10px;\n}\ntd[data-v-6ad8b3c2] {\r\n    border-radius: 0px;\n}\n.cards[data-v-6ad8b3c2] {\r\n    padding: 20px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    background-color: #fff;\r\n    border-radius: 10px;\r\n    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);\n}\n.table-hover tbody tr[data-v-6ad8b3c2]:hover {\r\n    background-color: transparent !important;\n}\n.number[data-v-6ad8b3c2] {\r\n    font-size: 35px;\r\n    font-weight: 500;\r\n    color: #299B63;\n}\n.card-name[data-v-6ad8b3c2] {\r\n    color: #888;\n}\n.icon-box i[data-v-6ad8b3c2] {\r\n    font-size: 45px;\r\n    color: #299b63;\n}\n.detail[data-v-6ad8b3c2] {\r\n    display: flex;\r\n    margin-bottom: 10px;\n}\nh4[data-v-6ad8b3c2] {\r\n    font-size: 20px;\r\n    color: #000;\r\n    font-weight: 600;\n}\nh6[data-v-6ad8b3c2] {\r\n    font-size: 15px;\r\n    color: #000;\r\n    font-weight: 600;\r\n    color: cadetblue;\r\n    margin-top: 5px;\r\n    margin-right: 10px;\n}\n#status_live[data-v-6ad8b3c2] {\r\n    background-color: mediumseagreen;\r\n    border-radius: 10px;\n}\n#status_draft[data-v-6ad8b3c2] {\r\n    background-color: deepskyblue;\r\n    border-radius: 10px;\n}\n#status_draft[data-v-6ad8b3c2],#status_live[data-v-6ad8b3c2],\r\np[data-v-6ad8b3c2] {\r\n    color: #fff;\r\n    font-size: 15px;\r\n    \r\n    text-decoration-style: dashed;\n}\np[data-v-6ad8b3c2] {\r\n    color: #000;\r\n    font-size: 15px;\r\n    margin-top: 2px;\r\n    text-decoration-style: dashed;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -60752,55 +60818,44 @@ var render = function () {
                           [
                             _c("div", [
                               _c("h6", { attrs: { id: "title_component" } }, [
-                                _vm._v("Pays"),
+                                _vm._v("Numèro RC"),
                               ]),
                               _vm._v(" "),
                               _c(
-                                "select",
+                                "div",
                                 {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.company.pay,
-                                      expression: "company.pay",
-                                    },
-                                  ],
-                                  staticClass:
-                                    "form-select form-select-sm mb-4",
-                                  attrs: {
-                                    id: "pays_societe",
-                                    name: "pays",
-                                    "aria-label": ".form-select-sm example",
-                                  },
-                                  on: {
-                                    change: function ($event) {
-                                      var $$selectedVal = Array.prototype.filter
-                                        .call(
-                                          $event.target.options,
-                                          function (o) {
-                                            return o.selected
-                                          }
-                                        )
-                                        .map(function (o) {
-                                          var val =
-                                            "_value" in o ? o._value : o.value
-                                          return val
-                                        })
-                                      _vm.$set(
-                                        _vm.company,
-                                        "pay",
-                                        $event.target.multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0]
-                                      )
-                                    },
-                                  },
+                                  staticClass: "input-field",
+                                  staticStyle: { "margin-top": "-5px" },
                                 },
                                 [
-                                  _c("option", { attrs: { value: "maroc" } }, [
-                                    _vm._v("Maroc"),
-                                  ]),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.company.num_rc,
+                                        expression: "company.num_rc",
+                                      },
+                                    ],
+                                    attrs: {
+                                      type: "text",
+                                      required: "",
+                                      id: "num_rc",
+                                    },
+                                    domProps: { value: _vm.company.num_rc },
+                                    on: {
+                                      input: function ($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.company,
+                                          "num_rc",
+                                          $event.target.value
+                                        )
+                                      },
+                                    },
+                                  }),
                                 ]
                               ),
                             ]),
@@ -63634,9 +63689,9 @@ var render = function () {
               _vm._v(" "),
               _vm.company
                 ? _c("div", [
-                    _c("h6", [_vm._v("Telephone")]),
+                    _c("h6", [_vm._v("Num RC")]),
                     _vm._v(" "),
-                    _c("p", [_vm._v(_vm._s(_vm.company.telephone))]),
+                    _c("p", [_vm._v(_vm._s(_vm.company.num_rc))]),
                   ])
                 : _vm._e(),
             ]),
@@ -63659,6 +63714,16 @@ var render = function () {
                     _c("h6", [_vm._v("Code Postal")]),
                     _vm._v(" "),
                     _c("p", [_vm._v(_vm._s(_vm.company.code_postal))]),
+                  ])
+                : _vm._e(),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col" }, [
+              _vm.company
+                ? _c("div", [
+                    _c("h6", [_vm._v("Telephone")]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v(_vm._s(_vm.company.telephone))]),
                   ])
                 : _vm._e(),
             ]),
@@ -64971,13 +65036,25 @@ var render = function () {
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(companie.company_name))]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(companie.ville))]),
+                            _c("td", [_vm._v(_vm._s(companie.num_rc))]),
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(companie.telephone))]),
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(companie.description))]),
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(companie.recruteur.name))]),
+                            _vm._v(" "),
+                            companie.status == "Unverified"
+                              ? _c("td", [
+                                  _c("p", { attrs: { id: "status_draft" } }, [
+                                    _vm._v("Unverified "),
+                                  ]),
+                                ])
+                              : _c("td", [
+                                  _c("p", { attrs: { id: "status_live" } }, [
+                                    _vm._v("Verified"),
+                                  ]),
+                                ]),
                             _vm._v(" "),
                             _c("td", [
                               _c(
@@ -64987,6 +65064,7 @@ var render = function () {
                                   on: {
                                     click: function ($event) {
                                       return _vm.viewrc(
+                                        companie,
                                         companie.register_commerce
                                       )
                                     },
@@ -65004,7 +65082,7 @@ var render = function () {
                 ]),
               ]),
             ])
-          : _c("div", { staticStyle: { display: "block" } }, [
+          : _c("div", { staticStyle: {} }, [
               _c(
                 "button",
                 {
@@ -65019,27 +65097,99 @@ var render = function () {
                 [_vm._v("\r\n                    Retour\r\n                ")]
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "mt-2",
-                  staticStyle: {
-                    display: "flex",
-                    "justify-content": "center",
-                    "align-items": "center",
-                  },
-                },
-                [
-                  _c("iframe", {
-                    attrs: {
-                      src: _vm.rcUrl,
-                      width: "700px",
-                      height: "700px",
-                      frameborder: "0",
+              _c("div", { staticClass: "row mt-4" }, [
+                _c("div", { staticClass: "col-sm-12 col-lg-4 col-md-4" }, [
+                  _c("h4", { staticClass: "mb-4" }, [
+                    _vm._v("Informations de la société"),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "detail" }, [
+                    _c("h6", [_vm._v("Nom Société : ")]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(_vm._s(_vm.selectedcompanie.company_name)),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "detail" }, [
+                    _c("h6", [_vm._v("Numero Register Commerce : ")]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v(_vm._s(_vm.selectedcompanie.num_rc))]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "detail" }, [
+                    _c("h6", [_vm._v("Telephone : ")]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v(_vm._s(_vm.selectedcompanie.telephone))]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "detail" }, [
+                    _c("h6", [_vm._v("Ville : ")]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v(_vm._s(_vm.selectedcompanie.ville))]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "detail" }, [
+                    _c("h6", [_vm._v("Description : ")]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v(_vm._s(_vm.selectedcompanie.description))]),
+                  ]),
+                  _vm._v(" "),
+                  _c("h4", [_vm._v("Informations de recruteur")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "detail" }, [
+                    _c("h6", [_vm._v("Email : ")]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(_vm._s(_vm.selectedcompanie.recruteur.email)),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "detail" }, [
+                    _c("h6", [_vm._v("Nom : ")]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(_vm._s(_vm.selectedcompanie.recruteur.name)),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success",
+                      on: {
+                        click: function ($event) {
+                          return _vm.valider(_vm.selectedcompanie.company_id)
+                        },
+                      },
                     },
-                  }),
-                ]
-              ),
+                    [_vm._v("valider")]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-12 col-lg-8 col-md-4" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "mt-2",
+                      staticStyle: {
+                        "justify-content": "center",
+                        "align-items": "center",
+                      },
+                    },
+                    [
+                      _c("iframe", {
+                        attrs: {
+                          src: _vm.rcUrl,
+                          width: "700px",
+                          height: "700px",
+                          frameborder: "0",
+                        },
+                      }),
+                    ]
+                  ),
+                ]),
+              ]),
             ]),
       ]),
     ]),
@@ -65064,7 +65214,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Nom")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Ville")]),
+        _c("th", [_vm._v("Num RC")]),
         _vm._v(" "),
         _c("th", [_vm._v("Telephone")]),
         _vm._v(" "),
@@ -65072,7 +65222,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Nom Recruteur")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Register Commerce")]),
+        _c("th", [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Detail")]),
       ]),
     ])
   },

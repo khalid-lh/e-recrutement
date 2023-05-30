@@ -38,28 +38,58 @@ public function login(Request $request)
         'email' => ['required'],
         'password' => ['required']
     ], [
-        'password.required' => 'Mot de pass obligatoire.',
+        'password.required' => 'Mot de passe obligatoire.',
         'email.required' => 'Email obligatoire.'
     ]);
-   
 
     $credentials = $request->only('email', 'password');
 
     if ($token = auth('api')->attempt($credentials)) {
         $user = auth('api')->user();
-        return response()->json([
-            'message' => 'Authentication successful',
-            'token' => $token,
-            'user' => $user
-        ]);
-        
+
+        if ($user->user_type === 'recruteur') {
+            $company = $this->handleRecruteurCompany($user->id);
+            
+            if($company && $company->status === 'verified') {
+                return response()->json([
+                'message' => 'Authentication successful',
+                    'token' => $token,
+                    'user' => $user
+                ]);
+            }else{
+                return response()->json([
+                    'message' => 'Votre status d\'entreprise n’est pas encore vérifiée par l\'administrateur.'
+                ], 401);
+            }
+        }elseif($user->user_type === 'condidat') {
+            // Check if the email is verified
+            if ($user->email_verified_at) {
+                return response()->json([
+                    'message' => 'Authentication successful',
+                    'token' => $token,
+                    'user' => $user
+                ]);
+            } else {
+                return response()->json([
+                    'message' => 'Votre adresse e-mail n’est pas encore vérifiée.'
+                ], 401);
+            }
+        } else {
+            // Invalid user role
+            return response()->json([
+                'message' => 'Authentication successful',
+                'token' => $token,
+                'user' => $user
+            ]);
+        }
     } else {
         // Invalid email or password
         return response()->json([
-            'message' => 'Invalid email or password'
+            'message' => 'Invalid email ou Mot de Pass'
         ], 401);
     }
 }
+
 
 
     public function register_condidat(Request $request){
@@ -138,7 +168,13 @@ public function login(Request $request)
             $profil->save();
     
             DB::commit();
-    
+     // Send email notification
+            $data = [
+                'name' => $user->name,
+                'type' => 'inscription condidat',
+                'subject' => 'Inscription du compte condidat',
+            ];
+            Mail::to($user->email)->send(new SendMail($data));
             return response()->json([
                 'message' => 'User registered successfully',
                 'user' => $user
@@ -178,7 +214,7 @@ public function login(Request $request)
         'company_name' => ['required', 'string','unique:companies'],
         'telephone_societe' => ['required', 'numeric'],
         'ville_societe' => ['required', 'string'],
-        'pays_societe' => ['required', 'string'],
+        'num_rc' => ['required', 'numeric','min:15'],
         'description' => ['required', 'string'],
         'code_postal' => ['required', 'numeric'],
         'register_commerce' => ['required', 'mimes:pdf', 'max:2048'],
@@ -194,12 +230,15 @@ public function login(Request $request)
         'password_recruteur.min' => 'Le mot de passe recruteur doit comporter au moins 8 caractères.',
         'password_recruteur.max' => 'Le mot de passe recruteur ne doit pas dépasser 20 caractères.',
         'password_recruteur.regex' => 'Le mot de passe doit contenir des lettres majuscules et minuscules.',
+        'num_rc.required'=> 'Numero RC est obligatoire',
+        'num_rc.numeric' => 'Numero RC ne doit contenir que des numéros.',
+        'num_rc.min' => 'Numero RC doit comporter au moins 15 caractères.',
         'company_name.required' => 'Nom Societe est obligatoire',
         'company_name.unique' => 'le Nom de la societe est déjà utilisée.',
         'telephone_societe.required' => 'Telephone est obligatoire',
         'telephone_societe.numeric' => 'Le champ téléphone ne doit contenir que des numéros.',
         'ville_societe.required' => 'Ville est obligatoire',
-        'pays_societe.required' => 'Pay est obligatoire.',
+       
         'description.required' => ' Description est obligatoire.',
         'code_postal.required' => 'code postal est obligatoire.',
         'code_postal.numeric' => 'code_postal ne doit contenir que des numéros.',
@@ -222,14 +261,15 @@ public function login(Request $request)
 
         $company = new ModelsCompany();
         $company->id_recruteur = $user->id;
+        $company->status = 'Unverified';
         $company->company_name = $request->company_name;
         $company->telephone = $request->telephone_societe;
         $company->ville = $request->ville_societe;
-        $company->pays = $request->pays_societe;
+        $company->num_rc = $request->num_rc;
+        
         $company->code_postal = $request->code_postal;
         $company->description = $request->description;
         if ($request->hasFile('logo')) {
-            // Upload and save logo image file
             $image = $request->file('logo');
             $imageName = time() . '_' . $image->getClientOriginalName();
             Storage::disk('public')->put('images/' . $imageName, file_get_contents($image));
@@ -246,7 +286,13 @@ public function login(Request $request)
         $company->save();
 
         DB::commit();
+        $data = [
+            'name'=>$user->name,
+            'type'=>'inscription recruteur',
+            'subject' => 'REGISTRATION DU COMPTE RECRUTEUR',
 
+        ];
+        Mail::to($user->email)->send(new SendMail($data));
         return response()->json([
             'message' => 'Recruteur registered successfully',
             'recruteur' => $user
@@ -305,8 +351,13 @@ public function getUserTypeFromDatabase()
         } else {
             // Handle the case where the user type is not defined
         }
-    } else {
+    }else{
         // Handle the case where the user is not authenticated
     }
+}
+protected function handleRecruteurCompany($id)
+{
+    $company =ModelsCompany::where('id_recruteur',$id)->first();
+    return $company;
 }
 }

@@ -57,3 +57,4 @@ Route::get('/getPost/{id}',[\App\Http\Controllers\PostController::class,'getpost
 Route::post('/admin/modifypost/{id}',[\App\Http\Controllers\PostController::class,'updatePost']);
 Route::patch('/admin/restorepost/{id}',[\App\Http\Controllers\PostController::class,'restorepost']);
 Route::get('/admin/mespostsdeleted',[\App\Http\Controllers\PostController::class,'getpostsTrashed']);
+Route::post('/admin/allcompanies/validercompany/{id}',[\App\Http\Controllers\CompanieController::class,'valider_companie']);

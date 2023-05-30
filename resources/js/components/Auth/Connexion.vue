@@ -17,7 +17,6 @@
   <div>
     <Popup :message="popupMessage" v-if="popupMessage" @close="clearError" />
   </div>
-         
             <div class="input-field">
                <input type="email" required id="email" v-model="user.email">
                <label>Email </label>
@@ -123,10 +122,10 @@ localStorage.setItem('token',token)
   
 }).catch((error)=>{
   if ( error.response.status === 401) {
-this.popupMessage = "Invalid Email ou Mot de Pass";
+this.popupMessage = error.response.data.message;
   }
  this.errors=error.response.data.errors
- this.checkErrors();        
+ this.checkErrors();
 
 })
 },checkErrors() {
