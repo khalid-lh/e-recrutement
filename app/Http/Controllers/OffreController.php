@@ -177,24 +177,29 @@ public function show_offre(Request $request)
     ]);
 }
 public function searchOffers(Request $request)
-    {
-        $metier = $request->query('metier');
-        $ville = $request->query('ville');
-        $offers = ModelsOffre::with('company')
-        ->join('companies', 'offres.company_id', '=', 'companies.company_id')
-        ->where(function ($query) use ($metier) {
-            $query->where('offres.titre_offre', 'LIKE', '%' . $metier . '%')
-                ->orWhere('offres.description', 'LIKE', '%' . $metier . '%');
-        })
-        ->where('companies.ville', $ville)
-        ->get();
-       
+{
+    $metier = $request->query('metier');
+    $ville = $request->query('ville');
+    
+    $offers = ModelsOffre::with('company')->join('companies', 'offres.company_id', '=', 'companies.company_id')->where(function ($query) use ($metier, $ville) {
+        if (!empty($metier)) {
+            $query->where(function ($query) use ($metier) {
+                $query->where('offres.titre_offre', 'LIKE', '%' . $metier . '%')
+                    ->orWhere('offres.description', 'LIKE', '%' . $metier . '%');
+            });
+        }
+        if (!empty($ville)) {
+            $query->where('companies.ville', $ville);
+        }
+    })->whereNull('offres.deleted_at')->get();
 
-        return view('listOffresearched')->with([
-            'offres'=>$offers
-        ]);
-        
-    }
+
+    return view('listOffresearched')->with([
+        'offres' => $offers
+    ]);
+}
+
+
     public function getmesoffresdeleted(Request $request)
     {
         $token = substr($request->header('Authorization'), 7);

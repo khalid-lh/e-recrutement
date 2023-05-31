@@ -93,9 +93,8 @@ align-items: center;
         </div>
         
 
-          @if(count($offres)>0)
+        @if(!empty($offres))
           <div class="search-results">
-            
             <div id="alertContainer"></div>
 
             <ul>
@@ -220,15 +219,13 @@ align-items: center;
                 console.error(error);
             });
     }
-    
-    
     function enregistrer_offre(id_offre) {
-        axios.post('/enregistrer_offre', null,{
+        axios.post('/enregistrer_offre', null , {
   params: {
      id: id_offre,
      token:token
   }
-   }).then(response =>{        
+   }).then(response =>{
         let message = response.data.message;
         if(message=='Votre enregistrement a été bien enregistrer'){
             let alertHTML = `
@@ -251,7 +248,6 @@ align-items: center;
             </div>
         `;
         document.getElementById('alertContainer').innerHTML = alertHTML;
-       
         }
             })
             .catch(error => {
