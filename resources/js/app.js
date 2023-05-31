@@ -22,6 +22,8 @@ window.Toast=Toast
 import axios from 'axios';
 
 import Myheader from './components/Header/Myheader'
+import footer_home from './components/Other/footer'
+
 import Connexion from './components/Auth/Connexion'
 import Register from './components/Auth/Register'
 import home_offres from './components/Other/Home_offres'
@@ -100,6 +102,14 @@ const Home_offres= new Vue({
 router,
   components:{
     home_offres,
+  }
+});
+const footer= new Vue({
+
+  el: '#footer_home',
+router,
+  components:{
+    footer_home,
   }
 });
 const recruteur = new Vue({

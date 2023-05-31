@@ -259,13 +259,13 @@
           <span class="links_name">Tous Offres</span></router-link>
          <span class="tooltip">Tous Offres</span>
       </li>
-      <li>
+      <!--<li>
         <router-link :to="{ name: 'addpost'}">
           <i class="fa-sharp fa-solid fa-file-pen"></i>
            <span class="links_name">Ajouter Post</span>
           </router-link>
          <span class="tooltip">Ajouter Post</span>
-      </li>
+      </li>-->
       <li>
         <router-link :to="{ name: 'allcompanies'}">
           <i class="fa-sharp fa-solid fa-building "></i>     
@@ -273,13 +273,13 @@
           </router-link>
          <span class="tooltip">Societes</span>
       </li>
-      <li>
+     <!-- <li>
         <router-link :to="{ name: 'postsdeleted'}" ><a href="#">
           <i class="fa-solid fa-trash"></i>
              <span class="links_name">Brouillant</span>
        </a></router-link>
        <span class="tooltip">Brouillant</span>
-      </li>
+      </li>-->
       <li class="profile">
         <a href="/login"  class="nav-link " onclick="logoutUser()">
         <div class="profile-details">

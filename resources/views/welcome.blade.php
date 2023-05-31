@@ -18,6 +18,7 @@
         <style>
             body {
                 font-family: 'Nunito', sans-serif;
+             
             }
         </style>
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
@@ -35,6 +36,10 @@
                 <Home_offres>
                 </Home_offres>
         </div>
+        <div id="footer_home"> 
+            <footer_home>
+            </footer_home>
+    </div>
       
        
 <script src="{{asset('js/app.js')}}">

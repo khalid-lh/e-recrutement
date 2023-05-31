@@ -84,7 +84,7 @@ align-items: center;
     float: right;
   }
         </style>
-        <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
     </head>
     <body>
         <div id="header"> 
@@ -93,10 +93,9 @@ align-items: center;
         </div>
         
 
-        @if(!empty($offres))
+        @if(count($offres)>0)
           <div class="search-results">
             <div id="alertContainer"></div>
-
             <ul>
                 @foreach($offres as $offre)
                 <div class="offre_header">
@@ -158,14 +157,13 @@ align-items: center;
                 </div>
                 @endforeach
             </ul>
-        </div>
+         </div>
           @else
             <div  class="message_exist" >
                <h1>Il n’y a pas d’offres sur la ville ou la profession que vous avez choisie</h1> 
             </div>
           @endif
-        
-       
+
 <script src="{{asset('js/app.js')}}">
 </script>
 <script>

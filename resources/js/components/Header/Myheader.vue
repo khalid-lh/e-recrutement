@@ -2,7 +2,7 @@
 <div class="header_content">
   <div class="header ">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a href="/" class="nav-link"><h2>FORSATI</h2></a>
+    <a href="/" class="nav-link"><h2>FORSAJOB</h2></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VerificationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -38,6 +39,10 @@ Route::get('/candidat/dashboard', function (){
 Route::get('/admin/{path}', function (){
     return view('Admin/admindashboard');
 })->where('path', '(.*)');
+Route::get('/verificationEmailSuccess', function (){
+    return view('verificationEmailSuccess');
+});
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 
 /*Route::group(['middleware' => 'auth:api'], function (){
     //add more Routes here

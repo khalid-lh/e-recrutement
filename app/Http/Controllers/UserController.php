@@ -175,6 +175,7 @@ public function login(Request $request)
                 'subject' => 'Inscription du compte condidat',
             ];
             Mail::to($user->email)->send(new SendMail($data));
+            $user->sendEmailVerificationNotification();
             return response()->json([
                 'message' => 'User registered successfully',
                 'user' => $user
