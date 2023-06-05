@@ -78,7 +78,7 @@ class PostulerController extends Controller
         ->withCount('postulers')
         ->get();
         return response()->json([
-            'Offrescondidatures'=> $Offrescondidatures,   
+            'Offrescondidatures'=> $Offrescondidatures
         ]);
     }
     public function getMescondidatures($id)
