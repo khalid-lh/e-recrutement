@@ -3,17 +3,17 @@
 <div class="footer-content">
   <div class="row">
     <div class="col">
- <div class="logo">
-      <h1 >FORSAJOB</h1>
+      <div class="logo">
+      <h1 ><a class="nav-link" href="/">FORSAJOB</a></h1>
       <p id="app_desc">FORSAJOB : Votre plateforme d'emploi au Maroc. Publiez et découvrez des offres d'emploi dans tout le pays. Connectez talents et employeurs.</p>
     </div>
     </div>
     <div class="col">
       <div class="list_additionnal">
     <ul>
-        <li>À PROPOS</li>
-        <li>CONDITIONS D'UTILISATION</li>
-        <li>QUI SOMMES-NOUS?</li>
+        <li><a class="nav-link" href="/a-propos">À PROPOS</a></li>
+        <li><a class="nav-link" href="/condition-générale-utilisation">CONDITIONS D'UTILISATION</a></li>
+        <li><a class="nav-link" href="/qui-somme-nous">QUI SOMMES-NOUS?</a></li>
       </ul>
     </div>
     </div>
@@ -36,15 +36,12 @@
         <li><a class="nav-link" href="/rechercher/offres?metier=&ville=Oujda">Oujda</a></li>
         <li><a class="nav-link" href="/rechercher/offres?metier=&ville=Kenitra">Kenitra</a></li>
         <li><a class="nav-link" href="/rechercher/offres?metier=&ville=Tetouan">Tetouan</a></li>
-       
       </ul>
       </div>
     </div>
     </div>
   </div>
-   
-    
-    
+
   </div>
   <div class="footer-bottom">
     <p>&copy; 2023 La Maison du Software. All rights reserved.</p>
@@ -126,7 +123,6 @@ color: rgb(223, 222, 212);
 text-align: center;
 font-size: 14px;
 margin-top: 30px;
-
 color: azure;
 }
 

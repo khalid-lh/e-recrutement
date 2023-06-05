@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendMail;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -32,7 +33,7 @@ class UserController extends Controller
 
     return view('recruteurdashboard');
 }
-public function login(Request $request)
+/*public function login(Request $request)
 {
     $request->validate([
         'email' => ['required'],
@@ -50,17 +51,22 @@ public function login(Request $request)
         if ($user->user_type === 'recruteur') {
             $company = $this->handleRecruteurCompany($user->id);
             
-            if($company && $company->status === 'verified') {
+            if($company && $company->status === 'verified' && $user->email_verified_at) {
                 return response()->json([
                 'message' => 'Authentication successful',
                     'token' => $token,
                     'user' => $user
                 ]);
-            }else{
+            } else if (!$user->email_verified_at) {
+                return response()->json([
+                    'message' => 'Votre adresse e-mail n’est pas encore vérifiée.'
+                ], 401);
+            }else if($company && $company->status === 'Unverified'){
                 return response()->json([
                     'message' => 'Votre status d\'entreprise n’est pas encore vérifiée par l\'administrateur.'
                 ], 401);
             }
+            
         }elseif($user->user_type === 'condidat') {
             // Check if the email is verified
             if ($user->email_verified_at) {
@@ -88,7 +94,72 @@ public function login(Request $request)
             'message' => 'Invalid email ou Mot de Pass'
         ], 401);
     }
+}*/
+public function login(Request $request)
+{
+    $request->validate([
+        'email' => ['required'],
+        'password' => ['required']
+    ], [
+        'password.required' => 'Mot de passe obligatoire.',
+        'email.required' => 'Email obligatoire.'
+    ]);
+
+    $credentials = $request->only('email', 'password');
+
+    if ($token = auth('api')->attempt($credentials)) {
+        $user = auth('api')->user();
+
+        if ($user->user_type === 'recruteur') {
+            $company = $this->handleRecruteurCompany($user->id);
+
+            if ($company && $company->status === 'verified' && $user->email_verified_at) {
+                // Redirect to the recruteur dashboard
+                return response()->json([
+                    'message' => 'Authentication successful',
+                        'token' => $token,
+                        'user' => $user
+                    ]);
+            } elseif (!$user->email_verified_at) {
+                return response()->json([
+                    'message' => 'Votre adresse e-mail n’est pas encore vérifiée.'
+                ], 401);
+            } elseif ($company && $company->status === 'Unverified') {
+                return response()->json([
+                    'message' => 'Votre status d\'entreprise n’est pas encore vérifiée par l\'administrateur.'
+                ], 401);
+            }
+
+        } elseif ($user->user_type === 'condidat') {
+            // Check if the email is verified
+            if ($user->email_verified_at) {
+                // Redirect to the condidat dashboard
+                return response()->json([
+                    'message' => 'Authentication successful',
+                        'token' => $token,
+                        'user' => $user
+                    ]);
+            } else {
+                return response()->json([
+                    'message' => 'Votre adresse e-mail n’est pas encore vérifiée.'
+                ], 401);
+            }
+        } else {
+            // Invalid user role
+            return response()->json([
+                'message' => 'Authentication successful',
+                'token' => $token,
+                'user' => $user
+            ]);
+        }
+    } else {
+        // Invalid email or password
+        return response()->json([
+            'message' => 'Invalid email ou Mot de Pass'
+        ], 401);
+    }
 }
+
 
 
 
@@ -96,8 +167,8 @@ public function login(Request $request)
 
         $request->validate([
             'name' => ['required', 'string', 'min:5', 'max:10'],
-            'email' => ['required', 'string', 'unique:users', 'email', 'regex:/^(?=.*[a-z])(?=.*[A-Z])/i'],
-            'password' => ['required', 'string', 'min:8', 'max:12'],
+            'email' => ['required', 'string', 'unique:users', 'email'],
+            'password' => ['required', 'string', 'min:8', 'max:12', 'regex:/^(?=.*[a-z])(?=.*[A-Z])/i'],
             'telephone' => ['required', 'numeric'],
             'ville' => ['required', 'string'],
             'pays' => ['required', 'string'],
@@ -169,17 +240,35 @@ public function login(Request $request)
     
             DB::commit();
      // Send email notification
-            $data = [
-                'name' => $user->name,
-                'type' => 'inscription condidat',
-                'subject' => 'Inscription du compte condidat',
-            ];
-            Mail::to($user->email)->send(new SendMail($data));
-            $user->sendEmailVerificationNotification();
-            return response()->json([
-                'message' => 'User registered successfully',
-                'user' => $user
-            ]);
+           
+            if($user->wasRecentlyCreated && $profil->wasRecentlyCreated){
+                $data=[
+                    'name' => $user->name,
+                    'type' => 'inscription condidat',
+                    'subject' => 'Inscription du compte condidat',
+                ];
+                Mail::to($user->email)->send(new SendMail($data));
+                $verificationUrl = $this->verificationUrl($user);
+    
+                if (!empty($verificationUrl)) {
+                    $data = [
+                        'name' => $user->name,
+                        'type' => 'verification_email',
+                        'subject' => 'Vérifier l’adresse e-mail',
+                        'url' => $verificationUrl,
+                    ];
+                    Mail::to($user->email)->send(new SendMail($data));
+                }
+    
+                return response()->json([
+                    'message' => 'Recruteur registered successfully',
+                    'recruteur' => $user
+                ]);
+            } else {
+                return response()->json([
+                    'message' => 'Failed to register the user or company',
+                ], 500);
+            }
         } catch (\Throwable $e) {
             DB::rollback();
     
@@ -277,7 +366,7 @@ public function login(Request $request)
             $company->photo = $imageName;
         }
 
-        if ($request->hasFile('register_commerce')) {
+        if($request->hasFile('register_commerce')) {
             // Upload and save register_commerce file
             $pdf = $request->file('register_commerce');
             $pdfName = time() . '_' . $pdf->getClientOriginalName();
@@ -287,21 +376,41 @@ public function login(Request $request)
         $company->save();
 
         DB::commit();
-        $data = [
-            'name'=>$user->name,
-            'type'=>'inscription recruteur',
-            'subject' => 'REGISTRATION DU COMPTE RECRUTEUR',
+        
+        if ($user->wasRecentlyCreated && $company->wasRecentlyCreated) {
+            $data = [
+                'name' => $user->name,
+                'type' => 'inscription recruteur',
+                'subject' => 'REGISTRATION DU COMPTE RECRUTEUR',
+            ];
+            Mail::to($user->email)->send(new SendMail($data));
 
-        ];
-        Mail::to($user->email)->send(new SendMail($data));
-        return response()->json([
-            'message' => 'Recruteur registered successfully',
-            'recruteur' => $user
-        ]);
+            $verificationUrl = $this->verificationUrl($user);
+
+            if (!empty($verificationUrl)) {
+                $data = [
+                    'name' => $user->name,
+                    'type' => 'verification_email',
+                    'subject' => 'Vérifier l’adresse e-mail',
+                    'url' => $verificationUrl,
+                ];
+                Mail::to($user->email)->send(new SendMail($data));
+            }
+
+            return response()->json([
+                'message' => 'Recruteur registered successfully',
+                'recruteur' => $user
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Failed to register the user or company',
+            ], 500);
+        }
+        
     } catch (\Illuminate\Database\QueryException $e) {
         DB::rollback();
 
-        // Delete uploaded files in case of error
+        
         if (isset($imageName)) {
             Storage::delete('public/images/' . $imageName);
         }
@@ -340,7 +449,7 @@ public function login(Request $request)
 }
 public function getUserTypeFromDatabase()
 {
-    $user = Auth::user(); // Get the authenticated user
+    $user = Auth::user();
     
     if ($user) {
         $userType = $user->user_type; // Assuming the user type is stored in the "user_type" column
@@ -360,5 +469,17 @@ protected function handleRecruteurCompany($id)
 {
     $company =ModelsCompany::where('id_recruteur',$id)->first();
     return $company;
+}
+protected function verificationUrl($user)
+{
+    $url = URL::temporarySignedRoute(
+        'verification.verify',
+        now()->addMinutes(60),
+        ['id' => $user->getKey(),
+        'hash' => sha1($user->getEmailForVerification()), // Generate the hash using the user's email
+        ]
+    );
+
+    return $url;
 }
 }

@@ -61,7 +61,7 @@
         <p>Congratulations! Your email has been successfully verified.</p>
         <a href="/" class="btn">Go to Homepage</a>
     </div>
-    <div id="footer_home" style="margin-top: 35px;"> 
+    <div id="footer_home" > 
         <footer_home>
         </footer_home>
 </div>

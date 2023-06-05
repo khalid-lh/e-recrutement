@@ -55,4 +55,3 @@ Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'
 //Route::get('/recruteur/{path}','App\Http\Controllers\UserController@index')->where('path','([A-z\d\-\/_.]+)?');
 //Route::get('/recruteur/{path}', [App\Http\Controllers\UserController::class, 'index'])->where('path', '.*');
 //Route::get('/recruteur/{path}', [\App\Http\Controllers\UserController::class, 'index'])->where('path', '[A-Za-z\d\-\/_,]+?');
-

@@ -15,7 +15,7 @@ use App\Models\company as ModelsCompany;
 use App\Models\User as ModelsUsers; 
 class AdminController extends Controller
 {
-    public function statistiques(Request $request)
+    public function statistiques()
     {
         try{
         $Stagecount=ModelsOffre::withTrashed()->where('type_offre','Stage')->count();        

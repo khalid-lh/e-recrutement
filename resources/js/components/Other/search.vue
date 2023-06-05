@@ -14,7 +14,15 @@
                 <option value="Marrakech">Marrakech</option>
                 <option value="Rabat">Rabat</option>
                 <option value="Tangier">Tangier</option>
-                <!-- Add more options for other towns of Morocco -->
+            </select>
+            <select class="form-select" name="categorie">
+                <option value="">categorie</option>
+                <option value="Agadir">Agadir</option>
+                <option value="Casablanca">Casablanca</option>
+                <option value="Fez">Fez</option>
+                <option value="Marrakech">Marrakech</option>
+                <option value="Rabat">Rabat</option>
+                <option value="Tangier">Tangier</option>
             </select>
             <a :href="getSearchUrl()" ><button class="btn btn-primary btn_condidat">Rechercher</button></a>
         </div>
@@ -56,7 +64,7 @@ getSearchUrl() {
     text-align: center;
     display: flex;
     align-items: center;
-    max-width: 600px;
+    max-width: 800px;
     /* Adjust the max-width as per your preference */
     margin: 0 auto;
 }

@@ -7,6 +7,11 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item item">
+          <a href="/login" class="nav-link">Articls</a>
+        </li>
+      </ul>
      <ul v-if="isAuthenticated" class="navbar-nav">
             <div class="dropdown">
               <span><i class="fa-solid fa-caret-down"></i></span>
@@ -20,6 +25,7 @@
               </div>
             </div>
           </ul>
+          
         <ul v-else class="navbar-nav">
         <li class="nav-item item">
           <a href="/login" class="nav-link">Se connecter</a>
@@ -129,7 +135,7 @@ export default {
     text-decoration: none;
     color: #FFF;
     border: 1px solid transparent;
-    border-radius: 4px;
+    border-radius: 10px;
     font-weight: 600;
     transition: all .35s ease-in-out;
     box-shadow: 0 20px 15px 0 rgba(92, 148, 207, 0.1);
@@ -168,5 +174,6 @@ h2{
 .deconnecter{
   text-decoration: none;
   background-color:#f9f9f9 ;
+  border: #f9f9f9;
 }
 </style>

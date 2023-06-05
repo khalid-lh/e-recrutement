@@ -59,20 +59,19 @@ i{
     font-size: 30px;
     font-family:Arial, Helvetica, sans-serif;
 }
-h4 {
+h4{
     color: #000;
     font-size: 17px;
     font-weight: 700;
     padding-left: 10px;
-    border-left: 5px solid #165aa2;   
+    border-left: 5px solid #165aa2;
 }
-p{
+.offre_detail p{
     font-size: 18px;
     color: #343434;
     margin-bottom: 0;
     line-height: 1.8;
     font-weight: 500;
-
 }
 .offre_description{
     width: 100%;
@@ -102,6 +101,7 @@ align-items: center;
         </Myheader>
         </div>
         <div id="alertContainer"></div>
+        
         <div class="offre_header">
             <div class="row justify-content-center mt-4">
                 <div class="col-sm-12 col-lg-2 col-md-2">
@@ -188,8 +188,11 @@ align-items: center;
                         <h4>Prescence</h4>
                         <p>{{$offre->presence}}</p>     
                     </div>
-                    @if (  $offre->deleted_at == null)
-                    <button class="btn_condidat" onclick="postuler_offre({{ $offre->id_offre }})">Postuler</button>
+                    @if ( $offre->deleted_at == null)
+                    <div class="buttons_offre" >
+                        <button onclick="postuler_offre({{ $offre->id_offre }})" class="btn_condidat mr-2">Postuler</button>
+                        <button class=" btn_condidat mr-2 " onclick="enregistrer_offre({{ $offre->id_offre }})">Enregistrer</button>
+                    </div>
                 @else 
 
                 @endif
@@ -199,18 +202,22 @@ align-items: center;
               </div>
               
         </div> 
+        <div id="footer_home"> 
+            <footer_home>
+            </footer_home>
+    </div>
 <script src="{{asset('js/app.js')}}">
 </script>
 <script>
     // Function to fetch data
     let token = localStorage.getItem('token');
-    function postuler_offre(id_offre) {
+    function postuler_offre(id_offre){
         axios.post('/postuler_offres', null,{
-  params: {
-     id: id_offre,
-     token:token
-  }
-   }).then(response =>{        
+        params: {
+        id: id_offre,
+        token:token
+    }
+   }).then(response =>{
         let message = response.data.message;
         if(message=='Votre condidature a été bien enregistrer'){
             let alertHTML = `
@@ -245,6 +252,41 @@ align-items: center;
         `;
         document.getElementById('alertContainer').innerHTML = alertHTML;
      
+        }
+            })
+            .catch(error => {
+                // Handle the error
+                console.error(error);
+            });
+    }
+    function enregistrer_offre(id_offre) {
+        axios.post('/enregistrer_offre', null , {
+  params: {
+     id: id_offre,
+     token:token
+  }
+   }).then(response =>{
+        let message = response.data.message;
+        if(message=='Votre enregistrement a été bien enregistrer'){
+            let alertHTML = `
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>L'offre a été bien enregistrer</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+        document.getElementById('alertContainer').innerHTML = alertHTML;
+        }else if(message=='Data already exists.'){
+            let alertHTML = `
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Vous avez deja enregistrer cette offre </strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+        document.getElementById('alertContainer').innerHTML = alertHTML;
         }
             })
             .catch(error => {

@@ -23,17 +23,17 @@
     .email_content{
       padding: 10px;
       text-align: center;
-      
       justify-content: center;
       align-items: center;
       display: block;
-      
+
     }
+    
    </style>
     </head>
 <body>
 <div class="email_content">
-    <h1 >FORSASTI</h1>
+    <h1>FORSAJOB</h1>
     @if($data['type']=='inscription recruteur')
     <p>
     Cher {{$data['name']}}<br><br>
@@ -48,7 +48,7 @@ Sinceres salutations
     @elseif($data['type']=='inscription condidat')
     <p>
       Cher {{$data['name']}} <br><br>
-      Votre compte candidat a été créé avec succès. Vous pouvez maintenant vous connecter à votre compte et commencer à explorer les opportunités d’emploi, à soumettre des candidatures et à gérer votre profil.<br><br>
+      Votre compte candidat a été créé avec succès. Vous pouvez maintenant vous connecter à votre compte et commencer à explorer <br><br> les opportunités d’emploi, à soumettre des candidatures et à gérer votre profil.<br><br>
 
 Veuillez conserver vos identifiants de connexion en sécurité et ne les partagez avec personne.<br><br>
 
@@ -72,15 +72,18 @@ Merci d’avoir rejoint notre plateforme.
 Sinceres salutations
     </p>
     @elseif($data['type']=='company verification')
-    Nous sommes heureux de vous informer que le compte de votre entreprise a été vérifié avec succès par notre administrateur.<br><br>
+    <p>Nous sommes heureux de vous informer que le status de votre entreprise a été vérifié avec succès par notre administrateur.<br><br>
      Vous pouvez maintenant procéder à l’ajout d’offres d’emploi et gérer votre processus de recrutement.<br><br>
 Pour accéder à votre compte et commencer à publier des offres d’emploi, veuillez vous connecter à l’aide de vos identifiants.<br><br>
 
 Si vous avez des questions ou avez besoin d’aide, n’hésitez pas à contacter notre équipe d’assistance. Nous sommes là pour vous aider!<br><br>
 Merci d’avoir choisi notre plateforme. Nous vous souhaitons beaucoup de succès dans la recherche des bons candidats pour votre organisation.<br><br>
 
-Sinceres salutations
-    @endif
+Sinceres salutations</p>
+  @elseif($data['type']=='verification_email')
+    <p style="font-size: 16px;">Veuillez cliquer sur le lien suivant pour vérifier votre adresse email :</p>
+     <a href="{{ $data['url'] }}" style="display: inline-block; padding: 10px 20px; background-color: #3f51b5; color: #fff; text-decoration: none; font-weight: bold; border-radius: 4px;">Vérifier l\'adresse email</a>
+  @endif
   </div>
 </body>
 </html>

@@ -5969,6 +5969,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -6230,9 +6236,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'footer'
@@ -6251,6 +6254,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -14620,7 +14631,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.header_content[data-v-705ab780]{\r\n  box-shadow: 0 20px 15px 0 rgba(92, 148, 207, 0.1);\n}\n.header[data-v-705ab780]{\r\n  margin-left: 15px;\r\n  margin-right: 15px;\n}\n.item[data-v-705ab780] {\r\n  padding: 10px;\r\n  color: #1e1e1e;\r\n  font-size: 15px;\r\n  font-weight: 500;\r\n  transition: all 0.35s ease-in-out;\n}\n.navbar-toggler[data-v-705ab780]:focus {\r\n  outline: none !important;\r\n  border: none;\r\n  box-shadow: none !important;\n}\n.navbar-toggler[data-v-705ab780]{\r\n  border-style: none;\n}\n.btn_condidat[data-v-705ab780] {\r\n    width: 100px;\r\n    height: 40px;\r\n    font-size: 17px;\r\n    outline: none;\r\n    padding: 0;\r\n    text-align: center;\r\n    background-color: #b9c01a;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    text-decoration: none;\r\n    color: #FFF;\r\n    border: 1px solid transparent;\r\n    border-radius: 4px;\r\n    font-weight: 600;\r\n    transition: all .35s ease-in-out;\r\n    box-shadow: 0 20px 15px 0 rgba(92, 148, 207, 0.1);\n}\nh2[data-v-705ab780]{\r\n  font-family: Georgia, 'Times New Roman', Times, serif;\r\n  font-size: 30px;\r\n  color: midnightblue;\n}\n.dropdown[data-v-705ab780] {\r\n  position: relative;\r\n  display: inline-block;\n}\n.dropdown-content[data-v-705ab780] {\r\n  display: none;\r\n  position: absolute;\r\n  background-color: #f9f9f9;\r\n  min-width: 100px;\r\n  margin-left: -100px;\r\n  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\r\n  padding: 12px 16px;\r\n  z-index: 1;\n}\n.dropdown:hover .dropdown-content[data-v-705ab780] {\r\n  display: block;\n}\n@media (max-width: 980px){\n.dropdown-content[data-v-705ab780]{\r\n  margin-left: 0px;\n}\n}\n.deconnecter[data-v-705ab780]{\r\n  text-decoration: none;\r\n  background-color:#f9f9f9 ;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.header_content[data-v-705ab780]{\r\n  box-shadow: 0 20px 15px 0 rgba(92, 148, 207, 0.1);\n}\n.header[data-v-705ab780]{\r\n  margin-left: 15px;\r\n  margin-right: 15px;\n}\n.item[data-v-705ab780] {\r\n  padding: 10px;\r\n  color: #1e1e1e;\r\n  font-size: 15px;\r\n  font-weight: 500;\r\n  transition: all 0.35s ease-in-out;\n}\n.navbar-toggler[data-v-705ab780]:focus {\r\n  outline: none !important;\r\n  border: none;\r\n  box-shadow: none !important;\n}\n.navbar-toggler[data-v-705ab780]{\r\n  border-style: none;\n}\n.btn_condidat[data-v-705ab780] {\r\n    width: 100px;\r\n    height: 40px;\r\n    font-size: 17px;\r\n    outline: none;\r\n    padding: 0;\r\n    text-align: center;\r\n    background-color: #b9c01a;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    text-decoration: none;\r\n    color: #FFF;\r\n    border: 1px solid transparent;\r\n    border-radius: 10px;\r\n    font-weight: 600;\r\n    transition: all .35s ease-in-out;\r\n    box-shadow: 0 20px 15px 0 rgba(92, 148, 207, 0.1);\n}\nh2[data-v-705ab780]{\r\n  font-family: Georgia, 'Times New Roman', Times, serif;\r\n  font-size: 30px;\r\n  color: midnightblue;\n}\n.dropdown[data-v-705ab780] {\r\n  position: relative;\r\n  display: inline-block;\n}\n.dropdown-content[data-v-705ab780] {\r\n  display: none;\r\n  position: absolute;\r\n  background-color: #f9f9f9;\r\n  min-width: 100px;\r\n  margin-left: -100px;\r\n  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\r\n  padding: 12px 16px;\r\n  z-index: 1;\n}\n.dropdown:hover .dropdown-content[data-v-705ab780] {\r\n  display: block;\n}\n@media (max-width: 980px){\n.dropdown-content[data-v-705ab780]{\r\n  margin-left: 0px;\n}\n}\n.deconnecter[data-v-705ab780]{\r\n  text-decoration: none;\r\n  background-color:#f9f9f9 ;\r\n  border: #f9f9f9;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -14692,7 +14703,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.footer[data-v-37f1a736] {\r\n  background-color: rgb(20, 108, 148);\r\n  padding: 20px;\r\n  height: 100%;\r\n  left: 0;\r\n  bottom: 0;\r\n  width: 100%;\r\n  margin-top: 35px;\n}\n.footer-content[data-v-37f1a736] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\nh1[data-v-37f1a736],h5[data-v-37f1a736]{\r\ncolor:azure;\r\nfont-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\r\nfont-size: 30px;\n}\nh5[data-v-37f1a736]{\r\ncolor:azure;\r\nfont-size: 20px;\n}\n.logo[data-v-37f1a736] {\r\nmargin-top: 20px;\n}\n.logo p[data-v-37f1a736] {\r\nfont-size: 16px;\n}\n.footer-lists ul[data-v-37f1a736] {\r\nmargin-top: 20px;\r\nlist-style: none;\r\nmargin: 0;\r\npadding: 0;\n}\n.list_additionnal ul li[data-v-37f1a736] {\r\ncolor: rgb(223, 222, 212);\n}\n.list_additionnal ul[data-v-37f1a736] {\r\nlist-style: none;\r\nmargin: 0;\r\npadding: 0;\r\nmargin-top: 20px;\n}\n.footer-lists[data-v-37f1a736] {\r\ndisplay: block;\r\ncolor: aliceblue;\r\nmargin-top: 20px;\n}\n.footer-lists ul li[data-v-37f1a736] {\r\nmargin-bottom: 8px;\r\nmargin-right: 50px;\r\ncolor: rgb(223, 222, 212);\n}\n.footer-bottom[data-v-37f1a736] {\r\ntext-align: center;\r\nfont-size: 14px;\r\nmargin-top: 30px;\r\n\r\ncolor: azure;\n}\n.footer-lists-ville[data-v-37f1a736] {\r\ndisplay: flex;\r\nflex-wrap: wrap;\r\njustify-content: flex-start;\n}\n.footer-lists-ville ul[data-v-37f1a736] {\r\nlist-style: none;\r\nmargin: 0;\r\npadding: 0;\n}\n#app_desc[data-v-37f1a736]{\r\n  color: rgb(223, 222, 212);\n}\n.footer-lists-ville ul li[data-v-37f1a736] {\r\nmargin-bottom: 8px;\r\nmargin-right: 20px;\r\ncolor: rgb(223, 222, 212);\n}\n@media (max-width: 768px) {\n.footer-content[data-v-37f1a736] {\r\nflex-wrap: wrap;\r\njustify-content: center;\n}\n.logo[data-v-37f1a736] {\r\ntext-align: center;\r\nmargin-bottom: 20px;\n}\n.list_additionnal[data-v-37f1a736] {\r\ntext-align: center;\r\nmargin-bottom: 20px;\n}\n.footer-lists[data-v-37f1a736] {\r\ntext-align: center;\r\nmargin-top: 0;\n}\n.footer-lists-ville[data-v-37f1a736] {\r\njustify-content: center;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.footer[data-v-37f1a736] {\r\n  background-color: rgb(20, 108, 148);\r\n  padding: 20px;\r\n  height: 100%;\r\n  left: 0;\r\n  bottom: 0;\r\n  width: 100%;\r\n  margin-top: 35px;\n}\n.footer-content[data-v-37f1a736] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\nh1[data-v-37f1a736],h5[data-v-37f1a736]{\r\ncolor:azure;\r\nfont-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\r\nfont-size: 30px;\n}\nh5[data-v-37f1a736]{\r\ncolor:azure;\r\nfont-size: 20px;\n}\n.logo[data-v-37f1a736] {\r\nmargin-top: 20px;\n}\n.logo p[data-v-37f1a736] {\r\nfont-size: 16px;\n}\n.footer-lists ul[data-v-37f1a736] {\r\nmargin-top: 20px;\r\nlist-style: none;\r\nmargin: 0;\r\npadding: 0;\n}\n.list_additionnal ul li[data-v-37f1a736] {\r\ncolor: rgb(223, 222, 212);\n}\n.list_additionnal ul[data-v-37f1a736] {\r\nlist-style: none;\r\nmargin: 0;\r\npadding: 0;\r\nmargin-top: 20px;\n}\n.footer-lists[data-v-37f1a736] {\r\ndisplay: block;\r\ncolor: aliceblue;\r\nmargin-top: 20px;\n}\n.footer-lists ul li[data-v-37f1a736] {\r\nmargin-bottom: 8px;\r\nmargin-right: 50px;\r\ncolor: rgb(223, 222, 212);\n}\n.footer-bottom[data-v-37f1a736] {\r\ntext-align: center;\r\nfont-size: 14px;\r\nmargin-top: 30px;\r\ncolor: azure;\n}\n.footer-lists-ville[data-v-37f1a736] {\r\ndisplay: flex;\r\nflex-wrap: wrap;\r\njustify-content: flex-start;\n}\n.footer-lists-ville ul[data-v-37f1a736] {\r\nlist-style: none;\r\nmargin: 0;\r\npadding: 0;\n}\n#app_desc[data-v-37f1a736]{\r\n  color: rgb(223, 222, 212);\n}\n.footer-lists-ville ul li[data-v-37f1a736] {\r\nmargin-bottom: 8px;\r\nmargin-right: 20px;\r\ncolor: rgb(223, 222, 212);\n}\n@media (max-width: 768px) {\n.footer-content[data-v-37f1a736] {\r\nflex-wrap: wrap;\r\njustify-content: center;\n}\n.logo[data-v-37f1a736] {\r\ntext-align: center;\r\nmargin-bottom: 20px;\n}\n.list_additionnal[data-v-37f1a736] {\r\ntext-align: center;\r\nmargin-bottom: 20px;\n}\n.footer-lists[data-v-37f1a736] {\r\ntext-align: center;\r\nmargin-top: 0;\n}\n.footer-lists-ville[data-v-37f1a736] {\r\njustify-content: center;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -14716,7 +14727,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.search[data-v-65020df2] {\r\n    display: flex;\r\n    justify-content: center;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    height: 80vh;\r\n    background-image: url('/images/recrutement.jpg');\r\n    background-repeat: no-repeat;\r\n    background-size: cover;\r\n    background-position: center;\n}\n.center-content[data-v-65020df2] {\r\n    text-align: center;\r\n    display: flex;\r\n    align-items: center;\r\n    max-width: 600px;\r\n    /* Adjust the max-width as per your preference */\r\n    margin: 0 auto;\n}\n.btn_condidat[data-v-65020df2] {\r\n    width: 100%;\r\n    height: 40px;\r\n    font-size: 17px;\r\n    outline: none;\r\n    padding: 0;\r\n    text-align: center;\r\n    background-color: #b9c01a;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    text-decoration: none;\r\n    color: #FFF;\r\n    border: 1px solid transparent;\r\n    border-radius: 4px;\r\n    font-weight: 600;\r\n    transition: all .35s ease-in-out;\r\n    box-shadow: 0 20px 15px 0 rgba(92, 148, 207, 0.1);\n}\n.center-content input[data-v-65020df2],\r\n.center-content button[data-v-65020df2],\r\n.search select[data-v-65020df2] {\r\n    width: 200px;\r\n    padding: 10px;\r\n    margin-bottom: 10px;\r\n    margin-right: 10px;\n}\n.text[data-v-65020df2] {\r\n    color: #FFF;\r\n    text-align: center;\r\n    box-shadow: 10px;\r\n    margin-top: -200px;\r\n    margin-bottom: 100px;\n}\n.search select[data-v-65020df2]:focus,\r\ninput[data-v-65020df2]:focus {\r\n    outline: none !important;\r\n    border: none;\r\n    box-shadow: none !important;\n}\n.search select option[data-v-65020df2]:hover {\r\n    background-color: transparent !important;\n}\nh1[data-v-65020df2]{\r\n    text-align: center;\r\n    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n    font-size: 50px;\r\n    margin: 0px 50px 0px 50px;\n}\na[data-v-65020df2]{\r\n    text-decoration: none;\r\n    text-decoration-style: none;\r\n    color: #FFF;\n}\n@media (max-width: 600px) {\n.center-content input[data-v-65020df2],\r\n    .center-content select[data-v-65020df2] {\r\n        width: auto;\r\n        /* Reset width to auto for smaller screens */\n}\n.center-content button[data-v-65020df2] {\r\n        width: auto;\n}\n.center-content[data-v-65020df2] {\r\n        text-align: center;\r\n        display: flex;\r\n        flex-direction: column;\r\n        align-items: center;\r\n        max-width: 400px;\r\n        margin: 0 auto;\n}\n.center-content input[data-v-65020df2],\r\n    .center-content button[data-v-65020df2],\r\n    .search select[data-v-65020df2] {\r\n        width: 200px;\r\n        padding: 10px;\r\n        margin-bottom: 10px;\r\n        margin-right: 10px;\n}\n.text[data-v-65020df2]{\r\n        color: #FFF;\r\n        text-align: center;\r\n        box-shadow: 10px;\r\n        margin-top: -50px;\r\n        margin-bottom: 100px;\n}\nh1[data-v-65020df2]{\r\n    font-size: 30px;\n}\n.search select option[data-v-65020df2]:hover {\r\n        background-color: transparent !important;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.search[data-v-65020df2] {\r\n    display: flex;\r\n    justify-content: center;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    height: 80vh;\r\n    background-image: url('/images/recrutement.jpg');\r\n    background-repeat: no-repeat;\r\n    background-size: cover;\r\n    background-position: center;\n}\n.center-content[data-v-65020df2] {\r\n    text-align: center;\r\n    display: flex;\r\n    align-items: center;\r\n    max-width: 800px;\r\n    /* Adjust the max-width as per your preference */\r\n    margin: 0 auto;\n}\n.btn_condidat[data-v-65020df2] {\r\n    width: 100%;\r\n    height: 40px;\r\n    font-size: 17px;\r\n    outline: none;\r\n    padding: 0;\r\n    text-align: center;\r\n    background-color: #b9c01a;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    text-decoration: none;\r\n    color: #FFF;\r\n    border: 1px solid transparent;\r\n    border-radius: 4px;\r\n    font-weight: 600;\r\n    transition: all .35s ease-in-out;\r\n    box-shadow: 0 20px 15px 0 rgba(92, 148, 207, 0.1);\n}\n.center-content input[data-v-65020df2],\r\n.center-content button[data-v-65020df2],\r\n.search select[data-v-65020df2] {\r\n    width: 200px;\r\n    padding: 10px;\r\n    margin-bottom: 10px;\r\n    margin-right: 10px;\n}\n.text[data-v-65020df2] {\r\n    color: #FFF;\r\n    text-align: center;\r\n    box-shadow: 10px;\r\n    margin-top: -200px;\r\n    margin-bottom: 100px;\n}\n.search select[data-v-65020df2]:focus,\r\ninput[data-v-65020df2]:focus {\r\n    outline: none !important;\r\n    border: none;\r\n    box-shadow: none !important;\n}\n.search select option[data-v-65020df2]:hover {\r\n    background-color: transparent !important;\n}\nh1[data-v-65020df2]{\r\n    text-align: center;\r\n    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\r\n    font-size: 50px;\r\n    margin: 0px 50px 0px 50px;\n}\na[data-v-65020df2]{\r\n    text-decoration: none;\r\n    text-decoration-style: none;\r\n    color: #FFF;\n}\n@media (max-width: 600px) {\n.center-content input[data-v-65020df2],\r\n    .center-content select[data-v-65020df2] {\r\n        width: auto;\r\n        /* Reset width to auto for smaller screens */\n}\n.center-content button[data-v-65020df2] {\r\n        width: auto;\n}\n.center-content[data-v-65020df2] {\r\n        text-align: center;\r\n        display: flex;\r\n        flex-direction: column;\r\n        align-items: center;\r\n        max-width: 400px;\r\n        margin: 0 auto;\n}\n.center-content input[data-v-65020df2],\r\n    .center-content button[data-v-65020df2],\r\n    .search select[data-v-65020df2] {\r\n        width: 200px;\r\n        padding: 10px;\r\n        margin-bottom: 10px;\r\n        margin-right: 10px;\n}\n.text[data-v-65020df2]{\r\n        color: #FFF;\r\n        text-align: center;\r\n        box-shadow: 10px;\r\n        margin-top: -50px;\r\n        margin-bottom: 100px;\n}\nh1[data-v-65020df2]{\r\n    font-size: 30px;\n}\n.search select option[data-v-65020df2]:hover {\r\n        background-color: transparent !important;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -61299,7 +61310,7 @@ var render = function () {
                     _vm._v(" "),
                     _c("div", { staticClass: "col-lg-6 col-md-6 col-sm-12" }, [
                       _c("h4", { staticClass: "mt-4" }, [
-                        _vm._v("Informations de recruteur"),
+                        _vm._v("Informations de connexion"),
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "row" }, [
@@ -61688,10 +61699,12 @@ var render = function () {
               attrs: { id: "navbarNav" },
             },
             [
+              _vm._m(2),
+              _vm._v(" "),
               _vm.isAuthenticated
                 ? _c("ul", { staticClass: "navbar-nav" }, [
                     _c("div", { staticClass: "dropdown" }, [
-                      _vm._m(2),
+                      _vm._m(3),
                       _vm._v(" "),
                       _c("div", { staticClass: "dropdown-content" }, [
                         _c("li", { staticClass: "nav-item item" }, [
@@ -61719,9 +61732,9 @@ var render = function () {
                     ]),
                   ])
                 : _c("ul", { staticClass: "navbar-nav" }, [
-                    _vm._m(3),
-                    _vm._v(" "),
                     _vm._m(4),
+                    _vm._v(" "),
+                    _vm._m(5),
                   ]),
             ]
           ),
@@ -61758,6 +61771,18 @@ var staticRenderFns = [
       },
       [_c("span", { staticClass: "navbar-toggler-icon" })]
     )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "navbar-nav" }, [
+      _c("li", { staticClass: "nav-item item" }, [
+        _c("a", { staticClass: "nav-link", attrs: { href: "/login" } }, [
+          _vm._v("Articls"),
+        ]),
+      ]),
+    ])
   },
   function () {
     var _vm = this
@@ -62078,7 +62103,11 @@ var staticRenderFns = [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col" }, [
             _c("div", { staticClass: "logo" }, [
-              _c("h1", [_vm._v("FORSAJOB")]),
+              _c("h1", [
+                _c("a", { staticClass: "nav-link", attrs: { href: "/" } }, [
+                  _vm._v("FORSAJOB"),
+                ]),
+              ]),
               _vm._v(" "),
               _c("p", { attrs: { id: "app_desc" } }, [
                 _vm._v(
@@ -62091,11 +62120,35 @@ var staticRenderFns = [
           _c("div", { staticClass: "col" }, [
             _c("div", { staticClass: "list_additionnal" }, [
               _c("ul", [
-                _c("li", [_vm._v("À PROPOS")]),
+                _c("li", [
+                  _c(
+                    "a",
+                    { staticClass: "nav-link", attrs: { href: "/a-propos" } },
+                    [_vm._v("À PROPOS")]
+                  ),
+                ]),
                 _vm._v(" "),
-                _c("li", [_vm._v("CONDITIONS D'UTILISATION")]),
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { href: "/condition-générale-utilisation" },
+                    },
+                    [_vm._v("CONDITIONS D'UTILISATION")]
+                  ),
+                ]),
                 _vm._v(" "),
-                _c("li", [_vm._v("QUI SOMMES-NOUS?")]),
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { href: "/qui-somme-nous" },
+                    },
+                    [_vm._v("QUI SOMMES-NOUS?")]
+                  ),
+                ]),
               ]),
             ]),
           ]),
@@ -62346,6 +62399,8 @@ var render = function () {
           ]
         ),
         _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
         _c("a", { attrs: { href: _vm.getSearchUrl() } }, [
           _c("button", { staticClass: "btn btn-primary btn_condidat" }, [
             _vm._v("Rechercher"),
@@ -62365,6 +62420,32 @@ var staticRenderFns = [
         _vm._v("Trouvez votre opportunité du Travail en quelques minutes"),
       ]),
     ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "select",
+      { staticClass: "form-select", attrs: { name: "categorie" } },
+      [
+        _c("option", { attrs: { value: "" } }, [_vm._v("categorie")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "Agadir" } }, [_vm._v("Agadir")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "Casablanca" } }, [
+          _vm._v("Casablanca"),
+        ]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "Fez" } }, [_vm._v("Fez")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "Marrakech" } }, [_vm._v("Marrakech")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "Rabat" } }, [_vm._v("Rabat")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "Tangier" } }, [_vm._v("Tangier")]),
+      ]
+    )
   },
 ]
 render._withStripped = true
