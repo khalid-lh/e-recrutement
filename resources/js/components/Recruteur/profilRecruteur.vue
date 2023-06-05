@@ -213,13 +213,13 @@ export default {
             logoUrl: 'https://i.pinimg.com/originals/76/30/ad/7630ad49bdc79b8482c8627c663a1373.png',
             khalid: 'khalid',
             company: null,
-            /*updatedCompany: {
+            updatedCompany: {
                 ville: '',
                 telephone: '',
                 code_posstal: '',
                 description: '',
                 logo: null,
-            },*/
+            },
         }
     },
     methods: {

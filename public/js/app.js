@@ -7386,17 +7386,16 @@ __webpack_require__.r(__webpack_exports__);
     return {
       logoUrl: 'https://i.pinimg.com/originals/76/30/ad/7630ad49bdc79b8482c8627c663a1373.png',
       khalid: 'khalid',
-      company: null
-      /*updatedCompany: {
-          ville: '',
-          telephone: '',
-          code_posstal: '',
-          description: '',
-          logo: null,
-      },*/
+      company: null,
+      updatedCompany: {
+        ville: '',
+        telephone: '',
+        code_posstal: '',
+        description: '',
+        logo: null
+      }
     };
   },
-
   methods: {
     handlePhotoUploadClick: function handlePhotoUploadClick() {
       //this.$refs.photoInput.click();
@@ -65132,7 +65131,9 @@ var render = function () {
               _vm._v(_vm._s(_vm.UsersCount)),
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-name" }, [_vm._v("Nombre Users")]),
+            _c("div", { staticClass: "card-name" }, [
+              _vm._v("Nombre Utilisateurs"),
+            ]),
           ]),
           _vm._v(" "),
           _vm._m(3),

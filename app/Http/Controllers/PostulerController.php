@@ -23,7 +23,7 @@ class PostulerController extends Controller
     {
     
     
-    if(Auth::check()){
+    
         $user= JWTAuth::setToken($request->query('token'))->authenticate();
 
     $existingData = ModelsPostuler::where('id', $user->id)->where('id_offre', $request->query('id'))->first();
@@ -63,9 +63,7 @@ class PostulerController extends Controller
                 ]); 
             }
         }
-    }else{
-        return redirect()->route('index');
-    }
+   
 
     }
     public function getoffres_condidats(Request $request)

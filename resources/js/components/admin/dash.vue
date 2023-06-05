@@ -41,7 +41,7 @@
             <div class="cards">
                 <div class="card-content">
                     <div class="number">{{UsersCount}}</div>
-                    <div class="card-name">Nombre Users</div>
+                    <div class="card-name">Nombre Utilisateurs</div>
                 </div>
                 <div class="icon-box">
                   <i class="fa-sharp fa-solid fa-users"></i>
