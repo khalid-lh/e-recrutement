@@ -55,7 +55,7 @@ export default {
 </script>
 <style scoped>
 .footer{
-  background-color: rgb(20, 108, 148);
+  background: linear-gradient(to top, #168aad, #168aad);
   padding: 20px;
   left: 0;
   width: 100%;
@@ -67,7 +67,6 @@ export default {
   align-items: center;
   
 }
-
 h1 ,h5{
 color:azure;
 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
