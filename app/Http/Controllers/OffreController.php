@@ -31,6 +31,7 @@ class OffreController extends Controller
             'description' => ['required ','string'],
             'n_postes' => ['required','integer'],
             'type_offre' => ['required ','string'],
+            'id_categorie' => ['required'],
         ]);
             $offre = new ModelsOffre;
             $offre->id_recruteur = $user->id;
@@ -269,7 +270,7 @@ public function searchOffers(Request $request)
             }
         })
         ->whereNull('offres.deleted_at')
-        ->get();
+        ->paginate(5);
 
     return view('listOffresearched')->with([
         'offres' => $offers

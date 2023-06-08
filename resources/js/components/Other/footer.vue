@@ -57,11 +57,8 @@ export default {
 .footer{
   background-color: rgb(20, 108, 148);
   padding: 20px;
- position: relative;
-  bottom: 0;
   left: 0;
   width: 100%;
-  
 }
 
 .footer-content {

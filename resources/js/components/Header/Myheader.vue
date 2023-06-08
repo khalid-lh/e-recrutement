@@ -13,7 +13,7 @@
         </li>
       </ul>
       <ul class="navbar-nav">
-      <div class="dropdown">
+      <div class="dropdown ">
               <span>Categories</span>
               <div class="dropdown-content categories">
                  <li class="nav-item item" v-for="categorie in  categories" :key="categorie.id" :value="categorie.id_categorie">
@@ -191,8 +191,13 @@ h2{
   padding: 12px 16px;
   z-index: 1;
 }
+.categories li:hover{
+ background-color: #b9c01a;
+ color: #FFF;
+ font-size: 17px;
+}
 .categories li{
-  text-decoration: none;
+  font-size: 17px;
 }
 .dropdown:hover .dropdown-content {
   display: block;

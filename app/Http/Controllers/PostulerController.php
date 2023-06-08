@@ -22,11 +22,13 @@ class PostulerController extends Controller
     public function postuler(Request $request)
     {
     
-    
-    
-        $user= JWTAuth::setToken($request->query('token'))->authenticate();
-
-    $existingData = ModelsPostuler::where('id', $user->id)->where('id_offre', $request->query('id'))->first();
+   $user=Auth::user() ;
+    if($user==null){
+        return response()->json([
+            'message' => 'You need to be logged in to postuler',
+        ]);
+    }else{
+        $existingData = ModelsPostuler::where('id', $user->id)->where('id_offre', $request->query('id'))->first();
     $offreDetaille = ModelsOffre::where('id_offre', $request->query('id'))->with('company')->first();
         if ($user->user_type !== 'condidat') {
             return response()->json([
@@ -42,7 +44,6 @@ class PostulerController extends Controller
             $postuler= new ModelsPostuler;
             $postuler->id=$user->id;
             $postuler->id_offre=$request->query('id');
-    
             $saved = $postuler->save();
             if($saved){
                 $data = [
@@ -63,7 +64,7 @@ class PostulerController extends Controller
                 ]); 
             }
         }
-   
+    }
 
     }
     public function getoffres_condidats(Request $request)

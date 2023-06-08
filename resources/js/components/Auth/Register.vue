@@ -49,9 +49,12 @@
                                         <h6 id="title_component">Ville</h6>
                                         <select value="Ville" class="form-select form-select-sm mb-4" id="ville" name="ville" aria-label=".form-select-sm example" v-model="profil.ville">
 
-                                            <option value="Casablanca">Casablanca</option>
-                                            <option value="Marrakech">Marrakeech</option>
                                             <option value="Agadir">Agadir</option>
+                                            <option value="Casablanca">Casablanca</option>
+                                            <option value="Fez">Fez</option>
+                                            <option value="Marrakech">Marrakech</option>
+                                            <option value="Rabat">Rabat</option>
+                                            <option value="Tangier">Tangier</option>
                                         </select>
                                     </div>
                                 </div>
@@ -160,6 +163,7 @@
                                     <div>
                                         <h6 id="title_component">Ville</h6>
                                         <select value="Ville" class="form-select form-select-sm mb-4" id="ville_societe" name="ville" aria-label=".form-select-sm example" v-model="company.ville">
+
                                             <option value="Agadir">Agadir</option>
                                             <option value="Casablanca">Casablanca</option>
                                             <option value="Fez">Fez</option>

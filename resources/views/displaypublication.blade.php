@@ -36,7 +36,7 @@
         </div>
         <div id="alertContainer"></div>
         <div class="offre_header">
-            <div class="row justify-content-center mt-4">
+            <div class="row justify-content-center mt-4 mb-4">
                 <div class="col-sm-12 col-lg-2 col-md-2">
                 </div>
                 <div class="col-sm-12 col-lg-8 col-md-8">

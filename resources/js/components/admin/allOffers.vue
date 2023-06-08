@@ -45,6 +45,7 @@
                                         <td v-if="selectedType === 'Emploi'">A partir {{ offre.annee_experience }} ans </td>
                                     </tr>
                                 </tbody>
+                             
                             </table>
                         </div>
                     </div>

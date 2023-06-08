@@ -119,6 +119,7 @@ export default {
                         showConfirmButton: false,
                         timer: 1500
                     })
+                    this.offre= [];
                 }
             }).catch((errors) => {
                 this.errors_offre = errors.response.data.errors

@@ -35,12 +35,16 @@ Route::get('/recruteur/{path}', function (){
 Route::get('/candidat/{path}', function (){
     return view('Condidat/condidatdashboard');
 })->where('path', '(.*)');
-Route::get('/candidat/dashboard', function (){
-    return view('Condidat/condidatdashboard');
-});
 Route::get('/admin/{path}', function (){
     return view('Admin/admindashboard');
 })->where('path', '(.*)');
+
+
+
+
+Route::get('/candidat/dashboard', function (){
+    return view('Condidat/condidatdashboard');
+});
 Route::get('/verificationEmailSuccess', function (){
     return view('verificationEmailSuccess');
 });

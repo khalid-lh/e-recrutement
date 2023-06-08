@@ -8,19 +8,27 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Models\User as ModelsUser;
 use App\Models\offre as ModelsOffre;
 use App\Models\postuler as ModelsPostuler;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\enregister as ModelsEnregistrer;
 class EnregisterController extends Controller
 {
    public function enregistrer_offre(Request $request)
     {
-        /*$token= substr($request->header('Authorization'), 7);
-        $token= $request->header('Authorization');
-        $token= str_replace('Bearer ', '', $token);*/
-        $user= JWTAuth::setToken($request->query('token'))->authenticate();
+       
 
-    $existingData = ModelsEnregistrer::where('id', $user->id)->where('id_offre', $request->query('id'))->first();
-
+    
+    $user=Auth::user() ;
+    if($user==null){
+        return response()->json([
+            'message' => 'You need to be logged in to postuler',
+        ]);
+    }else{
+        $existingData = ModelsEnregistrer::where('id', $user->id)->where('id_offre', $request->query('id'))->first();
+    if ($user->user_type !== 'condidat') {
+        return response()->json([
+            'message' => 'You do not have the privilege to postuler.',
+        ]);
+    }
     if ($existingData) {
         // Data already exists, return error message
         return response()->json([ 
@@ -41,7 +49,7 @@ class EnregisterController extends Controller
             ]); 
         }
     }
-        
+}
     }
     public function getmesenregistrements(Request $request)
     {

@@ -17,12 +17,11 @@
   padding:40px;
   box-shadow: 0 20px 15px 0 rgba(92, 148, 207, 0.1);
 }
-.footer{
-  
- position: absolute;
 
-  
-}
+    .footer{
+    margin-top: 380px;
+  }
+
 .offre_header,.offre_information{
     margin: 0px 20px 0px 20px;
 }
@@ -84,10 +83,12 @@ align-items: center;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     background-color: #fff;
     border-radius: 10px;
+    margin-top: -50px;
   }
   .buttons_offre{
     float: right;
   }
+
         </style>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     </head>
