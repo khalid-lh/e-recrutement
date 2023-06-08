@@ -57,9 +57,9 @@
         </div>
     <div class="emailcontainer">
         <i class="success-icon fas fa-check-circle"></i>
-        <h1>Email Verified</h1>
-        <p>Congratulations! Your email has been successfully verified.</p>
-        <a href="/" class="btn">Go to Homepage</a>
+        <h1>Adresse e-mail vérifiée</h1>
+<p>Félicitations ! Votre adresse e-mail a été vérifiée avec succès.</p>
+<a href="/" class="btn">Accéder à la page d'accueil</a>
     </div>
     <div id="footer_home" > 
         <footer_home>

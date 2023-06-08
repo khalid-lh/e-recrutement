@@ -312,7 +312,7 @@ align-items: center;
         }else if(message=='You need to be logged in to postuler'){
             let alertHTML = `
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Vous devez Authentifier pour postuler a cette offre</strong>
+                <strong>Vous devez Authentifier pour enregistrer cette offre</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

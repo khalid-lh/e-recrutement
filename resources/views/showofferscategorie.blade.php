@@ -216,6 +216,16 @@ align-items: center;
         `;
         document.getElementById('alertContainer').innerHTML = alertHTML;
         scrollToTop();
+        }else if(message=='You need to be logged in to postuler'){
+            let alertHTML = `
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Vous devez Authentifier pour postuler a cette offre</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+        document.getElementById('alertContainer').innerHTML = alertHTML;
         }
             })
             .catch(error => {
@@ -233,18 +243,37 @@ align-items: center;
         if(message=='Votre enregistrement a été bien enregistrer'){
             let alertHTML = `
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Votre condidature a été bien enregistrer</strong>
+                <strong>Votre offre a été bien enregistrer</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
         `;
         document.getElementById('alertContainer').innerHTML = alertHTML;
-    
         }else if(message=='Data already exists.'){
             let alertHTML = `
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Vous avez deja enregistrer cette offre </strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+        document.getElementById('alertContainer').innerHTML = alertHTML;
+        }else if(message=='You do not have the privilege to postuler.'){
+            let alertHTML = `
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Vous n’avez pas le droit d'enregistrer l'offre.</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+        document.getElementById('alertContainer').innerHTML = alertHTML;
+        }else if(message=='You need to be logged in to postuler'){
+            let alertHTML = `
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Vous devez Authentifier pour enregistrer cette offre</strong>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
