@@ -17,6 +17,12 @@
   padding:40px;
   box-shadow: 0 20px 15px 0 rgba(92, 148, 207, 0.1);
 }
+.footer{
+  
+ position: absolute;
+
+  
+}
 .offre_header,.offre_information{
     margin: 0px 20px 0px 20px;
 }
@@ -55,7 +61,7 @@ i{
 }
         </style>
         <style>
-            body {
+            body{
                 font-family: 'Nunito', sans-serif;
             }
             #alertContainer {
@@ -67,7 +73,6 @@ i{
     text-align: center;
 justify-content: center;
 align-items: center;
-
     padding: 10px;
     z-index: 9999;
   }
@@ -91,8 +96,6 @@ align-items: center;
         <Myheader>
         </Myheader>
         </div>
-        
-
         @if(count($offres)>0)
           <div class="search-results">
             <div id="alertContainer"></div>
@@ -159,7 +162,7 @@ align-items: center;
          </div>
           @else
             <div  class="message_exist" >
-               <h1>Il n’y a pas d’offres sur la ville ou la profession que vous avez choisie</h1> 
+               <h1>Il n’y a pas des offres d'emplois de cette categorie</h1> 
             </div>
           @endif
           <div id="footer_home"> 
@@ -215,7 +218,6 @@ align-items: center;
         }
             })
             .catch(error => {
-                // Handle the error
                 console.error(error);
             });
     }

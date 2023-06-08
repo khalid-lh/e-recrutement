@@ -1,6 +1,8 @@
 <template>
-<div class="dashboard">
-    
+<div class="dashboard" style="display:block;">
+     <div>
+            <Popup :message="popupMessage" v-if="popupMessage" @close="clearError" />
+      </div>
     <div class="row">
         <div class="col">
             <div class="cards">
@@ -49,6 +51,9 @@
             </div>
         </div>     
     </div>
+    <div style="float:right;" class="mb-4">
+        <button class="btn btn-success btn-sm" @click="showAlertCategorie">Ajouter Catégorie</button>
+    </div>
 <div class="content mt-4">
         <div class="row">
             <div class="col-sm-12" >
@@ -90,6 +95,7 @@
     
         </div>
     </div>
+    <!--Alert modify post-->
     <div class="modal fade show" id="myModal" ref="myModal" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -124,15 +130,45 @@
             </div>
         </div>
     </div>
-   
+    <!--Alert add categorie-->
+    <div class="modal fade show" id="Modal_categorie" ref="myModal" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="text-center w-100">
+                        <h5 class="modal-title" id="exampleModalLabel">Ajouter Categorie</h5>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" id="closebutton" aria-label="Close" @click="closeAlert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                   <div class="input-field">
+                    <input type="text" required id="name_categorie" name="name_categorie" v-model="Categorie.name_categorie">
+                    <label>Nom Categorie</label>
+                   </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="closeAlertCategorie">Cancel</button>
+                    <button type="button" class="btn btn-primary" @click="addCategorie">Ajouter</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </template>
 
 <script>
+import Popup from "../Other/alertError.vue";
 import '@fortawesome/fontawesome-free/css/all.css';
+
 import moment from 'moment';
 export default{
     name: 'admin_dashboard',
+    components: {
+        Popup,
+    },
     data() {
         return{
         photoUrl: 'https://i.pinimg.com/originals/76/30/ad/7630ad49bdc79b8482c8627c663a1373.png',
@@ -145,9 +181,24 @@ export default{
                 title:'',
                 content:'',
             },
+            popupMessage: "",
+            Categorie:{
+                name_categorie:'',
+            },
+            errors_categorie: {
+                name_categorie: {},
+                
+            },
         }
     },
     methods:{
+        showAlertCategorie(){
+ $('#Modal_categorie').modal('show');
+            var backdrop = document.querySelector('.modal-backdrop');
+            backdrop.classList.remove('fade');
+            backdrop.classList.remove('modal-backdrop');
+            backdrop.classList.add('show');
+        },
         statistiques(){
             axios.get('/admin/dashboard/statistiques')
                 .then(response => {
@@ -172,7 +223,9 @@ export default{
                     console.log(error);
                 });
         },
-        
+        closeAlertCategorie() {
+            $('#Modal_categorie').modal('hide');
+        },
          closeAlert() {
             $('#myModal').modal('hide');
         },
@@ -210,6 +263,21 @@ axios.get(`/getPost/${postid}`)
         console.error('Error modifying post:', error);
         
       });
+  },addCategorie(){
+const url = `/admin/addcategorie`;
+   let categorie = new FormData();
+           categorie.append('name_categorie', this.Categorie.name_categorie);
+    axios.post(url, categorie)
+      .then(response => {
+        if(response.data.message == 'categorie ajouté'){
+        this.Categorie={};
+         this.closeAlertCategorie();
+        }
+      })
+      .catch(error => {
+this.errors_categorie=error.response.data.errors;
+this.checkErrors(this.errors_categorie);
+      });
   },
         getallposts() {
             axios.get('/admin/getallposts')
@@ -223,7 +291,6 @@ axios.get(`/getPost/${postid}`)
     calculateTimeDifference(dateTime) {
       const start = moment(dateTime);
       const now = moment();
-
     return start.from(now);
     },
           handlePhotoUploadClick() {
@@ -278,7 +345,19 @@ axios.delete(`/admin/deletepost/${id}`)
     )
   }
 })        
-        },
+        },checkErrors(errors) {
+            if (Object.is(errors, this.errors_categorie)) {
+                for (let key in this.errors_categorie) {
+                    if (Object.keys(this.errors_categorie[key]).length > 0) {
+                        // Set the error message and display the popup
+                        this.popupMessage = Object.values(this.errors_categorie[key])[0];
+                        return;
+                    }
+                }
+            } 
+        },clearError() {
+            this.popupMessage = "";
+        }
     },
     computed:{    
     },

@@ -135,23 +135,10 @@ align-items: center;
                                     <p class="offre_type">{{$offre->type_offre}}</p>
                             </div>
                             <div class="col-sm-12 col-lg-6 col-md-6 mb-4" style="display: flex;">
-                                     
                                     <p > Presence : </p>
                                     <p class="offre_presence">{{$offre->presence}}</p>
                             </div>
-                            <!--<div class="col">
-                             <div class="content_detail" style="display: flex;">      
-                                    <p> date : </p>
-                                    <p class="offre_presence"> <?php
-                                    use Carbon\Carbon;
-                                      $date_create= Carbon::parse($offre->created_at);
-                                     // $now= Carbon::parse(Carbon::now());
-                                    $diff =  $date_create->diffForHumans(Carbon::now());
-                                    ?>
-                                    {{$diff}} </p>
-                                    
-                                </div>
-                            </div>-->
+                            
                             </div>                  
                           </div>
                     </div>

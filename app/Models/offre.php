@@ -29,4 +29,8 @@ public function user()
     {
         return $this->belongsTo(User::class, 'id_recruteur');
     }
+    public function categorie()
+    {
+        return $this->belongsTo(categories::class, 'id_categorie');
+    }
 }

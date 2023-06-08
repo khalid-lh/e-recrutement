@@ -61,7 +61,7 @@
                                     <div id="upload-container">
                                         <div id="upload-border">
                                             <nobr>
-                                                <input type="text" id="upload-cv cv" name="cv"  :value="cv ? cv : ''" disabled />
+                                                <input type="text" id="upload-cv cv" name="cv" :value="cv ? cv : ''" disabled />
                                                 <button id="upload-button" @click="handleUploadClick($refs.cv)">Upload your cv
                                                 </button>
                                             </nobr>
@@ -143,9 +143,9 @@
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div>
                                         <h6 id="title_component">Numèro RC</h6>
-                                       <div class="input-field" style="margin-top:-5px;">
-                                        <input type="text" required id="num_rc" v-model="company.num_rc">
-                                    </div>
+                                        <div class="input-field" style="margin-top:-5px;">
+                                            <input type="text" required id="num_rc" v-model="company.num_rc">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
@@ -160,9 +160,12 @@
                                     <div>
                                         <h6 id="title_component">Ville</h6>
                                         <select value="Ville" class="form-select form-select-sm mb-4" id="ville_societe" name="ville" aria-label=".form-select-sm example" v-model="company.ville">
-                                            <option value="Casablanca">Casablanca</option>
-                                            <option value="Marrakech">Marrakeech</option>
                                             <option value="Agadir">Agadir</option>
+                                            <option value="Casablanca">Casablanca</option>
+                                            <option value="Fez">Fez</option>
+                                            <option value="Marrakech">Marrakech</option>
+                                            <option value="Rabat">Rabat</option>
+                                            <option value="Tangier">Tangier</option>
                                         </select>
                                     </div>
                                 </div>
@@ -317,7 +320,7 @@ export default {
                 company_name: {},
                 telephone_societe: {},
                 ville_societe: {},
-               num_rc: {},
+                num_rc: {},
                 description: {},
                 code_postal: {},
                 register_commer: {},
@@ -358,7 +361,7 @@ export default {
             condidat.append('cv', this.profil.cv);
             condidat.append('image', this.profil.photo);
             axios.post('/Register/condidat', condidat).then(response => {
-                this.user_condidat={
+                this.user_condidat = {
                     name: '',
                     email: '',
                     password: ''
@@ -381,12 +384,12 @@ export default {
                 this.checkErrors(this.errors_condidat);
             })
         },
-        handleFileUpload( event , targetInput){
-            if(targetInput === this.$refs.cv){
+        handleFileUpload(event, targetInput) {
+            if (targetInput === this.$refs.cv) {
                 const file1 = event.target.files[0];
                 this.cv = event.target.files[0].name;
                 this.profil.cv = file1;
-            }else if (targetInput === this.$refs.rc){
+            } else if (targetInput === this.$refs.rc) {
                 const file2 = event.target.files[0];
                 this.register_commerce = event.target.files[0].name;
                 this.company.register_commerce = file2;
@@ -417,7 +420,7 @@ export default {
                 this.register_commerce = null;
                 this.logoUrl = 'https://i.pinimg.com/originals/76/30/ad/7630ad49bdc79b8482c8627c663a1373.png';
             }).catch((errors) => {
-               
+
                 this.errors_recruteur = errors.response.data.errors
                 this.checkErrors(this.errors_recruteur);
             })

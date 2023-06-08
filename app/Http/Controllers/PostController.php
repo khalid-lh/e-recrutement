@@ -51,7 +51,28 @@ class PostController extends Controller
         }
     }
     
-public function getallposts(Request $request)
+    public function getallpublications()
+    {
+        $allpublications= ModelsPost::orderBy('created_at', 'desc')->get();
+        foreach ( $allpublications as $post) {
+            $limitedDescription = Str::limit($post->content,10);
+            $post->content = $limitedDescription;
+        }
+          return view('allpublications')->with([
+            'allpublications' => $allpublications
+        ]);;
+    }
+    public function getpublication(Request $request)
+    {
+        $key = $request->query('key');
+    
+        $publication= ModelsPost::where('post_id',$key)->firstOrFail();
+        
+          return view('displaypublication')->with([
+            'publication' => $publication
+        ]);;
+    }
+    public function getallposts(Request $request)
 {
   
     $allposts = ModelsPost::withTrashed()->orderBy('created_at', 'desc')->get();

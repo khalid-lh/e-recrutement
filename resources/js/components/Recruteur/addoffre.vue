@@ -22,6 +22,11 @@
                     <input type="number" required v-model="offre.n_postes">
                     <label>N° Postes</label>
                 </div>
+                 <h6 id="title_component">Categories</h6>
+                <select class="form-select form-select-sm mb-4" id="type_offre" name="type_offre" aria-label=".form-select-sm example" v-model="offre.id_categorie">
+                    <option v-for="categorie in  categories" :key="categorie.id" :value="categorie.id_categorie">{{ categorie.name_categorie}}</option>
+                </select>
+                
                 <h6 id="title_component">Type Offre</h6>
                 <select class="form-select form-select-sm mb-4" id="type_offre" name="type_offre" aria-label=".form-select-sm example" v-model="offre.type_offre">
                     <option value="Stage">Stage</option>
@@ -82,7 +87,8 @@ export default {
                 duree: '',
                 convention: '',
                 annee_experience: null,
-                presence: ''
+                presence: '',
+                id_categorie:null,
             },
             errors_offre: {
                 titre_offre: {},
@@ -93,7 +99,7 @@ export default {
                 type_temp: {},
                 presence: {}
             },
-
+            categories:null,
         }
     },
     methods: {
@@ -103,9 +109,8 @@ export default {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            }).then(response => {}).catch((errors) => {
-                this.errors_offre = errors.response.data.errors
-                this.checkErrors(this.errors_offre);
+            }).then(response => {
+
                 if (response.data.message == 'offre ajoute') {
                     Swal.fire({
                         position: 'center',
@@ -115,7 +120,20 @@ export default {
                         timer: 1500
                     })
                 }
+            }).catch((errors) => {
+                this.errors_offre = errors.response.data.errors
+                this.checkErrors(this.errors_offre);
+                
             })
+        },
+        getallcategories() {
+            axios.get('/getallcategories')
+                .then(response => {
+                    this.categories = response.data.categories;
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         },
         handleUploadClick() {
             document.querySelector("#hidden-upload").click();
@@ -135,6 +153,9 @@ export default {
             this.popupMessage = "";
         }
     },
+   created(){   
+        this.getallcategories();
+    }
 };
 </script>
 

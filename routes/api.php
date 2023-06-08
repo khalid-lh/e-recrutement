@@ -13,6 +13,9 @@ Route::post('Register/condidat',[\App\Http\Controllers\UserController::class,'re
 Route::post('Register/recruteur',[\App\Http\Controllers\UserController::class,'register_recruteur']);
 Route::get('/logout',[\App\Http\Controllers\UserController::class,'deconnexion'])->name('deconnexion');
 Route::get('/getUserType',[\App\Http\Controllers\UserController::class,'getUserTypeFromDatabase']);
+Route::get('/publications',[\App\Http\Controllers\PostController::class,'getallpublications'])->name('publications.show');
+Route::get('/publication',[\App\Http\Controllers\PostController::class,'getpublication']);
+Route::get('/offres_emploi',[\App\Http\Controllers\OffreController::class,'getoffersbycategorie']);
 //Recruteur
 Route::post('/recruteur/addoffre',[\App\Http\Controllers\OffreController::class,'add_offre']);
 Route::get('/recruteur/dashboard/statistiques',[\App\Http\Controllers\RecruteurController::class,'statistiques']);
@@ -31,7 +34,7 @@ Route::get('/recruteur/mescondidaturs/{id}', [\App\Http\Controllers\PostulerCont
 Route::get('/recruteur/mesoffresdeleted', [\App\Http\Controllers\OffreController::class , 'getmesoffresdeleted']);
 Route::delete('/recruteur/dashboard/forcedelete/{id}',[\App\Http\Controllers\OffreController::class,'forcedeleteOffre']);
 Route::patch('/recruteur/dashboard/restoreOffre/{id}',[\App\Http\Controllers\OffreController::class,'restoreOffre']);
-
+Route::get('/getallcategories',[\App\Http\Controllers\CategoriesController::class,'getallcategories']);
 /*Route::get('/mescondidaturs/cv-condidature',[\App\Http\Controllers\PostulerController::class,'showcvcondidature']);
 Route::get('/downloadcv/{cv}',[\App\Http\Controllers\PostulerController::class,'downloadCV']);*/
 
@@ -58,6 +61,7 @@ Route::post('/admin/modifypost/{id}',[\App\Http\Controllers\PostController::clas
 Route::patch('/admin/restorepost/{id}',[\App\Http\Controllers\PostController::class,'restorepost']);
 Route::get('/admin/mespostsdeleted',[\App\Http\Controllers\PostController::class,'getpostsTrashed']);
 Route::post('/admin/allcompanies/validercompany/{id}',[\App\Http\Controllers\CompanieController::class,'valider_companie']);
+Route::post('/admin/addcategorie',[\App\Http\Controllers\CategoriesController::class,'add_categorie']);
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

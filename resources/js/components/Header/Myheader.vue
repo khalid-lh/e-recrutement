@@ -9,12 +9,22 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item item">
-          <a href="/login" class="nav-link">Articls</a>
+          <a :href="publicationRoute()" class="nav-link">Articls</a>
         </li>
       </ul>
-     <ul v-if="isAuthenticated" class="navbar-nav">
+      <ul class="navbar-nav">
+      <div class="dropdown">
+              <span>Categories</span>
+              <div class="dropdown-content categories">
+                 <li class="nav-item item" v-for="categorie in  categories" :key="categorie.id" :value="categorie.id_categorie">
+                <a  :href="offresbycategorie(categorie.id_categorie)" class="dropdown-item">{{ categorie.name_categorie}}</a>
+              </li>
+              </div>
+      </div>
+      </ul>
+     <ul v-if="isAuthenticated" class="navbar-nav ml-2">
             <div class="dropdown">
-              <span><i class="fa-solid fa-caret-down"></i></span>
+              <span>Dashboard</span>
               <div class="dropdown-content">
                 <li class="nav-item item">
                 <a :href="getDashboardLink()" class="dropdown-item">Dashboard</a>
@@ -47,6 +57,7 @@ export default {
     return {
       isAuthenticated: false,
       userType: "",
+      categories:null,
     };
   },
   mounted() {
@@ -60,6 +71,15 @@ export default {
       const token = localStorage.getItem("token");
       return !!token; // Check if token exists in localStorage
     },
+    getallcategories() {
+            axios.get('/getallcategories')
+                .then(response => {
+                    this.categories = response.data.categories;
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
     getUserTypeFromDatabase() {
       const token = localStorage.getItem("token");
       axios
@@ -88,11 +108,20 @@ export default {
           return "";
       }
     },
+    publicationRoute() {
+    return `/publications`;
+  },
+  offresbycategorie(categorie) {
+    return `/offres_emploi?categorie=${encodeURIComponent(categorie)}`;
+  },
     logout() {
       localStorage.removeItem("token");
       this.isAuthenticated = false;
     },
   },
+  created(){   
+        this.getallcategories();
+    }
 };
 </script>
 
@@ -162,7 +191,9 @@ h2{
   padding: 12px 16px;
   z-index: 1;
 }
-
+.categories li{
+  text-decoration: none;
+}
 .dropdown:hover .dropdown-content {
   display: block;
   }

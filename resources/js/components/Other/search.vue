@@ -1,5 +1,5 @@
 <template>
-<div >
+<div>
    <div class="search">
         <div class="text">
             <h1>Trouvez votre opportunité du Travail en quelques minutes</h1>
@@ -15,14 +15,9 @@
                 <option value="Rabat">Rabat</option>
                 <option value="Tangier">Tangier</option>
             </select>
-            <select class="form-select" name="categorie">
-                <option value="">categorie</option>
-                <option value="Agadir">Agadir</option>
-                <option value="Casablanca">Casablanca</option>
-                <option value="Fez">Fez</option>
-                <option value="Marrakech">Marrakech</option>
-                <option value="Rabat">Rabat</option>
-                <option value="Tangier">Tangier</option>
+            <select class="form-select"  name="categorie"  v-model="categorie">
+                <option value="">Categorie</option>
+                <option v-for="categorie in  categories" :key="categorie.id" :value="categorie.id_categorie">{{ categorie.name_categorie}}</option>
             </select>
             <a :href="getSearchUrl()" ><button class="btn btn-primary btn_condidat">Rechercher</button></a>
         </div>
@@ -35,15 +30,27 @@ export default {
     data() {
         return{
             metier: '',
-            ville: ''
+            ville: '',
+            categorie:null,
+            categories:null,
         };
     },
     methods :{
 getSearchUrl() {
-          return `/rechercher/offres?metier=${encodeURIComponent(this.metier)}&ville=${encodeURIComponent(this.ville)}`;
-
-    }
+          return `/rechercher/offres?metier=${encodeURIComponent(this.metier)}&ville=${encodeURIComponent(this.ville)}&categorie=${encodeURIComponent(this.categorie)}`;
     },
+    getallcategories() {
+            axios.get('/getallcategories')
+                .then(response => {
+                    this.categories = response.data.categories;
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
+    }, created(){   
+        this.getallcategories();
+    }
 }
 </script>
 

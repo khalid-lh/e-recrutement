@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnStatusToTable extends Migration
+class AddColumnIdCategorieToTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumnStatusToTable extends Migration
      */
     public function up()
     {
-        Schema::table('companies', function (Blueprint $table) {
-            $table->string('status');
+        Schema::table('offres', function (Blueprint $table) {
+            $table->integer('id_categorie')->after('slug');
         });
     }
 
@@ -25,7 +25,7 @@ class AddColumnStatusToTable extends Migration
      */
     public function down()
     {
-        Schema::table('companies', function (Blueprint $table) {
+        Schema::table('offres', function (Blueprint $table) {
             //
         });
     }

@@ -54,14 +54,14 @@ export default {
 };
 </script>
 <style scoped>
-.footer {
+.footer{
   background-color: rgb(20, 108, 148);
   padding: 20px;
-  height: 100%;
-  left: 0;
+ position: relative;
   bottom: 0;
+  left: 0;
   width: 100%;
-  margin-top: 35px;
+  
 }
 
 .footer-content {

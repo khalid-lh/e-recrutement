@@ -17,7 +17,7 @@ class OffreController extends Controller
     public function __construct()
     {
         
-        $this->middleware('auth:api', ['except' => ['add_offre','getOffres','deleteOffre','update_offre','show_offre','searchOffers','gethomeOffers','forcedeleteOffre','restoreOffre','getallOffers']]);
+        $this->middleware('auth:api', ['except' => ['add_offre','getOffres','deleteOffre','update_offre','show_offre','searchOffers','gethomeOffers','forcedeleteOffre','restoreOffre','getallOffers','getoffersbycategorie']]);
     }
     public function add_offre(Request $request)
     {
@@ -41,6 +41,7 @@ class OffreController extends Controller
             $titre = Str::slug($offre->titre_offre, '-');
             $slug = $company->company_id. '-' . $titre;
             $offre->slug = $slug;
+            $offre->id_categorie=$request->input('id_categorie');
             $offre->type_offre = $request->input('type_offre');
             $offre->presence = $request->input('presence');
             if ($request->input('type_offre') === 'Stage'){
@@ -76,7 +77,6 @@ class OffreController extends Controller
             if($offre->save()){
                 return response()->json([
                     'message' => 'offre ajoute',
-                   
                 ]);
             }else{
                 
@@ -171,29 +171,101 @@ public function show_offre(Request $request)
     $id= $request->query('key');
     $slug = $request->query('slug');
     $offer = ModelsOffre::withTrashed()->with('company')->where('id_offre', $id)->where('slug', $slug)->firstOrFail();
-    
       return view('showOffre')->with([
         'offre'=>$offer
     ]);
 }
 
+public function getoffersbycategorie(Request $request)
+{
+    $categorie= $request->query('categorie');
+    $offers = ModelsOffre::with('company')->where('id_categorie',$categorie)->get();
+      return view('showofferscategorie')->with([
+        'offres'=>$offers
+    ]);
+}
+/*public function searchOffers(Request $request)
+{
+    $metier = $request->query('metier');
+    $ville = $request->query('ville');
+    $categorie = $request->query('categorie');
+
+    $offers = ModelsOffre::with('company')
+        ->join('companies', 'offres.company_id', '=', 'companies.company_id')
+        ->when($metier && $ville && $categorie, function ($query) use ($metier, $ville, $categorie) {
+            $query->where('offres.titre_offre', 'LIKE', '%' . $metier . '%')
+                ->orWhere('offres.description', 'LIKE', '%' . $metier . '%')
+                ->where('companies.ville', $ville)
+                ->where('offres.id_categorie', $categorie);
+        })
+        ->when($metier && $ville && !$categorie, function ($query) use ($metier, $ville) {
+             $query->where('offres.titre_offre', 'LIKE', '%' . $metier . '%')
+                ->orWhere('offres.description', 'LIKE', '%' . $metier . '%')
+                ->where('companies.ville', $ville);
+        })
+        ->when($metier && !$ville && $categorie, function ($query) use ($metier, $categorie) {
+            $query->where('offres.titre_offre', 'LIKE', '%' . $metier . '%')
+                ->orWhere('offres.description', 'LIKE', '%' . $metier . '%')
+                ->where('offres.id_categorie', $categorie);
+        })
+        ->when(!$metier && $ville && $categorie, function ($query) use ($ville, $categorie) {
+            $query->where('companies.ville',$ville)
+                ->where('offres.id_categorie', $categorie);
+        })
+        ->when($metier, function ($query) use ($metier) {
+             $query->where('offres.titre_offre', 'LIKE', '%' . $metier . '%')
+                ->orWhere('offres.description', 'LIKE', '%' . $metier . '%');
+        })
+        ->when($ville, function ($query) use ($ville) {
+            $query->where('companies.ville', $ville);
+        })
+        ->when($categorie, function ($query) use ($categorie) {
+            $query->where('offres.id_categorie', $categorie);
+        })
+        ->get();
+
+    return view('listOffresearched')->with([
+        'offres' => $offers
+    ]);
+}*/
 public function searchOffers(Request $request)
 {
     $metier = $request->query('metier');
     $ville = $request->query('ville');
+    $categorie = $request->query('categorie');
 
     $offers = ModelsOffre::with('company')
         ->join('companies', 'offres.company_id', '=', 'companies.company_id')
-        ->where(function ($query) use ($metier, $ville) {
-            if (!empty($metier) && !empty($ville)) {
-                $query->where('offres.titre_offre', 'LIKE', '%' . $metier . '%')
-                    ->orWhere('offres.description', 'LIKE', '%' . $metier . '%')
-                    ->where('companies.ville', $ville);
-            } elseif (!empty($metier)) {
-                $query->where('offres.titre_offre', 'LIKE', '%' . $metier . '%')
-                    ->orWhere('offres.description', 'LIKE', '%' . $metier . '%');
+        ->join('categories', 'offres.id_categorie', '=', 'categories.id_categorie')
+        ->where(function ($query) use ($metier, $ville, $categorie) {
+            if (!empty($metier) && !empty($ville) && !empty($categorie)) {
+                $query->where(function ($query) use ($metier) {
+                    $query->where('offres.titre_offre', 'LIKE', '%' . $metier . '%')
+                        ->orWhere('offres.description', 'LIKE', '%' . $metier . '%');
+                })
+                ->where('companies.ville', $ville)
+                ->where('offres.id_categorie', $categorie);
+            } elseif (!empty($metier) && !empty($ville)) {
+                $query->where(function ($query) use ($metier) {
+                    $query->where('offres.titre_offre', 'LIKE', '%' . $metier . '%')
+                        ->orWhere('offres.description', 'LIKE', '%' . $metier . '%');
+                })
+                ->where('companies.ville', $ville);
+            } elseif (!empty($metier) && !empty($categorie)) {
+                $query->where(function ($query) use ($metier) {
+                    $query->where('offres.titre_offre', 'LIKE', '%' . $metier . '%')
+                        ->orWhere('offres.description', 'LIKE', '%' . $metier . '%');
+                })
+                ->where('offres.id_categorie', $categorie);
             } elseif (!empty($ville)) {
                 $query->where('companies.ville', $ville);
+            }
+            elseif (!empty($categorie)) {
+                $query->where('offres.id_categorie', $categorie);
+            }
+            elseif (!empty($metier)) {
+                $query->where('offres.titre_offre', 'LIKE', '%' . $metier . '%')
+                    ->orWhere('offres.description', 'LIKE', '%' . $metier . '%');
             }
         })
         ->whereNull('offres.deleted_at')
@@ -203,6 +275,12 @@ public function searchOffers(Request $request)
         'offres' => $offers
     ]);
 }
+
+
+
+
+
+
 
 
 

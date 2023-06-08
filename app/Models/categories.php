@@ -8,5 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class categories extends Model
 {
     use HasFactory;
-    
+    public function offre()
+{
+    return $this->hasMany(offre::class, 'id_categorie');
+}
 }

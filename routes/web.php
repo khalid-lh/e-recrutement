@@ -18,7 +18,9 @@ Route::get('/login', function (){
 Route::get('/Register', function (){
     return view('Auth/register');
 });
-
+Route::get('/Publications', function (){
+    return view('allpublications');
+});
 Route::get('/admin/dashboard', function (){
     return view('Admin/admindashboard');
 });
