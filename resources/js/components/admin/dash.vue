@@ -3,7 +3,7 @@
      <div>
             <Popup :message="popupMessage" v-if="popupMessage" @close="clearError" />
       </div>
-    <div class="row">
+    <div class="row mb-4">
         <div class="col">
             <div class="cards">
                 <div class="card-content">
@@ -51,10 +51,11 @@
             </div>
         </div>     
     </div>
-    <div style="float:right;" class="mb-4">
+   
+<div class="content mt-4">
+     <div style="float:right;" class="row mb-4">
         <button class="btn btn-success btn-sm" @click="showAlertCategorie">Ajouter Catégorie</button>
     </div>
-<div class="content mt-4">
         <div class="row">
             <div class="col-sm-12" >
                 <div class="card">

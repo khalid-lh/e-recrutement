@@ -8103,6 +8103,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -65364,7 +65365,7 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "row mb-4" }, [
         _c("div", { staticClass: "col" }, [
           _c("div", { staticClass: "cards" }, [
             _c("div", { staticClass: "card-content" }, [
@@ -65432,18 +65433,22 @@ var render = function () {
         ]),
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "mb-4", staticStyle: { float: "right" } }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-success btn-sm",
-            on: { click: _vm.showAlertCategorie },
-          },
-          [_vm._v("Ajouter Catégorie")]
-        ),
-      ]),
-      _vm._v(" "),
       _c("div", { staticClass: "content mt-4" }, [
+        _c(
+          "div",
+          { staticClass: "row mb-4", staticStyle: { float: "right" } },
+          [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success btn-sm",
+                on: { click: _vm.showAlertCategorie },
+              },
+              [_vm._v("Ajouter Catégorie")]
+            ),
+          ]
+        ),
+        _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-sm-12" }, [
             _c("div", { staticClass: "card" }, [
